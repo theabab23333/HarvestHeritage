@@ -53,11 +53,16 @@ Example:
   "results": [
     "minecraft:diamond"
   ],
-  "stage": 5
+  "stage": 5,
+  "need_block": "minecraft:stone"
 }
 ```
 
-Valid categories: `crop`, `animal`, `mob`, `material`, `special`, `misc`
+- `seed` — Item displayed on the seed packet, required
+- `category` — Available: `crop`, `animal`, `mob`, `material`, `special`, `misc`; defaults to `misc` when empty
+- `results` — Items harvested when mature, required
+- `stage` — Growth stages required to reach maturity, required
+- `need_block` — Block required below the farmland for the crop to grow; can be omitted for no requirement
 
 ---
 

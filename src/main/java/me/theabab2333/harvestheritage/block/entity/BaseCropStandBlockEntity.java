@@ -22,6 +22,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -92,18 +93,26 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     }
 
     public void tick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        if (this.seedPacketComponent != null) {
-            int speed = seedPacketComponent.speed();
-            int needStage = seedPacketComponent.seedComponent().stage();
-            if (random.nextInt(3) < speed) {
-                if (this.stage < needStage) {
-                    this.stage++;
-                    setChanged();
-                    level.sendBlockUpdated(pos, state, state, 3);
-                } else if (needStage == this.stage) {
-                    find(level, pos);
-                }
-            }
+        if (this.seedPacketComponent == null) return;
+
+        int needStage = this.seedPacketComponent.seedComponent().stage();
+        if (this.stage == needStage) {
+            find(level, pos);
+            return;
+        }
+
+        var seedInfo = SeedUtil.getSeedInfo(this.seedPacketComponent.seedComponent().seed().value());
+        if (seedInfo != null && seedInfo.block() != Blocks.AIR) {
+            BlockPos belowPos = pos.below(2);
+            BlockState belowState = level.getBlockState(belowPos);
+            if (!belowState.is(seedInfo.block())) return;
+        }
+
+        int speed = seedPacketComponent.speed();
+        if (random.nextInt(3) < speed) {
+            this.stage++;
+            setChanged();
+            level.sendBlockUpdated(pos, state, state, 3);
         }
     }
 

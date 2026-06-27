@@ -14,6 +14,8 @@ import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.io.Reader;
 import java.util.ArrayList;
@@ -73,7 +75,7 @@ public class SeedDefinitionReloadListener extends SimplePreparableReloadListener
                 String category = obj.get("category").getAsString();
                 if (!isValidCategory(category)) {
                     HarvestHeritage.LOGGER.warn("Invalid category '{}' in seed definition: {}", category, id);
-                    continue;
+                    category = "misc";
                 }
 
                 // results
@@ -101,7 +103,15 @@ public class SeedDefinitionReloadListener extends SimplePreparableReloadListener
                     continue;
                 }
 
-                ModSeeds.SeedInfo info = new ModSeeds.SeedInfo(results, stage);
+                // need_block
+                Block needBlock = Blocks.AIR;
+                if (obj.has("need_block") && !obj.get("need_block").getAsString().isEmpty()) {
+                    String needBlockStr = obj.get("need_block").getAsString();
+                    Identifier needBlockId = Identifier.parse(needBlockStr);
+                    needBlock = BuiltInRegistries.BLOCK.get(needBlockId).map(Holder::value).orElse(Blocks.AIR);
+                }
+
+                ModSeeds.SeedInfo info = new ModSeeds.SeedInfo(results, stage, needBlock);
                 ModSeeds.registerSeed(seedItem, info, category);
                 count++;
 

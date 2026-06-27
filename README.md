@@ -52,11 +52,16 @@
   "results": [
     "minecraft:diamond"
   ],
-  "stage": 5
+  "stage": 5,
+  "need_block": "minecraft:stone"
 }
 ```
 
-可用类别：`crop`、`animal`、`mob`、`material`、`special`、`misc`
+- seed : 对应种子袋上显示的物品，不能为空
+- category : 可用类别：`crop`、`animal`、`mob`、`material`、`special`、`misc`，空时默认`misc`
+- results : 收获时输出的物品，不能为空
+- stage : 作物的生长阶段，不能为空
+- need_block : 作物架下方为对应方块时，作物才能生长，可以为空
 
 ---
 

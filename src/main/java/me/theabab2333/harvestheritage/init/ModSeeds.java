@@ -5,6 +5,8 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,7 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ModSeeds {
-    public record SeedInfo(List<Item> results, int stage) {
+    public record SeedInfo(List<Item> results, int stage, Block block) {
+        public SeedInfo(List<Item> results, int stage) {
+            this(results, stage, Blocks.AIR);
+        }
     }
 
     public static Map<Item, SeedInfo> ALL_SEED = new LinkedHashMap<>();
