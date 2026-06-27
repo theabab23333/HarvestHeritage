@@ -5,89 +5,17 @@
     "minecraft:apple"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:wheat"
-      ],
-      "seed": "minecraft:wheat",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:melon"
-      ],
-      "seed": "minecraft:melon_slice",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:pumpkin"
-      ],
-      "seed": "minecraft:pumpkin_pie",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:sweet_berries"
-      ],
-      "seed": "minecraft:sweet_berries",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:glow_berries"
-      ],
-      "seed": "minecraft:glow_berries",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:chorus_fruit"
-      ],
-      "seed": "minecraft:chorus_fruit",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:carrot"
-      ],
-      "seed": "minecraft:carrot",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:potato"
-      ],
-      "seed": "minecraft:potato",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:sugar_cane"
-      ],
-      "seed": "minecraft:sugar_cane",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:bamboo"
-      ],
-      "seed": "minecraft:bamboo",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:sea_pickle"
-      ],
-      "seed": "minecraft:sea_pickle",
-      "stage": 3
-    },
-    {
-      "result": [
-        "minecraft:kelp"
-      ],
-      "seed": "minecraft:kelp",
-      "stage": 3
-    }
+    "minecraft:wheat",
+    "minecraft:melon_slice",
+    "minecraft:pumpkin_pie",
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries",
+    "minecraft:chorus_fruit",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "minecraft:sugar_cane",
+    "minecraft:bamboo",
+    "minecraft:sea_pickle",
+    "minecraft:kelp"
   ]
 }

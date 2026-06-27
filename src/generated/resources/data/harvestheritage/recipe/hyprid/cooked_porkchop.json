@@ -5,13 +5,6 @@
     "minecraft:glow_berries"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:cooked_porkchop",
-        "minecraft:gold_nugget"
-      ],
-      "seed": "minecraft:cooked_porkchop",
-      "stage": 4
-    }
+    "minecraft:cooked_porkchop"
   ]
 }

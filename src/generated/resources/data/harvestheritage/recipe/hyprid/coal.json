@@ -5,12 +5,6 @@
     "minecraft:blaze_rod"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:coal"
-      ],
-      "seed": "minecraft:coal",
-      "stage": 4
-    }
+    "minecraft:coal"
   ]
 }

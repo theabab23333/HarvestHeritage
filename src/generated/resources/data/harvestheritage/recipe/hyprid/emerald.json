@@ -5,12 +5,6 @@
     "minecraft:amethyst_shard"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:emerald"
-      ],
-      "seed": "minecraft:emerald",
-      "stage": 5
-    }
+    "minecraft:emerald"
   ]
 }

@@ -5,12 +5,6 @@
     "minecraft:iron_ingot"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:gold_ingot"
-      ],
-      "seed": "minecraft:gold_ingot",
-      "stage": 5
-    }
+    "minecraft:gold_ingot"
   ]
 }

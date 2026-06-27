@@ -5,12 +5,6 @@
     "minecraft:ghast_tear"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:quartz"
-      ],
-      "seed": "minecraft:quartz",
-      "stage": 5
-    }
+    "minecraft:quartz"
   ]
 }

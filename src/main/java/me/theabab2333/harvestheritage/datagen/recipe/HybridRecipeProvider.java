@@ -1,9 +1,7 @@
 package me.theabab2333.harvestheritage.datagen.recipe;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.component.SeedComponent;
 import me.theabab2333.harvestheritage.recipe.HybridRecipe;
-import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -81,9 +79,9 @@ public class HybridRecipeProvider extends ModRecipeProvider {
             HarvestHeritage.LOGGER.warn("Datagen hyprid Recipe is exception! Outputs");
             return;
         }
-        List<SeedComponent> seeds = new ArrayList<>();
-        Arrays.asList(outputs).forEach(seed -> seeds.add(fromItem(seed)));
-        HybridRecipe.Builder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(getPath(seeds.getFirst().seed().value())));
+        List<Holder<Item>> seeds = new ArrayList<>();
+        Arrays.asList(outputs).forEach(seed -> seeds.add(getHolder(seed)));
+        HybridRecipe.Builder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(getPath(seeds.getFirst().value())));
     }
 
     private void buildCommonSeeds() {
@@ -91,19 +89,15 @@ public class HybridRecipeProvider extends ModRecipeProvider {
             for (int j = i + 1; j < COMMON_SEEDS.size(); j++) {
                 Item input1 = COMMON_SEEDS.get(i);
                 Item input2 = COMMON_SEEDS.get(j);
-                List<Item> outputs = new ArrayList<>();
+                List<Holder<Item>> outputs = new ArrayList<>();
                 for (Item seed : COMMON_SEEDS) {
                     if (seed != input1 && seed != input2) {
-                        outputs.add(seed);
+                        outputs.add(getHolder(seed));
                     }
                 }
-                HybridRecipe.Builder.builder(List.of(getHolder(input1), getHolder(input2)), outputs.stream().map(this::fromItem).toList())
+                HybridRecipe.Builder.builder(List.of(getHolder(input1), getHolder(input2)), outputs)
                     .save(output, HYPRID.withSuffix("common/").withSuffix(getPath(input1) + "_and_" + getPath(input2)));
             }
         }
-    }
-
-    private SeedComponent fromItem(Item item) {
-        return SeedUtil.getSeedComponent(item);
     }
 }

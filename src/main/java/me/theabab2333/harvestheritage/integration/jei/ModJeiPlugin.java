@@ -51,7 +51,7 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipes(FIND_TYPE.get(), ModRecipeReloadAndSyncEvent.FIND_SEED_RECIPES);
 
         var allSeeds = ModSeeds.CROP_SEED.keySet().stream().map(SeedUtil::getHolder).toList();
-        var allOutputs = ModSeeds.CROP_SEED.entrySet().stream().map(e -> SeedUtil.createSeedComponent(e.getKey(), e.getValue())).toList();
+        var allOutputs = ModSeeds.CROP_SEED.keySet().stream().map(SeedUtil::getHolder).toList();
         var commonAll = new RecipeHolder<>(
             ResourceKey.create(Registries.RECIPE, HarvestHeritage.of("hyprid/common/all")),
             new HybridRecipe(allSeeds, allOutputs)

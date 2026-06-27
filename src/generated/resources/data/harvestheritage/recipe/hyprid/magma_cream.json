@@ -5,12 +5,6 @@
     "minecraft:slime_ball"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:magma_cream"
-      ],
-      "seed": "minecraft:magma_cream",
-      "stage": 4
-    }
+    "minecraft:magma_cream"
   ]
 }

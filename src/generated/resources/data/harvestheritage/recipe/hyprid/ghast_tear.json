@@ -5,12 +5,6 @@
     "minecraft:gunpowder"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:ghast_tear"
-      ],
-      "seed": "minecraft:ghast_tear",
-      "stage": 4
-    }
+    "minecraft:ghast_tear"
   ]
 }

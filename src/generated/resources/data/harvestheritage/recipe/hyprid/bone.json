@@ -5,12 +5,6 @@
     "minecraft:ghast_tear"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:bone"
-      ],
-      "seed": "minecraft:bone",
-      "stage": 4
-    }
+    "minecraft:bone"
   ]
 }

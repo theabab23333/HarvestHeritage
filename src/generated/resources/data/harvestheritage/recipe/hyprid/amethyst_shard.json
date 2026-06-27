@@ -5,12 +5,6 @@
     "minecraft:phantom_membrane"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:amethyst_shard"
-      ],
-      "seed": "minecraft:amethyst_shard",
-      "stage": 5
-    }
+    "minecraft:amethyst_shard"
   ]
 }

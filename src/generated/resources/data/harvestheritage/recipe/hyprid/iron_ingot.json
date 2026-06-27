@@ -5,12 +5,6 @@
     "minecraft:ghast_tear"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:iron_ingot"
-      ],
-      "seed": "minecraft:iron_ingot",
-      "stage": 5
-    }
+    "minecraft:iron_ingot"
   ]
 }

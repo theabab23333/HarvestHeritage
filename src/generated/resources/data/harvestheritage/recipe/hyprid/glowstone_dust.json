@@ -5,12 +5,6 @@
     "minecraft:redstone"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:glowstone_dust"
-      ],
-      "seed": "minecraft:glowstone_dust",
-      "stage": 5
-    }
+    "minecraft:glowstone_dust"
   ]
 }

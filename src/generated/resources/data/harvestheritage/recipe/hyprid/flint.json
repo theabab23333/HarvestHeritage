@@ -5,12 +5,6 @@
     "minecraft:gunpowder"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:flint"
-      ],
-      "seed": "minecraft:flint",
-      "stage": 3
-    }
+    "minecraft:flint"
   ]
 }

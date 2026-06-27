@@ -5,12 +5,6 @@
     "minecraft:chorus_fruit"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:ender_pearl"
-      ],
-      "seed": "minecraft:ender_pearl",
-      "stage": 4
-    }
+    "minecraft:ender_pearl"
   ]
 }

@@ -5,12 +5,6 @@
     "minecraft:sweet_berries"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:string"
-      ],
-      "seed": "minecraft:string",
-      "stage": 4
-    }
+    "minecraft:string"
   ]
 }

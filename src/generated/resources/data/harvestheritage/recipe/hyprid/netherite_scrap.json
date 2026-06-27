@@ -5,33 +5,9 @@
     "minecraft:echo_shard"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:ancient_debris"
-      ],
-      "seed": "minecraft:netherite_scrap",
-      "stage": 6
-    },
-    {
-      "result": [
-        "minecraft:emerald"
-      ],
-      "seed": "minecraft:emerald",
-      "stage": 5
-    },
-    {
-      "result": [
-        "minecraft:diamond"
-      ],
-      "seed": "minecraft:diamond",
-      "stage": 5
-    },
-    {
-      "result": [
-        "minecraft:gold_ingot"
-      ],
-      "seed": "minecraft:gold_ingot",
-      "stage": 5
-    }
+    "minecraft:netherite_scrap",
+    "minecraft:emerald",
+    "minecraft:diamond",
+    "minecraft:gold_ingot"
   ]
 }

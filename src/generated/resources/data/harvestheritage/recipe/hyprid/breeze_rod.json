@@ -5,12 +5,6 @@
     "minecraft:chicken"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:breeze_rod"
-      ],
-      "seed": "minecraft:breeze_rod",
-      "stage": 4
-    }
+    "minecraft:breeze_rod"
   ]
 }

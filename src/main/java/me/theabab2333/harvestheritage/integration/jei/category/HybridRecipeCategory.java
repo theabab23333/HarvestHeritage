@@ -39,12 +39,10 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
             .map(ItemStack::new)
             .toList();
         List<ItemStack> outputStacks = recipe.getOutputSeeds().stream()
-            .map(comp -> new ItemStack(comp.seed()))
+            .map(ItemStack::new)
             .toList();
 
         // 为JEI配方匹配构建不可见种子包物品
-        // 输出种子直接从SeedComponent构建 不查ModSeeds
-        // 因为数据包添加的自定义种子可能不在静态map中
         List<ItemStack> inputSeedPackets = inputStacks.stream()
             .map(stack -> {
                 var info = ModSeeds.ALL_SEED.get(stack.getItem());
@@ -57,7 +55,8 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
             .filter(stack -> !stack.isEmpty())
             .toList();
         List<ItemStack> outputSeedPackets = recipe.getOutputSeeds().stream()
-            .map(comp -> {
+            .map(h -> {
+                var comp = SeedUtil.getSeedComponent(h.value());
                 DataComponentPatch patch = DataComponentPatch.builder()
                     .set(ModDataComponents.SEED_COMPONENT.get(), comp)
                     .build();

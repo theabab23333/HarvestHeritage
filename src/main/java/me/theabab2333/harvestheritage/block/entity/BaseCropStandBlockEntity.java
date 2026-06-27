@@ -152,7 +152,9 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                 Item a = inputList.get(0).value();
                 Item b = inputList.get(1).value();
                 if ((item1 == a || item1 == b) && (item2 == a || item2 == b) && item1 != item2) {
-                    allOutputs.addAll(recipe.getOutputSeeds());
+                    recipe.getOutputSeeds().stream()
+                        .map(holder1 -> SeedUtil.getSeedComponent(holder1.value()))
+                        .forEach(allOutputs::add);
                 }
             }
         }

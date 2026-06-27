@@ -5,12 +5,6 @@
     "minecraft:string"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:phantom_membrane"
-      ],
-      "seed": "minecraft:phantom_membrane",
-      "stage": 4
-    }
+    "minecraft:phantom_membrane"
   ]
 }

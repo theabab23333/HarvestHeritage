@@ -5,12 +5,6 @@
     "minecraft:armadillo_scute"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:shulker_shell"
-      ],
-      "seed": "minecraft:shulker_shell",
-      "stage": 5
-    }
+    "minecraft:shulker_shell"
   ]
 }

@@ -5,12 +5,6 @@
     "minecraft:ender_pearl"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:echo_shard"
-      ],
-      "seed": "minecraft:echo_shard",
-      "stage": 4
-    }
+    "minecraft:echo_shard"
   ]
 }

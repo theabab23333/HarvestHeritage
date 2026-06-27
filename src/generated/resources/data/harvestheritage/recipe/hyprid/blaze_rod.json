@@ -5,12 +5,6 @@
     "minecraft:breeze_rod"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:blaze_rod"
-      ],
-      "seed": "minecraft:blaze_rod",
-      "stage": 4
-    }
+    "minecraft:blaze_rod"
   ]
 }

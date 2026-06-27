@@ -5,13 +5,6 @@
     "minecraft:kelp"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:prismarine_crystals",
-        "minecraft:prismarine_shard"
-      ],
-      "seed": "minecraft:prismarine_crystals",
-      "stage": 4
-    }
+    "minecraft:prismarine_crystals"
   ]
 }

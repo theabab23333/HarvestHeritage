@@ -5,12 +5,6 @@
     "minecraft:lapis_lazuli"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:redstone"
-      ],
-      "seed": "minecraft:redstone",
-      "stage": 5
-    }
+    "minecraft:redstone"
   ]
 }

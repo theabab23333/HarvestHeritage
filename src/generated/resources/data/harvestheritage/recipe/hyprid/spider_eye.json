@@ -5,12 +5,6 @@
     "minecraft:string"
   ],
   "output_seeds": [
-    {
-      "result": [
-        "minecraft:spider_eye"
-      ],
-      "seed": "minecraft:spider_eye",
-      "stage": 4
-    }
+    "minecraft:spider_eye"
   ]
 }
