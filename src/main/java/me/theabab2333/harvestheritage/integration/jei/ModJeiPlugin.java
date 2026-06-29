@@ -2,6 +2,7 @@ package me.theabab2333.harvestheritage.integration.jei;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.component.SeedComponent;
+import me.theabab2333.harvestheritage.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.event.ModRecipeReloadAndSyncEvent;
 import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
@@ -12,7 +13,6 @@ import me.theabab2333.harvestheritage.integration.jei.category.FindRecipeCategor
 import me.theabab2333.harvestheritage.integration.jei.category.HybridRecipeCategory;
 import me.theabab2333.harvestheritage.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.recipe.HybridRecipe;
-import me.theabab2333.harvestheritage.util.SeedUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
@@ -21,14 +21,9 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 @JeiPlugin
 public class ModJeiPlugin implements IModPlugin {
@@ -43,25 +38,14 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         var guiHelper = registration.getJeiHelpers().getGuiHelper();
+
         registration.addRecipeCategories(new FindRecipeCategory(guiHelper), new HybridRecipeCategory(guiHelper));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(FIND_TYPE.get(), ModRecipeReloadAndSyncEvent.FIND_SEED_RECIPES);
-
-        var allSeeds = ModSeeds.CROP_SEED.keySet().stream().map(SeedUtil::getHolder).toList();
-        var allOutputs = ModSeeds.CROP_SEED.keySet().stream().map(SeedUtil::getHolder).toList();
-        var commonAll = new RecipeHolder<>(
-            ResourceKey.create(Registries.RECIPE, HarvestHeritage.of("hyprid/common/all")),
-            new HybridRecipe(allSeeds, allOutputs)
-        );
-        var hybrids = Stream.concat(
-            ModRecipeReloadAndSyncEvent.HYBRID_RECIPES.stream()
-                .filter(recipeHolder -> !recipeHolder.id().identifier().getPath().startsWith("hyprid/common/")), Stream.of(commonAll)
-        ).toList();
-
-        registration.addRecipes(HYBRID_TYPE.get(), hybrids);
+        registration.addRecipes(HYBRID_TYPE.get(), ModRecipeReloadAndSyncEvent.HYBRID_RECIPES);
     }
 
     @Override
@@ -73,19 +57,22 @@ public class ModJeiPlugin implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.registerSubtypeInterpreter(
-            ModItems.SEED_PACKET.get(), (stack, _) -> {
-                var packetComponent = stack.get(ModDataComponents.SEED_PACKET_COMPONENT.get());
-                if (packetComponent != null) {
-                    return BuiltInRegistries.ITEM.getKey(packetComponent.seedComponent().seed().value()).toString();
-                }
-                SeedComponent component = stack.get(ModDataComponents.SEED_COMPONENT.get());
-                if (component != null) {
-                    return BuiltInRegistries.ITEM.getKey(component.seed().value()).toString();
-                }
-                return null;
+            ModItems.KNOWN_SEED.get(), (stack, context) -> {
+                SeedComponent seed = stack.get(ModDataComponents.SEED_COMPONENT);
+                return seed != null ? seed.seed().getKey() : null;
             }
         );
-        registration.registerFromDataComponentTypes(ModItems.KNOWN_SEED.get(), ModDataComponents.SEED_COMPONENT.get());
+
+        registration.registerSubtypeInterpreter(
+            ModItems.SEED_PACKET.get(), (stack, context) -> {
+                SeedPacketComponent component = stack.get(ModDataComponents.SEED_PACKET_COMPONENT);
+                if (component != null) {
+                    return component.seedComponent().seed().getKey();
+                }
+                SeedComponent seed = stack.get(ModDataComponents.SEED_COMPONENT);
+                return seed != null ? seed.seed().getKey() : null;
+            }
+        );
     }
 
     @Override
