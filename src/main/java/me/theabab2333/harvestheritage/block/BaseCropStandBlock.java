@@ -87,18 +87,16 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         } else if (itemStack.getItem() instanceof GrassShearItem) {
 
             if (component == null) return InteractionResult.FAIL;
-            if (component.seedComponent().stage() == blockEntity.getStage()) {
-                DataComponentPatch patch = DataComponentPatch.builder()
-                    .set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component)
-                    .build();
+            DataComponentPatch patch = DataComponentPatch.builder()
+                .set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component)
+                .build();
 
-                ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
+            ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
 
-                blockEntity.setSeedPacketComponent(null);
-                blockEntity.setStage(0);
-                blockEntity.setChanged();
-            }
+            blockEntity.setSeedPacketComponent(null);
+            blockEntity.setStage(0);
+            blockEntity.setChanged();
             return InteractionResult.PASS;
         } else if (component != null && component.seedComponent().stage() == blockEntity.getStage()) {
             NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
