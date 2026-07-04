@@ -21,7 +21,7 @@ public class ENUSProvider extends LanguageProvider {
         addItem(ModItems.KNOWN_SEED, "Known Seed");
         addItem(ModItems.SEED_PACKET, "Seed Packet");
         addItem(ModItems.GRAPE, "Grape");
-        addItem(ModItems.ZZZZ, "zzzz");
+        addItem(ModItems.ZZZZ, "Chrome Ball");
         addItem(ModItems.SCAFFOLDING_CROP_STAND_BLOCK_ITEM, "Hanging crop racks");
         addItem(ModItems.FRIED_SEEDSACK, "Fried Seed Sack");
         addItem(ModItems.KFC, "Crazy Thursday");
@@ -31,7 +31,7 @@ public class ENUSProvider extends LanguageProvider {
         addBlock(ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK, "Hanging crop racks");
         add(
             "item.harvestheritage.zzzz.tooltip",
-            "It's so weird. There are already plenty of mods with similar content, so should I still play it?"
+            "It's so weird. Chrome Ball?!"
         );
         add("item.harvestheritage.magnifying_glass.tooltip", "Can you see crop attributes and seeds...?");
         add("modmenu.nameTranslation.harvestheritage", "Harvest Heritage");
