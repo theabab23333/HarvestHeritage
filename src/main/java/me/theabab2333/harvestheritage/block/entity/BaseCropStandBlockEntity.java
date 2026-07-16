@@ -45,6 +45,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
 
     public void seedUseOn(ItemStack itemStack) {
         if (level == null || level.isClientSide()) return;
+
         if (seedPacketComponent == null) {
             if (itemStack.get(ModDataComponents.SEED_COMPONENT) instanceof SeedComponent component) {
                 this.seedPacketComponent = SeedPacketComponent.createSeedPacket(component, 1, 1);
@@ -53,7 +54,6 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                 this.seedPacketComponent = component;
                 this.stage = 0;
             }
-            itemStack.shrink(1);
             setChanged();
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }

@@ -66,7 +66,6 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         return belowState.is(Blocks.FARMLAND);
     }
 
-    // SHIT?
     @Override
     @SuppressWarnings("ConstantValue")
     protected InteractionResult useItemOn(
@@ -81,34 +80,42 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         BaseCropStandBlockEntity blockEntity = (BaseCropStandBlockEntity) level.getBlockEntity(pos);
         if (blockEntity == null) return InteractionResult.FAIL;
         SeedPacketComponent component = blockEntity.getSeedPacketComponent();
-        if (itemStack.getItem() instanceof ISeedItem) {
-            blockEntity.seedUseOn(itemStack);
-            return InteractionResult.SUCCESS;
-        } else if (itemStack.getItem() instanceof GrassShearItem) {
 
-            if (component == null) return InteractionResult.FAIL;
-            DataComponentPatch patch = DataComponentPatch.builder()
-                .set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component)
-                .build();
+        switch (itemStack.getItem()) {
+            case ISeedItem seedItem -> {
+                blockEntity.seedUseOn(itemStack);
+                return InteractionResult.SUCCESS;
+            }
 
-            ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
+            case GrassShearItem grassShearItem -> {
+                if (component == null) return InteractionResult.FAIL;
+                DataComponentPatch patch = DataComponentPatch.builder()
+                    .set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component)
+                    .build();
 
-            blockEntity.setSeedPacketComponent(null);
-            blockEntity.setStage(0);
-            blockEntity.setChanged();
-            return InteractionResult.PASS;
-        } else {
-            if (component == null) return InteractionResult.FAIL;
-            var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().seed().value());
-            if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
-                NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
-                this.dropContents(level, pos, itemStacks);
+                ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
+                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
+
+                blockEntity.setSeedPacketComponent(null);
                 blockEntity.setStage(0);
                 blockEntity.setChanged();
-                return InteractionResult.PASS;
+                return InteractionResult.SUCCESS;
             }
-            return InteractionResult.FAIL;
+
+            default -> {
+                if (!itemStack.isEmpty()) return InteractionResult.FAIL;
+                if (component == null) return InteractionResult.FAIL;
+
+                var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().seed().value());
+                if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
+                    NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
+                    this.dropContents(level, pos, itemStacks);
+                    blockEntity.setStage(0);
+                    blockEntity.setChanged();
+                    return InteractionResult.SUCCESS;
+                }
+                return InteractionResult.FAIL;
+            }
         }
     }
 
@@ -119,10 +126,8 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         RandomSource random = level.getRandom();
         int count = random.nextInt(output) + 1;
         var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().seed().value());
-        if (seedInfo != null) {
-            for (Item resultItem : seedInfo.results()) {
-                itemStacks.add(new ItemStack(resultItem, count));
-            }
+        for (Item resultItem : seedInfo.results()) {
+            itemStacks.add(new ItemStack(resultItem, count));
         }
         return itemStacks;
     }

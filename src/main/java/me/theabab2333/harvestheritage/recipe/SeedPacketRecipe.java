@@ -85,8 +85,9 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
                 if (!itemStack.isEmpty()) {
                     if (this.acceptPaper.test(itemStack)) {
                         hasPaper = true;
-                    } else if (this.knownSeed.test(itemStack)
-                               && itemStack.has(ModDataComponents.SEED_COMPONENT.get())) {
+                    } else if (
+                        this.knownSeed.test(itemStack) && itemStack.has(ModDataComponents.SEED_COMPONENT.get())
+                    ) {
                         hasSeed = true;
                     } else {
                         return false;
@@ -117,7 +118,10 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
         DataComponentPatch patch = this.result.components();
 
         return List.of(new ShapelessCraftingRecipeDisplay(
-            List.of(new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(ModItems.KNOWN_SEED, 1, patch)), this.acceptPaper.display()),
+            List.of(
+                new SlotDisplay.ItemStackSlotDisplay(new ItemStackTemplate(ModItems.KNOWN_SEED, patch)),
+                this.acceptPaper.display()
+            ),
             new SlotDisplay.ItemStackSlotDisplay(this.result),
             new SlotDisplay.ItemSlotDisplay(Items.CRAFTING_TABLE)
         ));
