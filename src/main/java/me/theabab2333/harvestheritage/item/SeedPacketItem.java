@@ -53,7 +53,7 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
         SeedPacketComponent packetComponent = itemStack.get(ModDataComponents.SEED_PACKET_COMPONENT);
         if (packetComponent != null) {
             SeedComponent seedComponent = packetComponent.seedComponent();
-            Item seedItem = seedComponent.seed().value();
+            Item seedItem = seedComponent.getSeed();
             list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(seedItem))
                 .withStyle(ChatFormatting.GREEN));
 

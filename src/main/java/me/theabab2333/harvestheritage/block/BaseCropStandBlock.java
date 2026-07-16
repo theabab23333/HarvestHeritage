@@ -106,7 +106,7 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
                 if (!itemStack.isEmpty()) return InteractionResult.FAIL;
                 if (component == null) return InteractionResult.FAIL;
 
-                var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().seed().value());
+                var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().getSeed());
                 if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
                     NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
                     this.dropContents(level, pos, itemStacks);
@@ -125,7 +125,7 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         int output = component.output();
         RandomSource random = level.getRandom();
         int count = random.nextInt(output) + 1;
-        var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().seed().value());
+        var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().getSeed());
         for (Item resultItem : seedInfo.results()) {
             itemStacks.add(new ItemStack(resultItem, count));
         }

@@ -16,9 +16,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ConstantValue")
 public class SeedUtil {
     public static Component getSeedName(Item item) {
         return item.getDefaultInstance().getComponents().getOrDefault(DataComponents.ITEM_NAME, CommonComponents.EMPTY);
@@ -59,14 +59,6 @@ public class SeedUtil {
     public static ItemStack getSeedPacket(Item item) {
         DataComponentPatch dataComponentPatch = createSeedComponentPatch(item);
         return new ItemStack(ModItems.SEED_PACKET, 1, dataComponentPatch);
-    }
-
-    public static List<ItemStack> getSeedPackets(List<ItemStack> items) {
-        List<ItemStack> inputSeedPackets = new ArrayList<>();
-        for (ItemStack item : items) {
-            inputSeedPackets.add(getSeedPacket(item.getItem()));
-        }
-        return inputSeedPackets;
     }
 
     public static int rollStat(RandomSource random, int val1, int val2, int min, int max) {

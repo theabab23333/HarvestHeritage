@@ -95,7 +95,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     public void tick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         if (this.seedPacketComponent == null) return;
 
-        Item seedItem = this.seedPacketComponent.seedComponent().seed().value();
+        Item seedItem = this.seedPacketComponent.seedComponent().getSeed();
         var seedInfo = SeedUtil.getSeedInfo(seedItem);
         if (seedInfo == null) return;
         int needStage = seedInfo.stage();
@@ -134,7 +134,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                         BaseCropStandBlockEntity be2 = (BaseCropStandBlockEntity) level.getBlockEntity(pos2);
                         SeedPacketComponent component = be2.getSeedPacketComponent();
                         if (component == null) continue;
-                        Item be2SeedItem = component.seedComponent().seed().value();
+                        Item be2SeedItem = component.seedComponent().getSeed();
                         var be2Info = SeedUtil.getSeedInfo(be2SeedItem);
                         if (be2Info != null && be2Info.stage() == be2.stage) {
                             hybrid(be1, this.seedPacketComponent, component, level);
@@ -155,8 +155,8 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         var holders = level.recipeAccess().recipeMap().byType(ModRecipes.HYBRID_TYPE.get());
         if (holders.isEmpty()) return;
 
-        Item item1 = component1.seedComponent().seed().value();
-        Item item2 = component2.seedComponent().seed().value();
+        Item item1 = component1.seedComponent().getSeed();
+        Item item2 = component2.seedComponent().getSeed();
 
         List<SeedComponent> allOutputs = new ArrayList<>();
 

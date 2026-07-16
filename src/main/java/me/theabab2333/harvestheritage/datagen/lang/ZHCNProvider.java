@@ -37,11 +37,11 @@ public class ZHCNProvider extends LanguageProvider {
         add("item.harvestheritage.grass_shear.tooltip", "用这个破坏点草试试?");
         add("item.harvestheritage.seed.tooltip.fail", "抱歉，这个物品没有种子组件");
         add("item.harvestheritage.seed.tooltip.seed", "种子：%s");
-        add("item.harvestheritage.seed.tooltip.stage", "种子生长阶段：%s");
+        add("item.harvestheritage.seed.tooltip.stage", "生长阶段：%s");
         add("item.harvestheritage.seed_packet.tooltip.result", "产出：%s");
         add("item.harvestheritage.seed_packet.tooltip.speed", "生长速度：%s");
         add("item.harvestheritage.seed_packet.tooltip.output", "产出数量：%s");
-        add("block.harvestheritage.crop_stand.tooltip.1", "作物架，一般能种在耕地上");
+        add("block.harvestheritage.crop_stand.tooltip.1", "作物架，能种在耕地上");
         add("block.harvestheritage.crop_stand.tooltip.2", "种子袋右键作物架能种植作物");
         add("block.harvestheritage.crop_stand.tooltip.3", "作物成熟时使用除草剪能获取种子，直接右键能收获产物");
         add(
@@ -72,5 +72,7 @@ public class ZHCNProvider extends LanguageProvider {
         add("advancement.harvestheritage.magnifying_glass.description", "你发现了一个华点...(戴头上?)");
         add("advancement.harvestheritage.welcome.title", "收获：遗产");
         add("advancement.harvestheritage.welcome.description", "欢迎来到收获：遗产！");
+        add("jade.harvestheritage.crop_stand.no_seed", "这个作物架似乎没有种植作物");
+        add("jade.harvestheritage.crop_stand.stage", "生长阶段 : %s");
     }
 }

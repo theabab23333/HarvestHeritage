@@ -46,6 +46,8 @@
   "item.harvestheritage.unknown_seed.tooltip": "Maybe you need to throw it on the ground and look at it with a magnifying glass...",
   "item.harvestheritage.zzzz": "Chrome Ball",
   "item.harvestheritage.zzzz.tooltip": "It's so weird. Chrome Ball?!",
+  "jade.harvestheritage.crop_stand.no_seed": "No Seed",
+  "jade.harvestheritage.crop_stand.stage": "Stage : %s",
   "jei.harvestheritage.find": "Let me see see",
   "jei.harvestheritage.hybrid": "Hybrid",
   "jei.harvestheritage.hybrid.tooltip": "Will appear in seed packet form!",

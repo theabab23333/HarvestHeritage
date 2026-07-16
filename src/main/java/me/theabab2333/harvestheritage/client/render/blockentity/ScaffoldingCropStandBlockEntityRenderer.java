@@ -58,7 +58,7 @@ public class ScaffoldingCropStandBlockEntityRenderer
         BlockState azaleaState = Blocks.AZALEA.defaultBlockState();
         this.blockModelResolver.update(state.block, azaleaState, BLOCK_DISPLAY_CONTEXT);
 
-        Item seedItem = seedComponent.seed().value();
+        Item seedItem = seedComponent.getSeed();
         var seedInfo = ModSeeds.ALL_SEED.get(seedItem);
         if (seedInfo != null && state.stage == seedInfo.stage()) {
             BlockState sporeState = Blocks.SPORE_BLOSSOM.defaultBlockState();

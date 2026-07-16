@@ -26,9 +26,9 @@ public class KnownSeedItem extends Item implements IHasTooltips {
             Component component = Component.translatable("item.harvestheritage.seed.tooltip.fail").withStyle(ChatFormatting.DARK_RED);
             list.add(component);
         } else {
-            list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(seedInfo.seed().value()))
+            list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(seedInfo.getSeed()))
                 .withStyle(ChatFormatting.GREEN));
-            ModSeeds.SeedInfo info = ModSeeds.ALL_SEED.get(seedInfo.seed().value());
+            ModSeeds.SeedInfo info = ModSeeds.ALL_SEED.get(seedInfo.getSeed());
             if (info != null) {
                 list.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", info.stage())
                     .withStyle(ChatFormatting.LIGHT_PURPLE));

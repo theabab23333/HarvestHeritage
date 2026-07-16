@@ -83,17 +83,17 @@ public class ModRegisterGuiLayersEvent {
                 int tooltipY = screenHeight / 2;
                 Font font = Minecraft.getInstance().font;
                 SeedComponent seedComponent = packetComponent.seedComponent();
-                ItemStack itemStack = seedComponent.seed().value().getDefaultInstance();
+                ItemStack itemStack = seedComponent.getSeed().getDefaultInstance();
                 List<Component> tooltips = new ArrayList<>();
 
 
                 tooltips.add(Component.translatable(
                         "item.harvestheritage.seed.tooltip.seed",
-                        SeedUtil.getSeedName(seedComponent.seed().value())
+                        SeedUtil.getSeedName(itemStack.getItem())
                     )
                     .withStyle(ChatFormatting.GREEN));
 
-                var seedInfo = ModSeeds.ALL_SEED.get(seedComponent.seed().value());
+                var seedInfo = ModSeeds.ALL_SEED.get(itemStack.getItem());
                 if (seedInfo != null) {
                     tooltips.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", seedInfo.stage())
                         .withStyle(ChatFormatting.LIGHT_PURPLE));

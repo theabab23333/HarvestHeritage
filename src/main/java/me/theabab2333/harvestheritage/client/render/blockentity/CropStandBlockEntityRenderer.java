@@ -64,7 +64,7 @@ public class CropStandBlockEntityRenderer implements BlockEntityRenderer<CropSta
     public static int getRenderStage(BaseCropStandBlockEntity blockEntity, SeedComponent seedComponent) {
         int maxStage = 7;
         int stateStage = blockEntity.getStage();
-        Item seedItem = seedComponent.seed().value();
+        Item seedItem = seedComponent.getSeed();
         var seedInfo = ModSeeds.ALL_SEED.get(seedItem);
         int seedStage = seedInfo != null ? seedInfo.stage() : 0;
 

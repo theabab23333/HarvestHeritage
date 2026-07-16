@@ -17,7 +17,7 @@ public class ScaffoldingCropStandBlockEntity extends BaseCropStandBlockEntity {
     public void tick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         if (this.seedPacketComponent != null) {
             int speed = seedPacketComponent.speed();
-            var seedInfo = SeedUtil.getSeedInfo(this.seedPacketComponent.seedComponent().seed().value());
+            var seedInfo = SeedUtil.getSeedInfo(this.seedPacketComponent.seedComponent().getSeed());
             if (seedInfo == null) return;
             int needStage = seedInfo.stage();
             if (random.nextInt(3) < speed) {

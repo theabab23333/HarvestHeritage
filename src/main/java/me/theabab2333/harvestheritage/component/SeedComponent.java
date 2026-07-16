@@ -20,4 +20,8 @@ public record SeedComponent(Holder<Item> seed) {
     public static SeedComponent createSeed(Holder<Item> seed) {
         return new SeedComponent(seed);
     }
+
+    public Item getSeed() {
+        return seed().value();
+    }
 }
