@@ -4,7 +4,9 @@ import com.google.common.base.Suppliers;
 import com.mojang.math.Transformation;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.theabab2333.harvestheritage.api.item.ISeedItem;
+import me.theabab2333.harvestheritage.component.SeedComponent;
+import me.theabab2333.harvestheritage.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.init.ModDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.color.item.ItemTintSources;
@@ -23,9 +25,10 @@ import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
-import net.minecraft.core.Holder;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
@@ -45,6 +48,8 @@ import java.util.function.Supplier;
 
 import static net.minecraft.client.renderer.item.CuboidItemModelWrapper.computeExtents;
 
+// AI-generated 我不会渲染，有没有人写写
+// 现在能用但是 seedItem 如果是 BlockItem 的话会出现部分情况不正常渲染的问题，其他问题可能还有我也不知道（）（）
 public record SeedPacketItemModel(
     QuadCollection quads, List<ItemTintSource> tints, ModelRenderProperties properties, Matrix4fc matrix4fc, Supplier<Vector3fc[]> extents
 ) implements ItemModel {
@@ -59,26 +64,40 @@ public record SeedPacketItemModel(
         @Nullable ItemOwner owner,
         int i
     ) {
-        if (!(stack.getItem() instanceof ISeedItem seedItem)) {
-            return;
-        }
+        Item seedItem = resolveSeedItem(stack);
 
-        renderState.appendModelIdentityElement(this);
-
+        // Always render the base seed packet bag
         ItemStackRenderState.LayerRenderState baseLayer = renderState.newLayer();
         baseLayer.setExtents(extents);
         baseLayer.setLocalTransform(matrix4fc);
         properties.applyToLayer(baseLayer, context);
         baseLayer.prepareQuadList().addAll(quads.getAll());
 
-        Holder<Item> holder = seedItem.seed(stack);
-        if (holder.value() == Items.AIR) return;
-
-        if (context == ItemDisplayContext.GUI) {
-            resolver.appendItemLayers(renderState, new ItemStack(holder), context, level, owner, i);
-        } else {
-            addSeedLayer(renderState, holder.value(), context);
+        // Render seed overlay on top if present
+        if (seedItem != null && seedItem != Items.AIR) {
+            if (context == ItemDisplayContext.GUI) {
+                // GUI uses the resolver for proper display transforms & lighting
+                resolver.appendItemLayers(renderState, new ItemStack(seedItem), context, level, owner, i);
+            } else {
+                addSeedLayer(renderState, seedItem, context);
+            }
         }
+    }
+
+    @Nullable
+    private static Item resolveSeedItem(ItemStack stack) {
+        if (stack.has(ModDataComponents.SEED_PACKET_COMPONENT)) {
+            SeedPacketComponent component = stack.get(ModDataComponents.SEED_PACKET_COMPONENT);
+            if (component != null) {
+                return component.seedComponent().getSeed();
+            }
+        } else if (stack.has(ModDataComponents.SEED_COMPONENT)) {
+            SeedComponent component = stack.get(ModDataComponents.SEED_COMPONENT);
+            if (component != null) {
+                return component.getSeed();
+            }
+        }
+        return null;
     }
 
     private void addSeedLayer(ItemStackRenderState renderState, Item seedItem, ItemDisplayContext context) {
@@ -97,26 +116,43 @@ public record SeedPacketItemModel(
 
         var baseQuads = quads.getAll();
         if (baseQuads.isEmpty()) return;
-        BakedQuad baseQuad = baseQuads.get(0);
-        BakedQuad.MaterialInfo material = baseQuad.materialInfo();
+
+        // Create proper material info for the seed sprite (not the base packet sprite)
+        BakedQuad.MaterialInfo seedMaterial = BakedQuad.MaterialInfo.of(
+            new Material.Baked(sprite, false),
+            sprite.contents().transparency(),
+            -1,
+            true,
+            0,
+            true
+        );
 
         ItemStackRenderState.LayerRenderState seedLayer = renderState.newLayer();
         seedLayer.setExtents(extents);
-        seedLayer.setLocalTransform(new Matrix4f(matrix4fc).translate(0.0f, 0.0f, 0.05f));
+        // Slight z-translate so the seed overlay sits in front of the base packet
+        seedLayer.setLocalTransform(new Matrix4f(matrix4fc).translate(0.0f, 0.0f, 0.5f));
         properties.applyToLayer(seedLayer, context);
 
-        float margin = (1.0f - 12.0f / 16.0f) / 2.0f;
-        seedLayer.prepareQuadList().add(new BakedQuad(
-            new Vector3f(margin, margin, 0.5f),
-            new Vector3f(1.0f - margin, margin, 0.5f),
-            new Vector3f(1.0f - margin, 1.0f - margin, 0.5f),
-            new Vector3f(margin, 1.0f - margin, 0.5f),
+        // Follow ItemModelGenerator extrude-sprite approach: render the seed as a
+        // flat overlay centered on the packet, using 0-1 normalized coordinates.
+        // Small margin so it appears as a compact badge atop the bag art.
+        float margin = 0.0375f;
+        float z = 0.05f;
+
+        var quadList = seedLayer.prepareQuadList();
+
+        // Front face — south-facing, standard UV orientation
+        quadList.add(new BakedQuad(
+            new Vector3f(margin, margin, z),
+            new Vector3f(1.0f - margin, margin, z),
+            new Vector3f(1.0f - margin, 1.0f - margin, z),
+            new Vector3f(margin, 1.0f - margin, z),
             UVPair.pack(sprite.getU(0.0f), sprite.getV(1.0f)),
             UVPair.pack(sprite.getU(1.0f), sprite.getV(1.0f)),
             UVPair.pack(sprite.getU(1.0f), sprite.getV(0.0f)),
             UVPair.pack(sprite.getU(0.0f), sprite.getV(0.0f)),
-            baseQuad.direction(),
-            material
+            Direction.SOUTH,
+            seedMaterial
         ));
     }
 

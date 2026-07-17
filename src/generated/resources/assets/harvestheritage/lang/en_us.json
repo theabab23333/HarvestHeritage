@@ -24,6 +24,7 @@
   "block.harvestheritage.scaffolding_crop_stand.tooltip.2": "Cannot crossbreed, but can be harvested. Suitable for large-scale planting; recommended a few blocks above the ground",
   "block.harvestheritage.scaffolding_crop_stand_block": "Hanging crop racks",
   "block.harvestheritage.test_block": "Test Block",
+  "config.jade.plugin_harvestheritage.crop_stand_block_data_provider": "Crop Stand State",
   "creativetab.harvestheritage.seed_packet": "Harvest Heritage：Seed Packet",
   "gui.harvestheritage.tooltip.shift": "Hold down [Shift] to view information",
   "item.harvestheritage.fried_seedsack": "Fried Seed Sack",
