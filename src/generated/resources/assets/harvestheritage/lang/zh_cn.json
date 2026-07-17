@@ -24,6 +24,7 @@
   "block.harvestheritage.scaffolding_crop_stand.tooltip.2": "不能杂交，但是能收获，适合大范围种植，推荐离地几格",
   "block.harvestheritage.scaffolding_crop_stand_block": "悬挂式作物架",
   "block.harvestheritage.test_block": "测试方块",
+  "config.jade.plugin_harvestheritage.crop_stand_block_data_provider": "作物架状态",
   "creativetab.harvestheritage.seed_packet": "收获：遗产 种子袋",
   "gui.harvestheritage.tooltip.shift": "按住[Shift]以查看信息",
   "item.harvestheritage.fried_seedsack": "瓜子袋",

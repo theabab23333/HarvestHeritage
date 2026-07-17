@@ -3,6 +3,7 @@ package me.theabab2333.harvestheritage.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
+import me.theabab2333.harvestheritage.component.SeedComponent;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
@@ -76,27 +77,31 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
     public boolean matches(CraftingInput input, Level level) {
         if (input.ingredientCount() != 2) {
             return false;
-        } else {
-            boolean hasPaper = false;
-            boolean hasSeed = false;
+        }
+        SeedComponent target = this.result.get(ModDataComponents.SEED_COMPONENT.get());
+        if (target == null) return false;
 
-            for (int slot = 0; slot < input.size(); slot++) {
-                ItemStack itemStack = input.getItem(slot);
-                if (!itemStack.isEmpty()) {
-                    if (this.acceptPaper.test(itemStack)) {
-                        hasPaper = true;
-                    } else if (
-                        this.knownSeed.test(itemStack) && itemStack.has(ModDataComponents.SEED_COMPONENT.get())
-                    ) {
+        boolean hasPaper = false;
+        boolean hasSeed = false;
+
+        for (int slot = 0; slot < input.size(); slot++) {
+            ItemStack itemStack = input.getItem(slot);
+            if (!itemStack.isEmpty()) {
+                if (this.acceptPaper.test(itemStack)) {
+                    hasPaper = true;
+                } else if (this.knownSeed.test(itemStack)
+                           && itemStack.has(ModDataComponents.SEED_COMPONENT.get())) {
+                    SeedComponent seedComponent = itemStack.get(ModDataComponents.SEED_COMPONENT.get());
+                    if (seedComponent != null && seedComponent.seed().value().equals(target.getSeed())) {
                         hasSeed = true;
-                    } else {
-                        return false;
                     }
+                } else {
+                    return false;
                 }
             }
-
-            return hasPaper && hasSeed;
         }
+
+        return hasPaper && hasSeed;
     }
 
     @Override

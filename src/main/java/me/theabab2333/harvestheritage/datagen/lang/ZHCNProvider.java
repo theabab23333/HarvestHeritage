@@ -74,5 +74,6 @@ public class ZHCNProvider extends LanguageProvider {
         add("advancement.harvestheritage.welcome.description", "欢迎来到收获：遗产！");
         add("jade.harvestheritage.crop_stand.no_seed", "这个作物架似乎没有种植作物");
         add("jade.harvestheritage.crop_stand.stage", "生长阶段 : %s");
+        add("config.jade.plugin_harvestheritage.crop_stand_block_data_provider", "作物架状态");
     }
 }

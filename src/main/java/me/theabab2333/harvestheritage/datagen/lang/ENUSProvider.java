@@ -91,5 +91,6 @@ public class ENUSProvider extends LanguageProvider {
         add("advancement.harvestheritage.welcome.description", "Welcome to Harvest: Heritage!");
         add("jade.harvestheritage.crop_stand.no_seed", "No Seed");
         add("jade.harvestheritage.crop_stand.stage", "Stage : %s");
+        add("config.jade.plugin_harvestheritage.crop_stand_block_data_provider", "Crop Stand State");
     }
 }
