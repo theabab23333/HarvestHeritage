@@ -4,13 +4,11 @@ import com.google.common.base.Suppliers;
 import com.mojang.math.Transformation;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.theabab2333.harvestheritage.component.SeedComponent;
-import me.theabab2333.harvestheritage.component.SeedPacketComponent;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
+import it.unimi.dsi.fastutil.ints.IntList;
+import me.theabab2333.harvestheritage.api.item.ISeedItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.color.item.ItemTintSources;
-import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.dispatch.BlockModelRotation;
 import net.minecraft.client.renderer.item.ItemModel;
@@ -25,10 +23,10 @@ import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
-import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.client.resources.model.sprite.TextureSlots;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
@@ -64,43 +62,48 @@ public record SeedPacketItemModel(
         @Nullable ItemOwner owner,
         int i
     ) {
-        Item seedItem = resolveSeedItem(stack);
+        if (!(stack.getItem() instanceof ISeedItem seedItem)) {
+            return;
+        }
 
-        // Always render the base seed packet bag
-        ItemStackRenderState.LayerRenderState baseLayer = renderState.newLayer();
-        baseLayer.setExtents(extents);
-        baseLayer.setLocalTransform(matrix4fc);
-        properties.applyToLayer(baseLayer, context);
-        baseLayer.prepareQuadList().addAll(quads.getAll());
+        renderState.appendModelIdentityElement(this);
 
-        // Render seed overlay on top if present
-        if (seedItem != null && seedItem != Items.AIR) {
-            if (context == ItemDisplayContext.GUI) {
-                // GUI uses the resolver for proper display transforms & lighting
-                resolver.appendItemLayers(renderState, new ItemStack(seedItem), context, level, owner, i);
-            } else {
-                addSeedLayer(renderState, seedItem, context);
+        ItemStackRenderState.LayerRenderState layer = renderState.newLayer();
+        IntList intList = layer.tintLayers();
+        intList.add(-1);
+        layer.setExtents(extents);
+        properties.applyToLayer(layer, context);
+        layer.prepareQuadList().addAll(quads.getAll());
+        renderState.appendModelIdentityElement(intList.getInt(0));
+
+        Holder<Item> holder = seedItem.seed(stack);
+        if (holder.value() == Items.AIR) return;
+
+        if (context == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || context == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) {
+            ItemStackRenderState.LayerRenderState seedLayer = renderState.newLayer();
+            IntList seedInts = seedLayer.tintLayers();
+            seedInts.add(-1);
+            seedLayer.setExtents(extents);
+            properties.applyToLayer(seedLayer, context);
+            seedLayer.setLocalTransform(new Matrix4f().translate(0.0f, 0.0f, 0.05f));
+            try {
+                var baseQuads = quads.getAll();
+                if (!baseQuads.isEmpty()) {
+                    var baseQuad = baseQuads.get(0);
+                    addSeedQuad(seedLayer, holder.value(), baseQuad.direction(), baseQuad.materialInfo());
+                }
+            } catch (Exception ignored) {
             }
+            renderState.appendModelIdentityElement(seedInts.getInt(0));
+        } else {
+            resolver.appendItemLayers(renderState, new ItemStack(holder), context, level, owner, i);
         }
     }
 
-    @Nullable
-    private static Item resolveSeedItem(ItemStack stack) {
-        if (stack.has(ModDataComponents.SEED_PACKET_COMPONENT)) {
-            SeedPacketComponent component = stack.get(ModDataComponents.SEED_PACKET_COMPONENT);
-            if (component != null) {
-                return component.seedComponent().getSeed();
-            }
-        } else if (stack.has(ModDataComponents.SEED_COMPONENT)) {
-            SeedComponent component = stack.get(ModDataComponents.SEED_COMPONENT);
-            if (component != null) {
-                return component.getSeed();
-            }
-        }
-        return null;
-    }
-
-    private void addSeedLayer(ItemStackRenderState renderState, Item seedItem, ItemDisplayContext context) {
+    private static void addSeedQuad(
+        ItemStackRenderState.LayerRenderState layer, Item seedItem,
+        Direction direction, BakedQuad.MaterialInfo baseMat
+    ) {
         Identifier itemId = BuiltInRegistries.ITEM.getKey(seedItem);
         Identifier textureId = itemId.withPath("item/" + itemId.getPath());
 
@@ -114,46 +117,39 @@ public record SeedPacketItemModel(
             }
         }
 
-        var baseQuads = quads.getAll();
-        if (baseQuads.isEmpty()) return;
+        float margin = (1.0f - 12.0f / 16.0f) / 2.0f;
+        Vector3f p0 = new Vector3f(margin, margin, 0.55f);
+        Vector3f p1 = new Vector3f(1.0f - margin, margin, 0.6f);
+        Vector3f p2 = new Vector3f(1.0f - margin, 1.0f - margin, 0.6f);
+        Vector3f p3 = new Vector3f(margin, 1.0f - margin, 0.6f);
 
-        // Create proper material info for the seed sprite (not the base packet sprite)
-        BakedQuad.MaterialInfo seedMaterial = BakedQuad.MaterialInfo.of(
-            new Material.Baked(sprite, false),
-            sprite.contents().transparency(),
+        long uv0 = packUV(sprite.getU(0.0f), sprite.getV(0.0f));
+        long uv1 = packUV(sprite.getU(1.0f), sprite.getV(0.0f));
+        long uv2 = packUV(sprite.getU(1.0f), sprite.getV(1.0f));
+        long uv3 = packUV(sprite.getU(0.0f), sprite.getV(1.0f));
+
+        BakedQuad.MaterialInfo materialInfo = new BakedQuad.MaterialInfo(
+            sprite,
+            baseMat.layer(),
+            baseMat.itemRenderType(),
             -1,
-            true,
-            0,
-            true
+            baseMat.shade(),
+            baseMat.lightEmission(),
+            baseMat.ambientOcclusion()
         );
 
-        ItemStackRenderState.LayerRenderState seedLayer = renderState.newLayer();
-        seedLayer.setExtents(extents);
-        // Slight z-translate so the seed overlay sits in front of the base packet
-        seedLayer.setLocalTransform(new Matrix4f(matrix4fc).translate(0.0f, 0.0f, 0.5f));
-        properties.applyToLayer(seedLayer, context);
+        BakedQuad seedQuad = new BakedQuad(
+            p0, p1, p2, p3,
+            uv3, uv2, uv1, uv0,
+            direction,
+            materialInfo
+        );
 
-        // Follow ItemModelGenerator extrude-sprite approach: render the seed as a
-        // flat overlay centered on the packet, using 0-1 normalized coordinates.
-        // Small margin so it appears as a compact badge atop the bag art.
-        float margin = 0.0375f;
-        float z = 0.05f;
+        layer.prepareQuadList().add(seedQuad);
+    }
 
-        var quadList = seedLayer.prepareQuadList();
-
-        // Front face — south-facing, standard UV orientation
-        quadList.add(new BakedQuad(
-            new Vector3f(margin, margin, z),
-            new Vector3f(1.0f - margin, margin, z),
-            new Vector3f(1.0f - margin, 1.0f - margin, z),
-            new Vector3f(margin, 1.0f - margin, z),
-            UVPair.pack(sprite.getU(0.0f), sprite.getV(1.0f)),
-            UVPair.pack(sprite.getU(1.0f), sprite.getV(1.0f)),
-            UVPair.pack(sprite.getU(1.0f), sprite.getV(0.0f)),
-            UVPair.pack(sprite.getU(0.0f), sprite.getV(0.0f)),
-            Direction.SOUTH,
-            seedMaterial
-        ));
+    private static long packUV(float u, float v) {
+        return (long) Float.floatToRawIntBits(u) << 32 | (Float.floatToRawIntBits(v) & 0xFFFFFFFFL);
     }
 
     public record Unbaked(Identifier model, List<ItemTintSource> tints, Optional<Transformation> transformation)
