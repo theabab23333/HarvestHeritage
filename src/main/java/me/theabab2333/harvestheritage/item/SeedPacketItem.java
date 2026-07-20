@@ -11,6 +11,8 @@ import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
@@ -45,6 +47,13 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
             return InteractionResult.SUCCESS;
         }
         return super.useOn(context);
+    }
+
+    @Override
+    public Component getName(ItemStack itemStack) {
+        var seed = new ItemStack(seed(itemStack));
+        var seedName = seed.getComponents().getOrDefault(DataComponents.ITEM_NAME, CommonComponents.EMPTY);
+        return Component.empty().append(seedName).append(" ").append(Component.translatable("item.harvestheritage.seed_packet"));
     }
 
     @Override
