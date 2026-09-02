@@ -41,7 +41,6 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
                 level.setBlock(blockPos, ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.get().defaultBlockState(), 3);
                 if (level.getBlockEntity(blockPos) instanceof BaseCropStandBlockEntity blockEntity) {
                     blockEntity.seedUseOn(context.getItemInHand());
-                    context.getItemInHand().shrink(1);
                 }
             }
             return InteractionResult.SUCCESS;
