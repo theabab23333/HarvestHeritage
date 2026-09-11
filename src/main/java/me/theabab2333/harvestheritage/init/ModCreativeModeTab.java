@@ -46,7 +46,6 @@ public class ModCreativeModeTab {
     public static List<ItemLike> getItem() {
         List<ItemLike> items = new ArrayList<>();
         ModItems.ITEMS.getEntries().forEach(holder -> items.add(holder.get()));
-        ModBlocks.BLOCKS.getEntries().forEach(holder -> items.add(holder.get()));
         return items;
     }
 
