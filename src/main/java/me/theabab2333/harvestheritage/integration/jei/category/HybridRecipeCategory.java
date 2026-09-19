@@ -52,8 +52,8 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
         builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getInputSeedPacketStacks());
         builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStacks(recipe.getOutputSeedPacketStacks());
 
-        builder.addInputSlot(2, 30).setStandardSlotBackground().addItemStacks(inputStacks);
-        builder.addInputSlot(58, 30).setStandardSlotBackground().addItemStacks(inputStacks.reversed());
+        builder.addInputSlot(2, 30).setStandardSlotBackground().add(inputStacks.getFirst());
+        builder.addInputSlot(58, 30).setStandardSlotBackground().add(inputStacks.getLast());
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 30, 30).setStandardSlotBackground().add(ModBlocks.CROP_STAND_BLOCK);
 
         for (ItemStack outputStack : outputStacks) {
