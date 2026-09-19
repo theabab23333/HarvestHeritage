@@ -10,6 +10,7 @@ import me.theabab2333.harvestheritage.item.ZZZZItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.Consumable;
 import net.neoforged.bus.api.IEventBus;
@@ -25,7 +26,11 @@ public class ModItems {
 
     public static final DeferredItem<Item> MAGNIFYING_GLASS = ITEMS.registerItem("magnifying_glass", MagnifyingGlassItem::new);
 
-    public static final DeferredItem<Item> GRAPE = ITEMS.registerSimpleItem("grape");
+    public static final DeferredItem<Item> GRAPE = ITEMS.registerSimpleItem(
+        "grape", properties -> properties.food(
+            Foods.APPLE
+        )
+    );
 
     public static final DeferredItem<Item> ZZZZ = ITEMS.registerItem("zzzz", ZZZZItem::new);
 
@@ -38,10 +43,7 @@ public class ModItems {
     public static final DeferredItem<Item> FRIED_SEEDSACK = ITEMS.registerSimpleItem(
         "fried_seedsack", properties -> properties.food(
             new FoodProperties.Builder().nutrition(2).saturationModifier(0.5f).alwaysEdible().build(),
-            Consumable.builder()
-                .consumeSeconds(0.1f)
-                .sound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.EMPTY))
-                .build()
+            Consumable.builder().consumeSeconds(0.1f).sound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.EMPTY)).build()
         )
     );
 

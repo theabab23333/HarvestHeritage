@@ -5,6 +5,7 @@ import me.theabab2333.harvestheritage.datagen.advancement.ModAdvancementProvider
 import me.theabab2333.harvestheritage.datagen.lang.ENUSProvider;
 import me.theabab2333.harvestheritage.datagen.lang.ZHCNProvider;
 import me.theabab2333.harvestheritage.datagen.loot.ModLootTables;
+import me.theabab2333.harvestheritage.datagen.map.ModDataMapProvider;
 import me.theabab2333.harvestheritage.datagen.model.ModModelProvider;
 import me.theabab2333.harvestheritage.datagen.recipe.ModRecipeProvider;
 import me.theabab2333.harvestheritage.datagen.tag.ModBlockTagsProvider;
@@ -37,6 +38,9 @@ public class Datagen {
         // Lang
         event.createProvider(ENUSProvider::new);
         event.createProvider(ZHCNProvider::new);
+
+        // DataMap
+        event.createProvider(ModDataMapProvider::new);
 
         // Advancement
         event.createProvider(output -> new AdvancementProvider(

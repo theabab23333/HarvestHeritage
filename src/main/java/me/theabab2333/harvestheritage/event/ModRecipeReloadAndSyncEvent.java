@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.event;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.data.SeedDefinitionReloadListener;
+import me.theabab2333.harvestheritage.datagen.listener.SeedDefinitionReloadListener;
 import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.recipe.HybridRecipe;

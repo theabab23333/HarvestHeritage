@@ -1,4 +1,4 @@
-package me.theabab2333.harvestheritage.data;
+package me.theabab2333.harvestheritage.datagen.listener;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
