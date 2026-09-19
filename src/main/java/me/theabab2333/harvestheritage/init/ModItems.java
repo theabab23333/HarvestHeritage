@@ -1,12 +1,12 @@
 package me.theabab2333.harvestheritage.init;
 
-import me.theabab2333.harvestheritage.item.GrassShearItem;
-import me.theabab2333.harvestheritage.item.KnownSeedItem;
-import me.theabab2333.harvestheritage.item.MagnifyingGlassItem;
-import me.theabab2333.harvestheritage.item.ScaffoldingCropStandBlockItem;
-import me.theabab2333.harvestheritage.item.SeedPacketItem;
-import me.theabab2333.harvestheritage.item.UnknownSeedItem;
-import me.theabab2333.harvestheritage.item.ZZZZItem;
+import me.theabab2333.harvestheritage.common.item.GrassShearItem;
+import me.theabab2333.harvestheritage.common.item.KnownSeedItem;
+import me.theabab2333.harvestheritage.common.item.MagnifyingGlassItem;
+import me.theabab2333.harvestheritage.common.item.ScaffoldingCropStandBlockItem;
+import me.theabab2333.harvestheritage.common.item.SeedPacketItem;
+import me.theabab2333.harvestheritage.common.item.UnknownSeedItem;
+import me.theabab2333.harvestheritage.common.item.ZZZZItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;

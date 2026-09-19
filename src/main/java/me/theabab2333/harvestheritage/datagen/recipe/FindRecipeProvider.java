@@ -2,7 +2,7 @@ package me.theabab2333.harvestheritage.datagen.recipe;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.init.ModItems;
-import me.theabab2333.harvestheritage.recipe.FindRecipe;
+import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;

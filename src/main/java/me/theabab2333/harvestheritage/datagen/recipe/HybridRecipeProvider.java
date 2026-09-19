@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.datagen.recipe;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;

@@ -2,9 +2,9 @@ package me.theabab2333.harvestheritage.client.event;
 
 import com.mojang.blaze3d.platform.Window;
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.block.entity.BaseCropStandBlockEntity;
-import me.theabab2333.harvestheritage.component.SeedComponent;
-import me.theabab2333.harvestheritage.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
+import me.theabab2333.harvestheritage.common.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModSeeds;
 import me.theabab2333.harvestheritage.util.SeedUtil;

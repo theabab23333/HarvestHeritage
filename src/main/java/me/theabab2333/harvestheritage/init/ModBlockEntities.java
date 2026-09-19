@@ -1,9 +1,9 @@
 package me.theabab2333.harvestheritage.init;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.block.entity.ActivatorBlockEntity;
-import me.theabab2333.harvestheritage.block.entity.CropStandStandBlockEntity;
-import me.theabab2333.harvestheritage.block.entity.ScaffoldingCropStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.ActivatorBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.CropStandStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.ScaffoldingCropStandBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;

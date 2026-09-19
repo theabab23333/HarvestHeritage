@@ -1,6 +1,6 @@
 package me.theabab2333.harvestheritage.integration.jade.server;
 
-import me.theabab2333.harvestheritage.block.entity.BaseCropStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
 import me.theabab2333.harvestheritage.integration.jade.ModJadePlugin;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;

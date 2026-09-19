@@ -1,9 +1,9 @@
 package me.theabab2333.harvestheritage.init;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.block.ActivatorBlock;
-import me.theabab2333.harvestheritage.block.CropStandBlock;
-import me.theabab2333.harvestheritage.block.ScaffoldingCropStandBlock;
+import me.theabab2333.harvestheritage.common.block.ActivatorBlock;
+import me.theabab2333.harvestheritage.common.block.CropStandBlock;
+import me.theabab2333.harvestheritage.common.block.ScaffoldingCropStandBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;

@@ -3,7 +3,7 @@ package me.theabab2333.harvestheritage.integration.jei.category;
 import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.integration.jei.ModJeiPlugin;
 import me.theabab2333.harvestheritage.integration.jei.util.JeiRenderHelper;
-import me.theabab2333.harvestheritage.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.util.StyleUtil;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -70,9 +70,16 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
         IRecipeSlotDrawablesView recipeSlots = builder.getRecipeSlots();
         List<IRecipeSlotDrawable> outputSlots = recipeSlots.getSlots(RecipeIngredientRole.OUTPUT);
         IScrollGridWidget scrollGridWidget = builder.addScrollGridWidget(outputSlots, MAX_SHOWN_COLUMN, MAX_SHOWN_ROW);
-        scrollGridWidget.setPosition(108, 1, this.getWidth(), this.getHeight(), HorizontalAlignment.LEFT, VerticalAlignment.TOP);
+        scrollGridWidget.setPosition(
+            108,
+            1,
+            this.getWidth(),
+            this.getHeight(),
+            HorizontalAlignment.LEFT,
+            VerticalAlignment.TOP
+        );
 
-        builder.addRecipeArrow().setPosition(77, 5);
-        builder.addDrawable(arrowDefault, 8, 4);
+        builder.addRecipeArrowWidget().setPosition(77, 5);
+        builder.addDrawableWidget(arrowDefault).setPosition(8, 4);
     }
 }

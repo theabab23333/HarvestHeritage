@@ -1,9 +1,9 @@
 package me.theabab2333.harvestheritage.init;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.recipe.FindRecipe;
-import me.theabab2333.harvestheritage.recipe.HybridRecipe;
-import me.theabab2333.harvestheritage.recipe.SeedPacketRecipe;
+import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
+import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.recipe.SeedPacketRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;

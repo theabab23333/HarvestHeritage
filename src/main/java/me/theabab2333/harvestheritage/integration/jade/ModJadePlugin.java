@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.integration.jade;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.block.BaseCropStandBlock;
+import me.theabab2333.harvestheritage.common.block.BaseCropStandBlock;
 import me.theabab2333.harvestheritage.integration.jade.client.CropStandBlockComponentProvider;
 import me.theabab2333.harvestheritage.integration.jade.server.CropStandBlockServerDataProvider;
 import net.minecraft.resources.Identifier;

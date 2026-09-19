@@ -1,10 +1,10 @@
 package me.theabab2333.harvestheritage.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.theabab2333.harvestheritage.block.entity.BaseCropStandBlockEntity;
-import me.theabab2333.harvestheritage.block.entity.CropStandStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.CropStandStandBlockEntity;
 import me.theabab2333.harvestheritage.client.render.blockentity.state.CropStandBlockEntityRenderState;
-import me.theabab2333.harvestheritage.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedComponent;
 import me.theabab2333.harvestheritage.init.ModSeeds;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelResolver;

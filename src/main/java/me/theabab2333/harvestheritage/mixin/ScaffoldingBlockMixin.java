@@ -16,9 +16,9 @@ import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static me.theabab2333.harvestheritage.block.ScaffoldingCropStandBlock.BOTTOM;
-import static me.theabab2333.harvestheritage.block.ScaffoldingCropStandBlock.SHAPE_STABLE;
-import static me.theabab2333.harvestheritage.block.ScaffoldingCropStandBlock.SHAPE_UNSTABLE;
+import static me.theabab2333.harvestheritage.common.block.ScaffoldingCropStandBlock.BOTTOM;
+import static me.theabab2333.harvestheritage.common.block.ScaffoldingCropStandBlock.SHAPE_STABLE;
+import static me.theabab2333.harvestheritage.common.block.ScaffoldingCropStandBlock.SHAPE_UNSTABLE;
 import static net.minecraft.world.level.block.ScaffoldingBlock.DISTANCE;
 
 @Mixin(ScaffoldingBlock.class)

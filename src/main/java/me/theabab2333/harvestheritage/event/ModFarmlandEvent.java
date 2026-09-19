@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.event;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.block.BaseCropStandBlock;
+import me.theabab2333.harvestheritage.common.block.BaseCropStandBlock;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.BlockEvent;

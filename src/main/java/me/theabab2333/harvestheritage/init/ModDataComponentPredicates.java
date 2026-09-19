@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.init;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.advancement.SeedPacketMaxPredicate;
+import me.theabab2333.harvestheritage.datagen.advancement.predicate.SeedPacketMaxPredicate;
 import net.minecraft.core.component.predicates.DataComponentPredicate;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;

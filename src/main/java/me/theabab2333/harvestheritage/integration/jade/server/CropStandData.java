@@ -1,6 +1,6 @@
 package me.theabab2333.harvestheritage.integration.jade.server;
 
-import me.theabab2333.harvestheritage.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

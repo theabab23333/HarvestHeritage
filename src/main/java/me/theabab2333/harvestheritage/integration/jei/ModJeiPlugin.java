@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.integration.jei;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.component.SeedComponent;
-import me.theabab2333.harvestheritage.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.event.ModRecipeReloadAndSyncEvent;
 import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
@@ -13,8 +13,8 @@ import me.theabab2333.harvestheritage.integration.jei.category.FindRecipeCategor
 import me.theabab2333.harvestheritage.integration.jei.category.HybridRecipeCategory;
 import me.theabab2333.harvestheritage.integration.jei.category.SeedOutputRecipeCategory;
 import me.theabab2333.harvestheritage.integration.jei.recipe.SeedOutputRecipe;
-import me.theabab2333.harvestheritage.recipe.FindRecipe;
-import me.theabab2333.harvestheritage.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
+import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

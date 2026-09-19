@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.init;
 
-import me.theabab2333.harvestheritage.component.SeedComponent;
-import me.theabab2333.harvestheritage.component.SeedGrowComponent;
-import me.theabab2333.harvestheritage.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedGrowComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;

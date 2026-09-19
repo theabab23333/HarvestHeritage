@@ -2,8 +2,8 @@ package me.theabab2333.harvestheritage.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import me.theabab2333.harvestheritage.block.ActivatorBlock;
-import me.theabab2333.harvestheritage.block.entity.ActivatorBlockEntity;
+import me.theabab2333.harvestheritage.common.block.ActivatorBlock;
+import me.theabab2333.harvestheritage.common.block.entity.ActivatorBlockEntity;
 import me.theabab2333.harvestheritage.client.render.blockentity.state.ActivatorBlockRenderState;
 import me.theabab2333.harvestheritage.init.ModItems;
 import net.minecraft.client.renderer.SubmitNodeCollector;
