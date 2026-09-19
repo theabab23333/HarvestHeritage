@@ -35,6 +35,25 @@ repositories {
         name = 'cursemaven'
         url = 'https://www.cursemaven.com'
     }
+
+    maven { // Jade
+        name = "Modrinth Maven"
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven {// LDLib
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
+}
+
+dependencies {
+    implementation("mezz.jei:jei-26.1.2-neoforge:29.37.0.98")
+    implementation("maven.modrinth:jade:26.1.1+neoforge")
+
+    implementation("org.appliedenergistics:appliedenergistics2:26.1.11-beta:api")
+    implementation("org.appliedenergistics:appliedenergistics2:26.1.11-beta")
+
+    implementation("com.lowdragmc.ldlib2:ldlib2-neoforge-26.1:26.1.2.39")
 }
 
 base {
@@ -86,14 +105,6 @@ neoForge {
 
 configurations {
     runtimeClasspath.extendsFrom localRuntime
-}
-
-dependencies {
-    implementation("mezz.jei:jei-26.1.2-neoforge:29.6.2.31")
-    implementation("curse.maven:jade-324717:7938398")
-
-    implementation("org.appliedenergistics:appliedenergistics2:26.1.10-beta:api")
-    implementation("org.appliedenergistics:appliedenergistics2:26.1.10-beta")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
