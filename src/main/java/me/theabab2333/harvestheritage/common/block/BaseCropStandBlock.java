@@ -4,12 +4,13 @@ import me.theabab2333.harvestheritage.api.item.IHasTooltips;
 import me.theabab2333.harvestheritage.api.item.ISeedItem;
 import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.item.GrassShearItem;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
-import me.theabab2333.harvestheritage.common.item.GrassShearItem;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.server.level.ServerLevel;
@@ -35,37 +36,21 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         super(properties);
     }
 
-    @Override
-    protected BlockState updateShape(
-        BlockState state,
-        LevelReader level,
-        ScheduledTickAccess ticks,
-        BlockPos pos,
-        Direction directionToNeighbour,
-        BlockPos neighbourPos,
-        BlockState neighbourState,
-        RandomSource random
-    ) {
-        return !state.canSurvive(level, pos)
-               ? Blocks.AIR.defaultBlockState()
-               : super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
-    }
-
-    @Override
-    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        BaseCropStandBlockEntity blockEntity = (BaseCropStandBlockEntity) level.getBlockEntity(pos);
-        if (blockEntity != null) {
-            blockEntity.tick(level, pos, state, random);
+    public static NonNullList<ItemStack> getSeedOutput(SeedPacketComponent component, Level level) {
+        if (level.isClientSide()) return NonNullList.create();
+        NonNullList<ItemStack> itemStacks = NonNullList.create();
+        int output = component.output();
+        RandomSource random = level.getRandom();
+        int count = random.nextInt(output) + 1;
+        var seedInfo = SeedUtil.getSeedInfo(component.getSeed());
+        if (seedInfo == null) return itemStacks;
+        for (Holder<Item> resultItem : seedInfo.results()) {
+            itemStacks.add(new ItemStack(resultItem, count));
         }
+        return itemStacks;
     }
 
-    @Override
-    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockPos belowPos = pos.below();
-        BlockState belowState = level.getBlockState(belowPos);
-        return belowState.is(Blocks.FARMLAND);
-    }
-
+    // 哈哈，屎?!
     @Override
     @SuppressWarnings("ConstantValue")
     protected InteractionResult useItemOn(
@@ -106,7 +91,7 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
                 if (!itemStack.isEmpty()) return InteractionResult.FAIL;
                 if (component == null) return InteractionResult.FAIL;
 
-                var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().getSeed());
+                var seedInfo = SeedUtil.getSeedInfo(component.getSeed());
                 if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
                     NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
                     this.dropContents(level, pos, itemStacks);
@@ -119,17 +104,34 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         }
     }
 
-    public static NonNullList<ItemStack> getSeedOutput(SeedPacketComponent component, Level level) {
-        if (level.isClientSide()) return NonNullList.create();
-        NonNullList<ItemStack> itemStacks = NonNullList.create();
-        int output = component.output();
-        RandomSource random = level.getRandom();
-        int count = random.nextInt(output) + 1;
-        var seedInfo = SeedUtil.getSeedInfo(component.seedComponent().getSeed());
-        for (Item resultItem : seedInfo.results()) {
-            itemStacks.add(new ItemStack(resultItem, count));
+    @Override
+    protected BlockState updateShape(
+        BlockState state,
+        LevelReader level,
+        ScheduledTickAccess ticks,
+        BlockPos pos,
+        Direction directionToNeighbour,
+        BlockPos neighbourPos,
+        BlockState neighbourState,
+        RandomSource random
+    ) {
+        return !state.canSurvive(level, pos)
+               ? Blocks.AIR.defaultBlockState()
+               : super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
+    }
+
+    @Override
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos below = pos.below();
+        return canSupportRigidBlock(level, below) || canSupportCenter(level, below, Direction.UP);
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        BaseCropStandBlockEntity blockEntity = (BaseCropStandBlockEntity) level.getBlockEntity(pos);
+        if (blockEntity != null) {
+            blockEntity.tick(level, pos, state, random);
         }
-        return itemStacks;
     }
 
     public void dropContents(Level level, BlockPos pos, NonNullList<ItemStack> itemStacks) {

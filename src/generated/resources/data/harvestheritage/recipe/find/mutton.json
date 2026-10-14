@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:mutton"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:mutton"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

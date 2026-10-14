@@ -2,11 +2,9 @@ package me.theabab2333.harvestheritage.common.item;
 
 import me.theabab2333.harvestheritage.api.item.ISeedItem;
 import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.init.ModBlocks;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
-import me.theabab2333.harvestheritage.init.ModSeeds;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -26,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.ArrayList;
 import java.util.List;
 
+// 或许还有人类
 public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
     public SeedPacketItem(Properties properties) {
         super(properties);
@@ -50,7 +49,7 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
 
     @Override
     public Component getName(ItemStack itemStack) {
-        var seed = new ItemStack(seed(itemStack));
+        var seed = new ItemStack(this.seed(itemStack));
         var seedName = seed.getComponents().getOrDefault(DataComponents.ITEM_NAME, CommonComponents.EMPTY);
         return Component.empty().append(seedName).append(" ").append(Component.translatable("item.harvestheritage.seed_packet"));
     }
@@ -58,22 +57,21 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
     @Override
     public List<Component> getTooltip(ItemStack itemStack) {
         List<Component> list = new ArrayList<>();
-        SeedPacketComponent packetComponent = itemStack.get(ModDataComponents.SEED_PACKET_COMPONENT);
+        SeedPacketComponent packetComponent = SeedUtil.getSeedPacketComponent(itemStack);
         if (packetComponent != null) {
-            SeedComponent seedComponent = packetComponent.seedComponent();
-            Item seedItem = seedComponent.getSeed();
+            Item seedItem = packetComponent.getSeed();
             list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(seedItem))
                 .withStyle(ChatFormatting.GREEN));
 
-            ModSeeds.SeedInfo info = ModSeeds.ALL_SEED.get(seedItem);
+            SeedInfo info = SeedUtil.getSeedInfo(seedItem);
             if (info != null) {
                 list.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", info.stage())
                     .withStyle(ChatFormatting.LIGHT_PURPLE));
                 StringBuilder resultBuilder = new StringBuilder();
-                List<Item> results = info.results();
+                List<Holder<Item>> results = info.results();
                 for (int i = 0; i < results.size(); i++) {
                     if (i > 0) resultBuilder.append(", ");
-                    resultBuilder.append(SeedUtil.getSeedName(results.get(i)).getString());
+                    resultBuilder.append(SeedUtil.getSeedName(results.get(i).value()).getString());
                 }
                 list.add(Component.translatable("item.harvestheritage.seed_packet.tooltip.result", resultBuilder.toString())
                     .withStyle(ChatFormatting.YELLOW));
@@ -92,12 +90,7 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
 
     @Override
     public Holder<Item> seed(ItemStack itemStack) {
-        if (itemStack.get(ModDataComponents.SEED_PACKET_COMPONENT) instanceof SeedPacketComponent seedPacketComponent) {
-            return seedPacketComponent.seedComponent().seed();
-        } else if (itemStack.get(ModDataComponents.SEED_COMPONENT) instanceof SeedComponent(Holder<Item> seed)) {
-            return seed;
-        } else {
-            return Items.AIR.builtInRegistryHolder();
-        }
+        SeedPacketComponent seedPacketComponent = SeedUtil.getSeedPacketComponent(itemStack);
+        return seedPacketComponent != null ? seedPacketComponent.seed() : Items.AIR.builtInRegistryHolder;
     }
 }

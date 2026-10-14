@@ -16,11 +16,6 @@ public class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather(HolderLookup.Provider provider) {
-        this.builder(NeoForgeDataMaps.COMPOSTABLES)
-            .add(
-                ModItems.GRAPE,
-                new Compostable(0.3F),
-                false
-            );
+        this.builder(NeoForgeDataMaps.COMPOSTABLES).add(ModItems.GRAPE, new Compostable(0.3F), false);
     }
 }

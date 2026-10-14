@@ -46,7 +46,7 @@ public abstract class ModRecipeProvider extends RecipeProvider {
 
         @Override
         public String getName() {
-            return HarvestHeritage.MODID;
+            return HarvestHeritage.MOD_ID;
         }
     }
 }

@@ -3,10 +3,11 @@ package me.theabab2333.harvestheritage.common.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
+import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -78,7 +79,7 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
         if (input.ingredientCount() != 2) {
             return false;
         }
-        SeedComponent target = this.result.get(ModDataComponents.SEED_COMPONENT.get());
+        SeedPacketComponent target = this.result.get(ModDataComponents.SEED_PACKET_COMPONENT.get());
         if (target == null) return false;
 
         boolean hasPaper = false;
@@ -89,9 +90,8 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
             if (!itemStack.isEmpty()) {
                 if (this.acceptPaper.test(itemStack)) {
                     hasPaper = true;
-                } else if (this.knownSeed.test(itemStack)
-                           && itemStack.has(ModDataComponents.SEED_COMPONENT.get())) {
-                    SeedComponent seedComponent = itemStack.get(ModDataComponents.SEED_COMPONENT.get());
+                } else if (this.knownSeed.test(itemStack)) {
+                    SeedPacketComponent seedComponent = SeedUtil.getSeedPacketComponent(itemStack);
                     if (seedComponent != null && seedComponent.seed().value().equals(target.getSeed())) {
                         hasSeed = true;
                     }
@@ -139,6 +139,6 @@ public class SeedPacketRecipe extends NormalCraftingRecipe {
 
     @Override
     protected PlacementInfo createPlacementInfo() {
-        return PlacementInfo.create(List.of(knownSeed, acceptPaper));
+        return PlacementInfo.create(List.of(this.knownSeed, this.acceptPaper));
     }
 }

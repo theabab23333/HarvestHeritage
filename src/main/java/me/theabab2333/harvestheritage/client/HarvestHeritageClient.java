@@ -10,7 +10,7 @@ import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = HarvestHeritage.MODID, dist = Dist.CLIENT)
+@Mod(value = HarvestHeritage.MOD_ID, dist = Dist.CLIENT)
 public class HarvestHeritageClient {
     public HarvestHeritageClient(IEventBus modEventBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);

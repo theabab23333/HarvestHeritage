@@ -8,9 +8,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+// 成就
 public class ModDataComponentPredicates {
     private static final DeferredRegister<DataComponentPredicate.Type<?>> PREDICATE_TYPES =
-        DeferredRegister.create(Registries.DATA_COMPONENT_PREDICATE_TYPE, HarvestHeritage.MODID);
+        DeferredRegister.create(Registries.DATA_COMPONENT_PREDICATE_TYPE, HarvestHeritage.MOD_ID);
 
     private static final DeferredHolder<DataComponentPredicate.Type<?>, DataComponentPredicate.ConcreteType<SeedPacketMaxPredicate>> SEED_PACKET_MAX =
         PREDICATE_TYPES.register(

@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:bamboo"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:bamboo"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

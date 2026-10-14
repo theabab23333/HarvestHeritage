@@ -1,11 +1,13 @@
 package me.theabab2333.harvestheritage.util;
 
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.seed.SeedBlockRequirement;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.init.ModConfigs;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
-import me.theabab2333.harvestheritage.init.ModSeeds;
+import me.theabab2333.harvestheritage.init.seed.ModSeeds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -15,10 +17,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelReader;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-@SuppressWarnings("ConstantValue")
+// 像粪坑
 public class SeedUtil {
     public static Component getSeedName(Item item) {
         return item.getDefaultInstance().getComponents().getOrDefault(DataComponents.ITEM_NAME, CommonComponents.EMPTY);
@@ -28,37 +32,48 @@ public class SeedUtil {
         return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 
-    public static ModSeeds.SeedInfo getSeedInfo(Item item) {
-        return ModSeeds.ALL_SEED.get(item);
+    public static @Nullable SeedInfo getSeedInfo(Item item) {
+        return getSeedInfo(getHolder(item));
     }
 
-    public static SeedComponent getSeedComponent(Item item) {
-        ModSeeds.SeedInfo seedInfo = getSeedInfo(item);
-        if (seedInfo != null) {
-            return createSeedComponent(item);
-        }
-        throw new IllegalArgumentException("No seed info found for item: " + item);
+    public static @Nullable SeedInfo getSeedInfo(Holder<Item> item) {
+        return ModSeeds.getSeedInfo(item);
     }
 
     public static Holder<Item> getHolder(Item item) {
-        return item.builtInRegistryHolder();
+        return item.builtInRegistryHolder;
     }
 
-    public static SeedComponent createSeedComponent(Item seedItem) {
-        return SeedComponent.createSeed(getHolder(seedItem));
+    public static @Nullable SeedPacketComponent getSeedPacketComponent(ItemStack itemStack) {
+        return itemStack.get(ModDataComponents.SEED_PACKET_COMPONENT);
     }
 
-    public static DataComponentPatch createSeedComponentPatch(SeedComponent component) {
-        return DataComponentPatch.builder().set(ModDataComponents.SEED_COMPONENT.get(), component).build();
+    public static DataComponentPatch createSeedPacketPatch(SeedPacketComponent component) {
+        return DataComponentPatch.builder().set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component).build();
     }
 
-    public static DataComponentPatch createSeedComponentPatch(Item seedItem) {
-        return createSeedComponentPatch(createSeedComponent(seedItem));
+    public static DataComponentPatch createSeedPacketPatch(Holder<Item> seedItem) {
+        return createSeedPacketPatch(SeedPacketComponent.of(seedItem));
     }
 
-    public static ItemStack getSeedPacket(Item item) {
-        DataComponentPatch dataComponentPatch = createSeedComponentPatch(item);
-        return new ItemStack(ModItems.SEED_PACKET, 1, dataComponentPatch);
+    public static ItemStack getSeedPacket(Holder<Item> seedItem) {
+        return new ItemStack(ModItems.SEED_PACKET, 1, createSeedPacketPatch(seedItem));
+    }
+
+    public static ItemStack getSeedPacket(Item seedItem) {
+        return getSeedPacket(getHolder(seedItem));
+    }
+
+    public static boolean matchesGrowBlocks(
+        LevelReader level,
+        BlockPos pos,
+        List<SeedBlockRequirement> blocks
+    ) {
+        for (int i = 0; i < blocks.size(); i++) {
+            var state = level.getBlockState(pos.below(i + 1));
+            if (!blocks.get(i).matches(state)) return false;
+        }
+        return true;
     }
 
     public static int rollStat(RandomSource random, int val1, int val2, int min, int max) {
@@ -74,7 +89,7 @@ public class SeedUtil {
         }
     }
 
-    public static SeedComponent rollSeed(RandomSource random, SeedComponent seed1, SeedComponent seed2, List<SeedComponent> hybrids) {
+    public static Holder<Item> rollSeed(RandomSource random, Holder<Item> seed1, Holder<Item> seed2, List<Holder<Item>> hybrids) {
         if (random.nextDouble() < 0.2) {
             return random.nextBoolean() ? seed1 : seed2;
         }
@@ -88,13 +103,13 @@ public class SeedUtil {
         RandomSource random,
         SeedPacketComponent comp1,
         SeedPacketComponent comp2,
-        List<SeedComponent> hybrids
+        List<Holder<Item>> hybrids
     ) {
         int maxSpeed = ModConfigs.SEED_SPEED_MAX.getAsInt();
         int outputMax = ModConfigs.OUTPUT_MAX.getAsInt();
         int speed = rollStat(random, comp1.speed(), comp2.speed(), 1, maxSpeed);
         int output = rollStat(random, comp1.output(), comp2.output(), 1, outputMax);
-        SeedComponent seed = rollSeed(random, comp1.seedComponent(), comp2.seedComponent(), hybrids);
+        Holder<Item> seed = rollSeed(random, comp1.seed(), comp2.seed(), hybrids);
         return new SeedPacketComponent(seed, speed, output);
     }
 }

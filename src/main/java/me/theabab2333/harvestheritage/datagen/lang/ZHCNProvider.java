@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ZHCNProvider extends LanguageProvider {
     public ZHCNProvider(PackOutput output) {
-        super(output, HarvestHeritage.MODID, "zh_cn");
+        super(output, HarvestHeritage.MOD_ID, "zh_cn");
     }
 
     @Override
@@ -58,7 +58,13 @@ public class ZHCNProvider extends LanguageProvider {
         add("jei.harvestheritage.find", "让我看看");
         add("jei.harvestheritage.hybrid", "杂交");
         add("jei.harvestheritage.hybrid.tooltip", "将以种子袋形式出战!");
-        add("jei.harvestheritage.seed_output", "种子产出");
+        add("jei.harvestheritage.seed_info", "种子信息");
+        add("jei.harvestheritage.seed_info.seed_packet", "这是种子袋");
+        add("jei.harvestheritage.seed_info.seed", "这是种子袋对应的种子(物品)");
+        add("jei.harvestheritage.seed_info.need_blocks.1", "这是作物生长需要的方块");
+        add("jei.harvestheritage.seed_info.need_blocks.2", "需要按顺序摆放");
+        add("jei.harvestheritage.seed_info.need_blocks.any", "此作物生长与下方方块无关");
+        add("jei.harvestheritage.seed_info.output", "这是作物成熟后产出的物品");
         add("advancement.harvestheritage.kfc.title", "疯狂疯狂星期四");
         add("advancement.harvestheritage.kfc.description", "食用疯狂星期四");
         add("advancement.harvestheritage.fride_seedsack.title", "吃瓜群众");

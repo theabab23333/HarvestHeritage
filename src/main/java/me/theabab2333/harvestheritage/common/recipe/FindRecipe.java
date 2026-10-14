@@ -93,7 +93,7 @@ public class FindRecipe extends BaseAbstractRecipe<RecipeInput> {
         }
 
         public void save(RecipeOutput consumer, Identifier id) {
-            var recipe = new FindRecipe(ingredient, result);
+            var recipe = new FindRecipe(this.ingredient, this.result);
             consumer.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null);
         }
     }

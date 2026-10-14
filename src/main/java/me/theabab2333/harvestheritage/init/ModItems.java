@@ -1,5 +1,6 @@
 package me.theabab2333.harvestheritage.init;
 
+import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.item.GrassShearItem;
 import me.theabab2333.harvestheritage.common.item.KnownSeedItem;
 import me.theabab2333.harvestheritage.common.item.MagnifyingGlassItem;
@@ -17,10 +18,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import static me.theabab2333.harvestheritage.HarvestHeritage.MODID;
-
 public class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(HarvestHeritage.MOD_ID);
 
     public static final DeferredItem<Item> GRASS_SHEAR = ITEMS.registerItem("grass_shear", GrassShearItem::new);
 

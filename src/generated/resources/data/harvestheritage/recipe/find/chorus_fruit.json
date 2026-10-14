@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:chorus_fruit"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:chorus_fruit"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

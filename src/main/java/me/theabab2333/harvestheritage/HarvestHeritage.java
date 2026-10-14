@@ -8,6 +8,8 @@ import me.theabab2333.harvestheritage.init.ModDataComponentPredicates;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
+import me.theabab2333.harvestheritage.init.ModSlotDisplays;
+import me.theabab2333.harvestheritage.init.seed.ModSeedRegistry;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,10 +21,11 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Mod(HarvestHeritage.MODID)
+// var~我乱用的
+@Mod(HarvestHeritage.MOD_ID)
 public class HarvestHeritage {
-    public static final String MODID = "harvestheritage";
-    public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
+    public static final String MOD_ID = "harvestheritage";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public HarvestHeritage(IEventBus eventBus, ModContainer modContainer) {
         eventBus.addListener(this::commonSetup);
@@ -34,6 +37,8 @@ public class HarvestHeritage {
         ModDataComponents.register(eventBus);
         ModDataComponentPredicates.register(eventBus);
         ModRecipes.register(eventBus);
+        ModSeedRegistry.register(eventBus);
+        ModSlotDisplays.register(eventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -44,7 +49,7 @@ public class HarvestHeritage {
     }
 
     public static Identifier of(String path) {
-        return Identifier.fromNamespaceAndPath(MODID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

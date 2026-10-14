@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:melon_slice"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:melon_slice"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

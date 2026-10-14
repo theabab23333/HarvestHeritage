@@ -15,12 +15,12 @@ import java.util.function.Supplier;
 public class ModRecipes {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
         Registries.RECIPE_TYPE,
-        HarvestHeritage.MODID
+        HarvestHeritage.MOD_ID
     );
 
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(
         Registries.RECIPE_SERIALIZER,
-        HarvestHeritage.MODID
+        HarvestHeritage.MOD_ID
     );
 
     public static final Supplier<RecipeType<FindRecipe>> FIND_TYPE = RECIPE_TYPES.register(

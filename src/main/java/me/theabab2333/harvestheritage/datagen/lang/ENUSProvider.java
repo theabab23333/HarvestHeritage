@@ -6,11 +6,12 @@ import me.theabab2333.harvestheritage.init.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
+// 如果有国外有人能帮我翻译的话，我就能把这里删了，然后把语言文件放 resources 里面(哭哭,全是机翻)
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ENUSProvider extends LanguageProvider {
 
     public ENUSProvider(PackOutput output) {
-        super(output, HarvestHeritage.MODID, "en_us");
+        super(output, HarvestHeritage.MOD_ID, "en_us");
     }
 
     @Override
@@ -57,7 +58,7 @@ public class ENUSProvider extends LanguageProvider {
         );
         add(
             "block.harvestheritage.crop_stand.tooltip.4",
-            "When crops are mature, if there are other mature crop stands two blocks away in the north, south, east, or west directions, crossbreeding may occur at the empty crop stand in the middle..."
+            "When crops are mature, if there are other mature crop stands two needBlocks away in the north, south, east, or west directions, crossbreeding may occur at the empty crop stand in the middle..."
         );
         add("block.harvestheritage.crop_stand.tooltip.5", "Of course, you can also breed within the same type");
         add(
@@ -67,14 +68,20 @@ public class ENUSProvider extends LanguageProvider {
         add("block.harvestheritage.scaffolding_crop_stand.tooltip.1", "Right-click scaffolding with a seed packet to convert");
         add(
             "block.harvestheritage.scaffolding_crop_stand.tooltip.2",
-            "Cannot crossbreed, but can be harvested. Suitable for large-scale planting; recommended a few blocks above the ground"
+            "Cannot crossbreed, but can be harvested. Suitable for large-scale planting; recommended a few needBlocks above the ground"
         );
         add("block.harvestheritage.activator.tooltip.1", "Random ticks are about to accelerate");
         add("block.harvestheritage.activator.tooltip.2", "Use a redstone signal to activate");
         add("jei.harvestheritage.find", "Let me see see");
         add("jei.harvestheritage.hybrid", "Hybrid");
         add("jei.harvestheritage.hybrid.tooltip", "Will appear in seed packet form!");
-        add("jei.harvestheritage.seed_output", "Seed Output");
+        add("jei.harvestheritage.seed_info", "Seed Info");
+        add("jei.harvestheritage.seed_info.seed_packet", "This is a seed packet");
+        add("jei.harvestheritage.seed_info.seed", "This is the seed (item) corresponding to the seed packet");
+        add("jei.harvestheritage.seed_info.need_blocks.1", "This is the block needed for crop growth");
+        add("jei.harvestheritage.seed_info.need_blocks.2", "Needs to be arranged in order");
+        add("jei.harvestheritage.seed_info.need_blocks.any", "This crop's growth is unrelated to the block below");
+        add("jei.harvestheritage.seed_info.output", "This is the item produced after the crop matures");
         add("advancement.harvestheritage.kfc.title", "Crazy Crazy Thursday");
         add("advancement.harvestheritage.kfc.description", "Eat KFC");
         add("advancement.harvestheritage.fride_seedsack.title", "Snacking Spectator");

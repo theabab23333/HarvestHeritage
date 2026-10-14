@@ -19,6 +19,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ScaffoldingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,9 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraft.world.level.block.ScaffoldingBlock.getDistance;
-
-// 大部分代码来自原版脚手架
+// 大部分代码来自原版脚手架，然而现在他好像没什么软用了
 public class ScaffoldingCropStandBlock extends BaseCropStandBlock {
     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
     public static final IntegerProperty DISTANCE = BlockStateProperties.STABILITY_DISTANCE;
@@ -77,13 +76,19 @@ public class ScaffoldingCropStandBlock extends BaseCropStandBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos pos = context.getClickedPos();
         Level level = context.getLevel();
-        int distance = getDistance(level, pos);
+        int distance = ScaffoldingBlock.getDistance(level, pos);
         return this.defaultBlockState().setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(level, pos, distance));
     }
 
     @Override
     public void dropContents(Level level, BlockPos pos, NonNullList<ItemStack> itemStacks) {
-        Containers.dropContents(level, pos.below(), itemStacks);
+        BlockPos belowPos = pos.below();
+        BlockState belowState = level.getBlockState(belowPos);
+        if (belowState.isAir()) {
+            Containers.dropContents(level, belowPos, itemStacks);
+        } else {
+            Containers.dropContents(level, pos, itemStacks);
+        }
     }
 
     @Override
@@ -93,7 +98,7 @@ public class ScaffoldingCropStandBlock extends BaseCropStandBlock {
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        int distance = getDistance(level, pos);
+        int distance = ScaffoldingBlock.getDistance(level, pos);
         BlockState newState = state.setValue(DISTANCE, distance).setValue(BOTTOM, this.isBottom(level, pos, distance));
         if (newState.getValue(DISTANCE) == 7) {
             if (state.getValue(DISTANCE) == 7) {

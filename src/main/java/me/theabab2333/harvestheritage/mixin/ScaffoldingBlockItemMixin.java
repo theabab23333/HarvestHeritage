@@ -22,7 +22,7 @@ public abstract class ScaffoldingBlockItemMixin extends BlockItem {
     }
 
     /**
-     * @author theabab
+     * @author theabab2333
      * @reason 统一脚手架与悬挂式作物架
      */
     @Overwrite

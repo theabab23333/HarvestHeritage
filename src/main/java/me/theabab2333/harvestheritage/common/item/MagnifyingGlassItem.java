@@ -1,11 +1,11 @@
 package me.theabab2333.harvestheritage.common.item;
 
 import me.theabab2333.harvestheritage.api.item.IHasTooltips;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
-import me.theabab2333.harvestheritage.init.ModSeeds;
-import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponentPatch;
@@ -41,6 +41,7 @@ public class MagnifyingGlassItem extends Item implements IHasTooltips {
         super(properties);
     }
 
+    // 没有人类了
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
@@ -79,11 +80,11 @@ public class MagnifyingGlassItem extends Item implements IHasTooltips {
                                 Containers.dropItemStack(level, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), result);
                             }
                         } else {
-                            // fallback for custom seeds from datapack seed_definitions
-                            Item itemInEntity = itemEntity.getItem().getItem();
-                            if (ModSeeds.ALL_SEED.containsKey(itemInEntity)) {
-                                SeedComponent seedComponent = SeedUtil.getSeedComponent(itemInEntity);
-                                DataComponentPatch patch = SeedUtil.createSeedComponentPatch(seedComponent);
+                            ItemStack entityStack = itemEntity.getItem();
+                            SeedInfo entityInfo = SeedUtil.getSeedInfo(entityStack.typeHolder());
+                            if (entityInfo != null) {
+                                SeedPacketComponent seedComponent = SeedPacketComponent.of(entityStack.typeHolder());
+                                DataComponentPatch patch = SeedUtil.createSeedPacketPatch(seedComponent);
                                 ItemStack knownSeed = new ItemStack(ModItems.KNOWN_SEED, 1, patch);
                                 ItemStack stack = itemEntity.getItem().copy();
                                 stack.shrink(1);

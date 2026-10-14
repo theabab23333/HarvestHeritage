@@ -6,7 +6,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
-@EventBusSubscriber(modid = HarvestHeritage.MODID)
+@EventBusSubscriber(modid = HarvestHeritage.MOD_ID)
 public class ModFarmlandEvent {
     @SubscribeEvent
     public static void fallOn(BlockEvent.FarmlandTrampleEvent event) {

@@ -15,7 +15,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         PackOutput output,
         CompletableFuture<HolderLookup.Provider> lookupProvider
     ) {
-        super(output, lookupProvider, HarvestHeritage.MODID);
+        super(output, lookupProvider, HarvestHeritage.MOD_ID);
     }
 
     @Override

@@ -3,7 +3,6 @@ package me.theabab2333.harvestheritage.common.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
-import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.Holder;
@@ -47,14 +46,14 @@ public class HybridRecipe extends BaseAbstractRecipe<RecipeInput> {
     }
 
     public List<ItemStack> getInputSeedPacketStacks() {
-        return inputSeeds.stream().map(Holder::value)
-            .map(item -> new ItemStack(ModItems.SEED_PACKET, 1, SeedUtil.createSeedComponentPatch(item)))
+        return this.inputSeeds.stream().map(Holder::value)
+            .map(SeedUtil::getSeedPacket)
             .toList();
     }
 
     public List<ItemStack> getOutputSeedPacketStacks() {
-        return outputSeeds.stream()
-            .map(h -> new ItemStack(ModItems.SEED_PACKET, 1, SeedUtil.createSeedComponentPatch(h.value())))
+        return this.outputSeeds.stream()
+            .map(SeedUtil::getSeedPacket)
             .toList();
     }
 
@@ -86,7 +85,7 @@ public class HybridRecipe extends BaseAbstractRecipe<RecipeInput> {
         }
 
         public void save(RecipeOutput consumer, Identifier id) {
-            var recipe = new HybridRecipe(inputSeeds, outputSeeds);
+            var recipe = new HybridRecipe(this.inputSeeds, this.outputSeeds);
             consumer.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null);
         }
     }

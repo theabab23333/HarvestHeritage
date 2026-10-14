@@ -15,16 +15,21 @@ public class ScaffoldingCropStandBlockEntity extends BaseCropStandBlockEntity {
 
     @Override
     public void tick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        if (this.seedPacketComponent != null) {
-            int speed = seedPacketComponent.speed();
-            var seedInfo = SeedUtil.getSeedInfo(this.seedPacketComponent.seedComponent().getSeed());
-            if (seedInfo == null) return;
-            int needStage = seedInfo.stage();
-            if (random.nextInt(3) < speed) {
-                if (this.stage < needStage) {
-                    this.stage++;
-                    level.sendBlockUpdated(pos, state, state, 3);
-                }
+        if (this.seedPacketComponent == null) return;
+
+        int speed = seedPacketComponent.speed();
+        var seedInfo = SeedUtil.getSeedInfo(this.seedPacketComponent.seed());
+        if (seedInfo == null) return;
+
+        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) return;
+
+        int needStage = seedInfo.stage();
+
+        if (random.nextInt(3) < speed) {
+            if (this.stage < needStage) {
+                this.stage++;
+                setChanged();
+                level.sendBlockUpdated(pos, state, state, 3);
             }
         }
     }

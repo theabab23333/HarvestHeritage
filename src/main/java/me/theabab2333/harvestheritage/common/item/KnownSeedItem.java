@@ -1,9 +1,8 @@
 package me.theabab2333.harvestheritage.common.item;
 
 import me.theabab2333.harvestheritage.api.item.IHasTooltips;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
-import me.theabab2333.harvestheritage.init.ModSeeds;
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -21,14 +20,14 @@ public class KnownSeedItem extends Item implements IHasTooltips {
     @Override
     public List<Component> getTooltip(ItemStack itemStack) {
         List<Component> list = new ArrayList<>();
-        SeedComponent seedInfo = itemStack.get(ModDataComponents.SEED_COMPONENT);
-        if (seedInfo == null) {
+        SeedPacketComponent packet = SeedUtil.getSeedPacketComponent(itemStack);
+        if (packet == null) {
             Component component = Component.translatable("item.harvestheritage.seed.tooltip.fail").withStyle(ChatFormatting.DARK_RED);
             list.add(component);
         } else {
-            list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(seedInfo.getSeed()))
+            list.add(Component.translatable("item.harvestheritage.seed.tooltip.seed", SeedUtil.getSeedName(packet.getSeed()))
                 .withStyle(ChatFormatting.GREEN));
-            ModSeeds.SeedInfo info = ModSeeds.ALL_SEED.get(seedInfo.getSeed());
+            SeedInfo info = SeedUtil.getSeedInfo(packet.seed());
             if (info != null) {
                 list.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", info.stage())
                     .withStyle(ChatFormatting.LIGHT_PURPLE));

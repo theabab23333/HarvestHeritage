@@ -1,0 +1,22 @@
+{
+  "type": "harvestheritage:hyprid",
+  "input_seeds": [
+    "minecraft:carrot",
+    "harvestheritage:grape"
+  ],
+  "output_seeds": [
+    "minecraft:wheat",
+    "minecraft:beetroot",
+    "minecraft:melon_slice",
+    "minecraft:pumpkin_pie",
+    "minecraft:sweet_berries",
+    "minecraft:glow_berries",
+    "minecraft:chorus_fruit",
+    "minecraft:potato",
+    "minecraft:sugar_cane",
+    "minecraft:bamboo",
+    "minecraft:sea_pickle",
+    "minecraft:kelp",
+    "minecraft:apple"
+  ]
+}

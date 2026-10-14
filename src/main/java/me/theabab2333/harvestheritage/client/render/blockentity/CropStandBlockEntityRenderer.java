@@ -1,11 +1,10 @@
 package me.theabab2333.harvestheritage.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.theabab2333.harvestheritage.client.render.blockentity.state.CropStandBlockEntityRenderState;
 import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
 import me.theabab2333.harvestheritage.common.block.entity.CropStandStandBlockEntity;
-import me.theabab2333.harvestheritage.client.render.blockentity.state.CropStandBlockEntityRenderState;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
-import me.theabab2333.harvestheritage.init.ModSeeds;
+import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
@@ -14,6 +13,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -36,36 +36,10 @@ public class CropStandBlockEntityRenderer implements BlockEntityRenderer<CropSta
         return new CropStandBlockEntityRenderState();
     }
 
-    // make idea happy~
-    @Override
-    @SuppressWarnings("ConstantValue")
-    public void extractRenderState(
-        CropStandStandBlockEntity blockEntity,
-        CropStandBlockEntityRenderState state,
-        float partialTicks,
-        Vec3 cameraPosition,
-        ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress
-    ) {
-        state.block.clear();
-        BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
-
-        state.seedPacketComponent = blockEntity.getSeedPacketComponent();
-        if (state.seedPacketComponent == null) return;
-        SeedComponent seedComponent = state.seedPacketComponent.seedComponent();
-        if (seedComponent == null) return;
-
-        state.stage = blockEntity.getStage();
-        int renderStage = getRenderStage(blockEntity, seedComponent);
-
-        BlockState blockState = Blocks.WHEAT.defaultBlockState().setValue(CropBlock.AGE, renderStage);
-        this.blockModelResolver.update(state.block, blockState, BLOCK_DISPLAY_CONTEXT);
-    }
-
-    public static int getRenderStage(BaseCropStandBlockEntity blockEntity, SeedComponent seedComponent) {
+    public static int getRenderStage(BaseCropStandBlockEntity blockEntity, Holder<Item> seedItem) {
         int maxStage = 7;
         int stateStage = blockEntity.getStage();
-        Item seedItem = seedComponent.getSeed();
-        var seedInfo = ModSeeds.ALL_SEED.get(seedItem);
+        var seedInfo = SeedUtil.getSeedInfo(seedItem);
         int seedStage = seedInfo != null ? seedInfo.stage() : 0;
 
         int renderStage;
@@ -81,6 +55,29 @@ public class CropStandBlockEntityRenderer implements BlockEntityRenderer<CropSta
             renderStage = seedStage + (maxStage - seedStage) * seedStage / stateStage;
         }
         return renderStage;
+    }
+
+    // make idea happy~
+    @Override
+    @SuppressWarnings("ConstantValue")
+    public void extractRenderState(
+        CropStandStandBlockEntity blockEntity,
+        CropStandBlockEntityRenderState state,
+        float partialTicks,
+        Vec3 cameraPosition,
+        ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress
+    ) {
+        state.block.clear();
+        BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
+
+        state.seedPacketComponent = blockEntity.getSeedPacketComponent();
+        if (state.seedPacketComponent == null) return;
+
+        state.stage = blockEntity.getStage();
+        int renderStage = getRenderStage(blockEntity, state.seedPacketComponent.seed());
+
+        BlockState blockState = Blocks.WHEAT.defaultBlockState().setValue(CropBlock.AGE, renderStage);
+        this.blockModelResolver.update(state.block, blockState, BLOCK_DISPLAY_CONTEXT);
     }
 
     @Override

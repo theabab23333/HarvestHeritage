@@ -1,10 +1,9 @@
 package me.theabab2333.harvestheritage.client.render.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.theabab2333.harvestheritage.common.block.entity.ScaffoldingCropStandBlockEntity;
 import me.theabab2333.harvestheritage.client.render.blockentity.state.ScaffoldingCropStandBlockEntityRenderState;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
-import me.theabab2333.harvestheritage.init.ModSeeds;
+import me.theabab2333.harvestheritage.common.block.entity.ScaffoldingCropStandBlockEntity;
+import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -50,16 +48,13 @@ public class ScaffoldingCropStandBlockEntityRenderer
 
         state.seedPacketComponent = blockEntity.getSeedPacketComponent();
         if (state.seedPacketComponent == null) return;
-        SeedComponent seedComponent = state.seedPacketComponent.seedComponent();
-        if (seedComponent == null) return;
 
         state.stage = blockEntity.getStage();
 
         BlockState azaleaState = Blocks.AZALEA.defaultBlockState();
         this.blockModelResolver.update(state.block, azaleaState, BLOCK_DISPLAY_CONTEXT);
 
-        Item seedItem = seedComponent.getSeed();
-        var seedInfo = ModSeeds.ALL_SEED.get(seedItem);
+        var seedInfo = SeedUtil.getSeedInfo(state.seedPacketComponent.seed());
         if (seedInfo != null && state.stage == seedInfo.stage()) {
             BlockState sporeState = Blocks.SPORE_BLOSSOM.defaultBlockState();
             this.blockModelResolver.update(state.block1, sporeState, BLOCK_DISPLAY_CONTEXT);

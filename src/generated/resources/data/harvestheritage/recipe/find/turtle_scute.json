@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:turtle_scute"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:turtle_scute"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

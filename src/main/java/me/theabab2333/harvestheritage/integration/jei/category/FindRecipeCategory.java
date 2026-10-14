@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.integration.jei.category;
 
+import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.integration.jei.ModJeiPlugin;
-import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;

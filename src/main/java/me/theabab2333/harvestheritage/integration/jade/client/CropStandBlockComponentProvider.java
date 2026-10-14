@@ -23,7 +23,6 @@ public class CropStandBlockComponentProvider implements IBlockComponentProvider 
     }
 
     @Override
-    @SuppressWarnings("ConstantValue")
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig config) {
         var data = CropStandBlockServerDataProvider.INSTANCE.streamData(blockAccessor);
 
@@ -34,17 +33,17 @@ public class CropStandBlockComponentProvider implements IBlockComponentProvider 
 
         IThemeHelper theme = IThemeHelper.get();
         var seedPacketComponent = data.seedPacketComponent();
-        var seedComponent = seedPacketComponent.seedComponent();
-        if (seedComponent == null) {
-            this.noSeed(tooltip);
-            return;
-        }
-        var seed = seedComponent.getSeed();
+        var seed = seedPacketComponent.seed();
         var seedInfo = SeedUtil.getSeedInfo(seed);
         int stage = data.stage();
 
+        if (seedInfo == null) {
+            this.noSeed(tooltip);
+            return;
+        }
+
         MutableComponent value = Component.translatable("jade.fraction", stage, seedInfo.stage());
-        tooltip.add(JadeUI.item(seed.getDefaultInstance()));
+        tooltip.add(JadeUI.item(seed.value().getDefaultInstance()));
         tooltip.add(
             Component.translatable(
                 "jade.harvestheritage.crop_stand.stage",

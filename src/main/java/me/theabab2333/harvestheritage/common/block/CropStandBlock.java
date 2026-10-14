@@ -34,6 +34,7 @@ public class CropStandBlock extends BaseCropStandBlock {
         return AABB;
     }
 
+    // 喜欢我的 tooltip 吗
     @Override
     public List<Component> getTooltip(ItemStack itemStack) {
         List<Component> components = new ArrayList<>();

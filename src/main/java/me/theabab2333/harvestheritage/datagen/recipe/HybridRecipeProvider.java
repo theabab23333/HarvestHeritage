@@ -2,6 +2,8 @@ package me.theabab2333.harvestheritage.datagen.recipe;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.init.seed.ModSeeds;
+import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -13,10 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.theabab2333.harvestheritage.init.ModSeeds.CROP_SEED;
-import static me.theabab2333.harvestheritage.util.SeedUtil.getHolder;
-import static me.theabab2333.harvestheritage.util.SeedUtil.getPath;
-
 public class HybridRecipeProvider extends ModRecipeProvider {
     protected HybridRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
         super(registries, output);
@@ -24,12 +22,11 @@ public class HybridRecipeProvider extends ModRecipeProvider {
 
     private static final Identifier HYPRID = HarvestHeritage.of("hyprid/");
 
-    public static final List<Item> COMMON_SEEDS = new ArrayList<>();
+    public static final List<Item> COMMON_SEEDS = ModSeeds.cropSeeds().stream()
+        .map(definition -> definition.seed().value())
+        .toList();
 
-    static {
-        CROP_SEED.forEach((item, _) -> COMMON_SEEDS.add(item));
-    }
-
+    @SuppressWarnings("checkstyle:RequireThis")
     @Override
     protected void buildRecipes() {
         // common seeds
@@ -74,29 +71,29 @@ public class HybridRecipeProvider extends ModRecipeProvider {
             return;
         }
         List<Holder<Item>> holders = new ArrayList<>();
-        inputs.forEach(item -> holders.add(getHolder(item)));
+        inputs.forEach(item -> holders.add(SeedUtil.getHolder(item)));
         if (outputs.length == 0) {
             HarvestHeritage.LOGGER.warn("Datagen hyprid Recipe is exception! Outputs");
             return;
         }
         List<Holder<Item>> seeds = new ArrayList<>();
-        Arrays.asList(outputs).forEach(seed -> seeds.add(getHolder(seed)));
-        HybridRecipe.Builder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(getPath(seeds.getFirst().value())));
+        Arrays.asList(outputs).forEach(seed -> seeds.add(SeedUtil.getHolder(seed)));
+        HybridRecipe.Builder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(SeedUtil.getPath(seeds.getFirst().value())));
     }
 
     private void buildCommonSeeds() {
-        for (int i = 0; i < CROP_SEED.size(); i++) {
+        for (int i = 0; i < COMMON_SEEDS.size(); i++) {
             for (int j = i + 1; j < COMMON_SEEDS.size(); j++) {
                 Item input1 = COMMON_SEEDS.get(i);
                 Item input2 = COMMON_SEEDS.get(j);
                 List<Holder<Item>> outputs = new ArrayList<>();
                 for (Item seed : COMMON_SEEDS) {
                     if (seed != input1 && seed != input2) {
-                        outputs.add(getHolder(seed));
+                        outputs.add(SeedUtil.getHolder(seed));
                     }
                 }
-                HybridRecipe.Builder.builder(List.of(getHolder(input1), getHolder(input2)), outputs)
-                    .save(output, HYPRID.withSuffix("common/").withSuffix(getPath(input1) + "_and_" + getPath(input2)));
+                HybridRecipe.Builder.builder(List.of(SeedUtil.getHolder(input1), SeedUtil.getHolder(input2)), outputs)
+                    .save(output, HYPRID.withSuffix("common/").withSuffix(SeedUtil.getPath(input1) + "_and_" + SeedUtil.getPath(input2)));
             }
         }
     }

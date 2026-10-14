@@ -8,16 +8,20 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 
-public record SeedPacketComponent(SeedComponent seedComponent, int speed, int output) {
+// 对的对的，种子袋的组件，种子生长速度产量的
+public record SeedPacketComponent(Holder<Item> seed, int speed, int output) {
+    public static final int DEFAULT_SPEED = 1;
+    public static final int DEFAULT_OUTPUT = 1;
+
     public static final Codec<SeedPacketComponent> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-        SeedComponent.CODEC.fieldOf("seed_component").forGetter(SeedPacketComponent::seedComponent),
-        Codec.INT.fieldOf("speed").forGetter(SeedPacketComponent::speed),
-        Codec.INT.fieldOf("output").forGetter(SeedPacketComponent::output)
+        Item.CODEC.fieldOf("seed").forGetter(SeedPacketComponent::seed),
+        Codec.INT.optionalFieldOf("speed", DEFAULT_SPEED).forGetter(SeedPacketComponent::speed),
+        Codec.INT.optionalFieldOf("output", DEFAULT_OUTPUT).forGetter(SeedPacketComponent::output)
     ).apply(inst, SeedPacketComponent::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SeedPacketComponent> STREAM_CODEC = StreamCodec.composite(
-        SeedComponent.STREAM_CODEC,
-        SeedPacketComponent::seedComponent,
+        Item.STREAM_CODEC,
+        SeedPacketComponent::seed,
         ByteBufCodecs.INT,
         SeedPacketComponent::speed,
         ByteBufCodecs.INT,
@@ -25,15 +29,15 @@ public record SeedPacketComponent(SeedComponent seedComponent, int speed, int ou
         SeedPacketComponent::new
     );
 
-    public static SeedPacketComponent createSeedPacket(Holder<Item> seed, int speed, int output) {
-        return new SeedPacketComponent(SeedComponent.createSeed(seed), speed, output);
+    public static SeedPacketComponent of(Holder<Item> seed) {
+        return new SeedPacketComponent(seed, DEFAULT_SPEED, DEFAULT_OUTPUT);
     }
 
-    public static SeedPacketComponent createSeedPacket(SeedComponent seedComponent, int speed, int output) {
-        return new SeedPacketComponent(seedComponent, speed, output);
+    public static SeedPacketComponent of(Item seed) {
+        return of(seed.builtInRegistryHolder);
     }
 
-    public static SeedPacketComponent updateSeedPacket(SeedPacketComponent component, int speed, int output) {
-        return new SeedPacketComponent(component.seedComponent, speed, output);
+    public Item getSeed() {
+        return this.seed.value();
     }
 }

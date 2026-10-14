@@ -2,6 +2,7 @@ package me.theabab2333.harvestheritage.datagen;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.datagen.advancement.ModAdvancementProvider;
+import me.theabab2333.harvestheritage.datagen.definition.SeedDefinitionProvider;
 import me.theabab2333.harvestheritage.datagen.lang.ENUSProvider;
 import me.theabab2333.harvestheritage.datagen.lang.ZHCNProvider;
 import me.theabab2333.harvestheritage.datagen.loot.ModLootTables;
@@ -18,10 +19,13 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = HarvestHeritage.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = HarvestHeritage.MOD_ID, value = Dist.CLIENT)
 public class Datagen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent.Client event) {
+        // Datapack
+        event.createDatapackRegistryObjects(SeedDefinitionProvider.build());
+
         // Model
         event.createProvider(ModModelProvider::new);
 

@@ -14,7 +14,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = HarvestHeritage.MODID)
+@EventBusSubscriber(modid = HarvestHeritage.MOD_ID)
 public class ModTooltipEvent {
     @SubscribeEvent
     public static void register(AddAttributeTooltipsEvent event) {

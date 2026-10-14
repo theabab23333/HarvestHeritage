@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:beetroot"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:beetroot"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

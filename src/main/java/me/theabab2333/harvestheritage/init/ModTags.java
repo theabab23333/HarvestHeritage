@@ -11,16 +11,15 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
 
     private static TagKey<Item> createItemTag(String name) {
-        return ItemTags.create(Identifier.fromNamespaceAndPath(HarvestHeritage.MODID, name));
+        return ItemTags.create(Identifier.fromNamespaceAndPath(HarvestHeritage.MOD_ID, name));
     }
 
     private static TagKey<Block> createBlockTag(String name) {
-        return BlockTags.create(Identifier.fromNamespaceAndPath(HarvestHeritage.MODID, name));
+        return BlockTags.create(Identifier.fromNamespaceAndPath(HarvestHeritage.MOD_ID, name));
     }
 
     public static class ModItemTags {
         public static TagKey<Item> CHROME_BALL = ItemTags.create(Identifier.fromNamespaceAndPath("c", "chromeballs"));
-        ;
     }
 
     public static class ModBlockTags {

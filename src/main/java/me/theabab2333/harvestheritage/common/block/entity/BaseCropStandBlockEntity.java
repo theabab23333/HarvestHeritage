@@ -3,11 +3,9 @@ package me.theabab2333.harvestheritage.common.block.entity;
 import lombok.Getter;
 import lombok.Setter;
 import me.theabab2333.harvestheritage.common.block.BaseCropStandBlock;
-import me.theabab2333.harvestheritage.common.component.SeedComponent;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
-import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,12 +20,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,18 +44,17 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     public void seedUseOn(ItemStack itemStack) {
         if (level == null || level.isClientSide()) return;
 
-        if (seedPacketComponent == null) {
-            if (itemStack.get(ModDataComponents.SEED_COMPONENT) instanceof SeedComponent component) {
-                this.seedPacketComponent = SeedPacketComponent.createSeedPacket(component, 1, 1);
-                this.stage = 0;
-            } else if (itemStack.get(ModDataComponents.SEED_PACKET_COMPONENT) instanceof SeedPacketComponent component) {
-                this.seedPacketComponent = component;
-                this.stage = 0;
-            }
-            itemStack.shrink(1);
-            setChanged();
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-        }
+        if (this.seedPacketComponent != null) return;
+
+        SeedPacketComponent component = SeedUtil.getSeedPacketComponent(itemStack);
+        if (component == null) return;
+
+        this.seedPacketComponent = component;
+        this.stage = 0;
+
+        itemStack.shrink(1);
+        setChanged();
+        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     }
 
     @Override
@@ -73,46 +70,43 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
-        this.seedPacketComponent = input.read("seed_component", SeedPacketComponent.CODEC).orElse(null);
+        this.seedPacketComponent = input.read("seed_packet_component", SeedPacketComponent.CODEC).orElse(null);
         this.stage = input.getIntOr("stage", 0);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
-        if (seedPacketComponent != null) {
-            output.store("seed_component", SeedPacketComponent.CODEC, this.seedPacketComponent);
+        if (this.seedPacketComponent != null) {
+            output.store("seed_packet_component", SeedPacketComponent.CODEC, this.seedPacketComponent);
         }
         output.putInt("stage", this.stage);
     }
 
-    public void setSeedPacketComponent(SeedPacketComponent seedPacketComponent) {
+    public void setSeedPacketComponent(@Nullable SeedPacketComponent seedPacketComponent) {
+        this.seedPacketComponent = seedPacketComponent;
+        setChanged();
         if (level != null) {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
-            this.seedPacketComponent = seedPacketComponent;
         }
     }
 
     public void tick(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         if (this.seedPacketComponent == null) return;
 
-        Item seedItem = this.seedPacketComponent.seedComponent().getSeed();
+        Holder<Item> seedItem = this.seedPacketComponent.seed();
         var seedInfo = SeedUtil.getSeedInfo(seedItem);
         if (seedInfo == null) return;
-        int needStage = seedInfo.stage();
 
+        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) return;
+
+        int needStage = seedInfo.stage();
         if (this.stage == needStage) {
-            find(level, pos);
+            this.find(level, pos);
             return;
         }
 
-        if (seedInfo.block() != Blocks.AIR) {
-            BlockPos belowPos = pos.below(2);
-            BlockState belowState = level.getBlockState(belowPos);
-            if (!belowState.is(seedInfo.block())) return;
-        }
-
-        int speed = seedPacketComponent.speed();
+        int speed = this.seedPacketComponent.speed();
         if (random.nextInt(3) < speed) {
             this.stage++;
             setChanged();
@@ -120,6 +114,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         }
     }
 
+    // 我去，有点shit
     @SuppressWarnings("ConstantValue")
     public void find(ServerLevel level, BlockPos pos) {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -135,10 +130,9 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                         BaseCropStandBlockEntity be2 = (BaseCropStandBlockEntity) level.getBlockEntity(pos2);
                         SeedPacketComponent component = be2.getSeedPacketComponent();
                         if (component == null) continue;
-                        Item be2SeedItem = component.seedComponent().getSeed();
-                        var be2Info = SeedUtil.getSeedInfo(be2SeedItem);
+                        var be2Info = SeedUtil.getSeedInfo(component.seed());
                         if (be2Info != null && be2Info.stage() == be2.stage) {
-                            hybrid(be1, this.seedPacketComponent, component, level);
+                            this.hybrid(be1, this.seedPacketComponent, component, level);
                             return;
                         }
                     }
@@ -147,6 +141,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         }
     }
 
+    // 看起来还好但是我感觉还是怪怪的
     public void hybrid(
         BaseCropStandBlockEntity cropStandBlock,
         SeedPacketComponent component1,
@@ -156,10 +151,10 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         var holders = level.recipeAccess().recipeMap().byType(ModRecipes.HYBRID_TYPE.get());
         if (holders.isEmpty()) return;
 
-        Item item1 = component1.seedComponent().getSeed();
-        Item item2 = component2.seedComponent().getSeed();
+        Item item1 = component1.getSeed();
+        Item item2 = component2.getSeed();
 
-        List<SeedComponent> allOutputs = new ArrayList<>();
+        List<Holder<Item>> allOutputs = new ArrayList<>();
 
         for (RecipeHolder<HybridRecipe> holder : holders) {
             HybridRecipe recipe = holder.value();
@@ -168,21 +163,17 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                 Item a = inputList.get(0).value();
                 Item b = inputList.get(1).value();
                 if ((item1 == a || item1 == b) && (item2 == a || item2 == b) && item1 != item2) {
-                    recipe.getOutputSeeds().stream()
-                        .map(holder1 -> SeedUtil.getSeedComponent(holder1.value()))
-                        .forEach(allOutputs::add);
+                    allOutputs.addAll(recipe.getOutputSeeds());
                 }
             }
         }
 
-        List<SeedComponent> seeds = new ArrayList<>(allOutputs);
-        seeds.add(component1.seedComponent());
-        seeds.add(component2.seedComponent());
+        List<Holder<Item>> seeds = new ArrayList<>(allOutputs);
+        seeds.add(component1.seed());
+        seeds.add(component2.seed());
 
         cropStandBlock.setSeedPacketComponent(
             SeedUtil.mergeSeedPackets(level.getRandom(), component1, component2, seeds)
         );
-        setChanged(level, cropStandBlock.getBlockPos(), cropStandBlock.getBlockState());
-        level.sendBlockUpdated(cropStandBlock.getBlockPos(), cropStandBlock.getBlockState(), cropStandBlock.getBlockState(), 3);
     }
 }

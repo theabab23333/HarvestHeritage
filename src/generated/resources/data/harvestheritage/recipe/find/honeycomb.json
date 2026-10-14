@@ -4,7 +4,9 @@
   "result": [
     {
       "components": {
-        "harvestheritage:seed_component": "minecraft:honeycomb"
+        "harvestheritage:seed_packet_component": {
+          "seed": "minecraft:honeycomb"
+        }
       },
       "id": "harvestheritage:known_seed"
     }

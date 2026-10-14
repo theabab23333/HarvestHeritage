@@ -8,7 +8,7 @@ import net.minecraft.data.PackOutput;
 
 public class ModModelProvider extends ModelProvider {
     public ModModelProvider(PackOutput output) {
-        super(output, HarvestHeritage.MODID);
+        super(output, HarvestHeritage.MOD_ID);
     }
 
     @Override

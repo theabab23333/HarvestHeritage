@@ -17,10 +17,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
 
-import static me.theabab2333.harvestheritage.HarvestHeritage.MODID;
-
 public class ModBlocks {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HarvestHeritage.MOD_ID);
 
     public static final DeferredBlock<Block> CROP_STAND_BLOCK = registerBlockWithItem(
         "crop_stand_block",
@@ -60,7 +58,7 @@ public class ModBlocks {
             name, () -> new BlockItem(
                 block.get(), new Item.Properties().useBlockDescriptionPrefix()
                 .setId(
-                    ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(HarvestHeritage.MODID, name))
+                    ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(HarvestHeritage.MOD_ID, name))
                 )
             )
         );

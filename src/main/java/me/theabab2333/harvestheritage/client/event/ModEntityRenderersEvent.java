@@ -10,7 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-@EventBusSubscriber(modid = HarvestHeritage.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = HarvestHeritage.MOD_ID, value = Dist.CLIENT)
 public class ModEntityRenderersEvent {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

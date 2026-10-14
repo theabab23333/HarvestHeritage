@@ -1,9 +1,9 @@
 package me.theabab2333.harvestheritage.integration.jei.category;
 
+import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.integration.jei.ModJeiPlugin;
 import me.theabab2333.harvestheritage.integration.jei.util.JeiRenderHelper;
-import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.util.StyleUtil;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,19 +17,18 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
+// 妈的怎么看怎么像屎
 public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<HybridRecipe>> {
 
-    private static final int MAX_SHOWN_COLUMN = 3;
-    private static final int MAX_SHOWN_ROW = 4;
-
-    private final IDrawable arrowDefault;
-
+    private final IDrawable cropStand;
 
     public HybridRecipeCategory(IGuiHelper guiHelper) {
         super(
@@ -40,14 +39,13 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
             74
         );
 
-        this.arrowDefault = JeiRenderHelper.getArrowDefault(guiHelper);
+        this.cropStand = JeiRenderHelper.getCropStand(guiHelper);
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<HybridRecipe> holder, IFocusGroup focuses) {
         HybridRecipe recipe = holder.value();
         List<ItemStack> inputStacks = recipe.getInputSeeds().stream().map(ItemStack::new).toList();
-        List<ItemStack> outputStacks = recipe.getOutputSeeds().stream().map(ItemStack::new).toList();
 
         builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getInputSeedPacketStacks());
         builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStacks(recipe.getOutputSeedPacketStacks());
@@ -56,10 +54,10 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
         builder.addInputSlot(58, 30).setStandardSlotBackground().add(inputStacks.getLast());
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 30, 30).setStandardSlotBackground().add(ModBlocks.CROP_STAND_BLOCK);
 
-        for (ItemStack outputStack : outputStacks) {
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 0, 0)
-                .setStandardSlotBackground()
-                .add(outputStack)
+        List<Holder<Item>> outputStacks = recipe.getOutputSeeds();
+        for (Holder<Item> itemHolder : outputStacks) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT)
+                .add(itemHolder.value())
                 .addRichTooltipCallback((_, tooltip) -> tooltip.add(Component.translatable("jei.harvestheritage.hybrid.tooltip")
                     .withStyle(StyleUtil.colorFromRatio())));
         }
@@ -69,17 +67,17 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
     public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<HybridRecipe> holder, IFocusGroup focuses) {
         IRecipeSlotDrawablesView recipeSlots = builder.getRecipeSlots();
         List<IRecipeSlotDrawable> outputSlots = recipeSlots.getSlots(RecipeIngredientRole.OUTPUT);
-        IScrollGridWidget scrollGridWidget = builder.addScrollGridWidget(outputSlots, MAX_SHOWN_COLUMN, MAX_SHOWN_ROW);
+        IScrollGridWidget scrollGridWidget = builder.addScrollGridWidget(outputSlots, 3, 4);
         scrollGridWidget.setPosition(
-            108,
-            1,
+            0,
+            0,
             this.getWidth(),
             this.getHeight(),
-            HorizontalAlignment.LEFT,
+            HorizontalAlignment.RIGHT,
             VerticalAlignment.TOP
         );
 
         builder.addRecipeArrowWidget().setPosition(77, 5);
-        builder.addDrawableWidget(arrowDefault).setPosition(8, 4);
+        builder.addDrawableWidget(this.cropStand).setPosition(8, 4);
     }
 }
