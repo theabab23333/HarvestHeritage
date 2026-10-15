@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "tag": "c:stones"
+    }
+  ],
   "results": [
     "minecraft:flint"
   ],

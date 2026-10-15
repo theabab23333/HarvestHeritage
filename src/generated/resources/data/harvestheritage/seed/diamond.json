@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "block": "minecraft:diamond_block"
+    }
+  ],
   "results": [
     "minecraft:diamond"
   ],

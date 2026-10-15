@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "need_blocks": [
+    {
+      "block": "ae2:condenser"
+    }
+  ],
+  "results": [
+    "ae2:singularity"
+  ],
+  "seed": "ae2:singularity",
+  "stage": 6
+}

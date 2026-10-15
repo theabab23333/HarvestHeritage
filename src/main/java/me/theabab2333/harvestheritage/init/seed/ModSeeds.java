@@ -11,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -257,54 +259,67 @@ public class ModSeeds {
     public static final SeedDefinition FLINT = seed("flint", Items.FLINT)
         .stage(3)
         .result(Items.FLINT)
+        .needTag(Tags.Blocks.STONES)
         .build();
     public static final SeedDefinition COAL = seed("coal", Items.COAL)
         .stage(4)
         .result(Items.COAL)
+        .need(Blocks.COAL_BLOCK)
         .build();
     public static final SeedDefinition IRON_INGOT = seed("iron_ingot", Items.IRON_INGOT)
         .stage(5)
         .result(Items.IRON_INGOT)
+        .need(Blocks.IRON_BLOCK)
         .build();
     public static final SeedDefinition COPPER_INGOT = seed("copper_ingot", Items.COPPER_INGOT)
         .stage(5)
         .result(Items.COPPER_INGOT)
+        .need(Blocks.COPPER_BLOCK)
         .build();
     public static final SeedDefinition GOLD_INGOT = seed("gold_ingot", Items.GOLD_INGOT)
         .stage(5)
         .result(Items.GOLD_INGOT)
+        .result(Blocks.GOLD_BLOCK)
         .build();
     public static final SeedDefinition AMETHYST_SHARD = seed("amethyst_shard", Items.AMETHYST_SHARD)
         .stage(5)
         .result(Items.AMETHYST_SHARD)
+        .need(Blocks.AMETHYST_BLOCK)
         .build();
     public static final SeedDefinition QUARTZ = seed("quartz", Items.QUARTZ)
         .stage(5)
         .result(Items.QUARTZ)
+        .result(Blocks.QUARTZ_BLOCK)
         .build();
     public static final SeedDefinition LAPIS_LAZULI = seed("lapis_lazuli", Items.LAPIS_LAZULI)
         .stage(5)
         .result(Items.LAPIS_LAZULI)
+        .result(Blocks.LAPIS_BLOCK)
         .build();
     public static final SeedDefinition REDSTONE = seed("redstone", Items.REDSTONE)
         .stage(5)
         .result(Items.REDSTONE)
+        .need(Blocks.REDSTONE_BLOCK)
         .build();
     public static final SeedDefinition GLOWSTONE_DUST = seed("glowstone_dust", Items.GLOWSTONE_DUST)
         .stage(5)
         .result(Items.GLOWSTONE_DUST)
+        .need(Blocks.GLOWSTONE)
         .build();
     public static final SeedDefinition EMERALD = seed("emerald", Items.EMERALD)
         .stage(5)
         .result(Items.EMERALD)
+        .need(Blocks.EMERALD_BLOCK)
         .build();
     public static final SeedDefinition DIAMOND = seed("diamond", Items.DIAMOND)
         .stage(5)
         .result(Items.DIAMOND)
+        .need(Blocks.DIAMOND_BLOCK)
         .build();
     public static final SeedDefinition NETHERITE_SCRAP = seed("netherite_scrap", Items.NETHERITE_SCRAP)
         .stage(6)
         .result(Items.ANCIENT_DEBRIS)
+        .need(Blocks.ANCIENT_DEBRIS)
         .build();
     public static final SeedDefinition ENDER_EYE = seed("ender_eye", Items.ENDER_EYE)
         .stage(5)

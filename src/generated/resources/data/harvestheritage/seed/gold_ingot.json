@@ -1,6 +1,7 @@
 {
   "results": [
-    "minecraft:gold_ingot"
+    "minecraft:gold_ingot",
+    "minecraft:gold_block"
   ],
   "seed": "minecraft:gold_ingot",
   "stage": 5

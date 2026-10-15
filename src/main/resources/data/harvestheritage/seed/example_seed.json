@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "its example"
+    }
+  ],
+  "need_blocks": [
+    {
+      "block": "example"
+    },
+    {
+      "tag": "example"
+    }
+  ],
+  "results": [
+    "example"
+  ],
+  "seed": "example",
+  "stage": 3
+}

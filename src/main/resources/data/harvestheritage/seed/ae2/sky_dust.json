@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "need_blocks": [
+    {
+      "block": "ae2:sky_stone_block"
+    }
+  ],
+  "results": [
+    "ae2:sky_dust"
+  ],
+  "seed": "ae2:sky_dust",
+  "stage": 4
+}

@@ -1,6 +1,7 @@
 {
   "results": [
-    "minecraft:lapis_lazuli"
+    "minecraft:lapis_lazuli",
+    "minecraft:lapis_block"
   ],
   "seed": "minecraft:lapis_lazuli",
   "stage": 5

@@ -1,6 +1,7 @@
 {
   "results": [
-    "minecraft:quartz"
+    "minecraft:quartz",
+    "minecraft:quartz_block"
   ],
   "seed": "minecraft:quartz",
   "stage": 5

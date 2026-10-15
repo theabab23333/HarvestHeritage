@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "block": "minecraft:copper_block"
+    }
+  ],
   "results": [
     "minecraft:copper_ingot"
   ],

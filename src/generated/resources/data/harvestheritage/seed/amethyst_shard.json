@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "block": "minecraft:amethyst_block"
+    }
+  ],
   "results": [
     "minecraft:amethyst_shard"
   ],

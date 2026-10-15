@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "block": "minecraft:coal_block"
+    }
+  ],
   "results": [
     "minecraft:coal"
   ],

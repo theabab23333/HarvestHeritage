@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "type": "harvestheritage:hyprid",
+  "input_seeds": [
+    "minecraft:gunpowder",
+    "minecraft:glowstone_dust"
+  ],
+  "output_seeds": [
+    "ae2:sky_dust"
+  ]
+}

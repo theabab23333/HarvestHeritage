@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "type": "harvestheritage:hyprid",
+  "input_seeds": [
+    "minecraft:quartz",
+    "minecraft:lapis_lazuli"
+  ],
+  "output_seeds": [
+    "ae2:certus_quartz_crystal"
+  ]
+}

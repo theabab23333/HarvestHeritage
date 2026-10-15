@@ -1,4 +1,9 @@
 {
+  "need_blocks": [
+    {
+      "block": "minecraft:ancient_debris"
+    }
+  ],
   "results": [
     "minecraft:ancient_debris"
   ],
