@@ -266,6 +266,10 @@ public class ModSeeds {
         .stage(5)
         .result(Items.IRON_INGOT)
         .build();
+    public static final SeedDefinition COPPER_INGOT = seed("copper_ingot", Items.COPPER_INGOT)
+        .stage(5)
+        .result(Items.COPPER_INGOT)
+        .build();
     public static final SeedDefinition GOLD_INGOT = seed("gold_ingot", Items.GOLD_INGOT)
         .stage(5)
         .result(Items.GOLD_INGOT)

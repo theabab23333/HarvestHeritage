@@ -6,6 +6,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -15,9 +16,14 @@ public class HarvestHeritageClient {
     public HarvestHeritageClient(IEventBus modEventBus, ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         modEventBus.addListener(this::registerItemModel);
+        modEventBus.addListener(this::onClientSetup);
     }
 
     private void registerItemModel(RegisterItemModelsEvent event) {
         event.register(HarvestHeritage.of("seed_packet"), SeedPacketItemModel.Unbaked.MAP_CODEC);
+    }
+
+    private void onClientSetup(FMLClientSetupEvent event) {
+        HarvestHeritage.getIntegrationManager().loadAllClientIntegrations();
     }
 }

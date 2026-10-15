@@ -14,6 +14,8 @@ public class ZHCNProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        this.guideme();
+
         addItem(ModItems.GRASS_SHEAR, "除草剪");
         addItem(ModItems.UNKNOWN_SEED, "未知种子");
         addItem(ModItems.MAGNIFYING_GLASS, "放大镜");
@@ -81,5 +83,10 @@ public class ZHCNProvider extends LanguageProvider {
         add("jade.harvestheritage.crop_stand.no_seed", "这个作物架似乎没有种植作物");
         add("jade.harvestheritage.crop_stand.stage", "生长阶段 : %s");
         add("config.jade.plugin_harvestheritage.crop_stand_block_data_provider", "作物架状态");
+    }
+
+    private void guideme() {
+        add("harvestheritage.guideme.guide_book", "收获：遗产 指南书");
+        add("harvestheritage.guideme.guide_book.tooltip", "这个模组一定很好玩吧?(真的假的");
     }
 }
