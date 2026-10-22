@@ -17,7 +17,7 @@ navigation:
 HarvestHeritage 新增了些物品和方块，提供部分资源的生产方案。  
 你可以打草获取种子，种到作物架上等他成熟，收获后能获取产物。  
 但这仅仅是个开始，你还能进行杂交，提升种子的质量，获取其他更多的产物。  
-致敬了 IC2 (?存疑)，但是至少没有杂草这种脏东西。
+致敬了 IC2 (?存疑)，至少没有杂草。
 
 # 其他
 
@@ -33,9 +33,7 @@ HarvestHeritage 新增了些物品和方块，提供部分资源的生产方案�
 * 更多种子
   - 添加了其他模组内的资源的种子。
 
-## 开发
-
-* 自定义种子
-
-如果开发者希望添加新种子或删除某种子，可以用数据包。
-
+<GameScene zoom="4">
+  <ImportStructure src="assets/structure/logo.snbt"></ImportStructure>
+  <IsometricCamera yaw="135" pitch="45"></IsometricCamera>
+</GameScene>

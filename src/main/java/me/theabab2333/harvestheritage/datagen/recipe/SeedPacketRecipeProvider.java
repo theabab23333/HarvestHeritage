@@ -6,9 +6,9 @@ import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.seed.ModSeeds;
 import me.theabab2333.harvestheritage.init.seed.SeedDefinition;
 import me.theabab2333.harvestheritage.util.SeedUtil;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -18,8 +18,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 
 public class SeedPacketRecipeProvider extends ModRecipeProvider {
-    protected SeedPacketRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    protected SeedPacketRecipeProvider(
+        BootstrapContext<Recipe<?>> recipes,
+        BootstrapContext<Advancement> advancements
+    ) {
+        super(recipes, advancements);
     }
 
     @Override

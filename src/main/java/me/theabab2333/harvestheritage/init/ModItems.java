@@ -14,6 +14,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -28,7 +29,7 @@ public class ModItems {
     public static final DeferredItem<Item> GRAPE = ITEMS.registerSimpleItem(
         "grape", properties -> properties.food(
             Foods.APPLE
-        )
+        ).compostable(ContextIntProviders.COMPOSTABLE_LOW)
     );
 
     public static final DeferredItem<Item> ZZZZ = ITEMS.registerItem("zzzz", ZZZZItem::new);

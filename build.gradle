@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
     id 'io.freefair.lombok' version "9.4.0"
 }
@@ -53,14 +53,14 @@ repositories {
 }
 
 dependencies {
-    implementation("mezz.jei:jei-26.1.2-neoforge:29.37.0.98")
-    implementation("maven.modrinth:jade:26.1.1+neoforge")
+    implementation("mezz.jei:jei-26.3-neoforge:31.9.0.61")
+    implementation("maven.modrinth:jade:26.3.5+neoforge")
 
-    implementation("org.appliedenergistics:appliedenergistics2:26.1.13-beta")
+    implementation("org.appliedenergistics:appliedenergistics2:26.3.1-alpha")
 
-    implementation("com.lowdragmc.ldlib2:ldlib2-neoforge-26.1:26.1.2.39")
+    implementation("com.lowdragmc.ldlib2:ldlib2-neoforge-26.3:26.3.2.41")
 
-    implementation("org.appliedenergistics:guideme:26.1.15-beta")
+    implementation("org.appliedenergistics:guideme:26.3.4-alpha")
 }
 
 base {

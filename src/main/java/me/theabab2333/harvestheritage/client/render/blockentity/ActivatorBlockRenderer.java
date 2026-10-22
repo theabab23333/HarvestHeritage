@@ -75,9 +75,10 @@ public class ActivatorBlockRenderer implements BlockEntityRenderer<ActivatorBloc
         poseStack.pushPose();
         poseStack.translate(0.5, 1.75, 0.5);
 
-        poseStack.mulPose(Axis.XP.rotationDegrees(t * 2F));
-        poseStack.mulPose(Axis.YP.rotationDegrees(t * 2F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(t));
+        // 26.3 的 PoseStack 只接受 Matrix4fc / Transformation，旋转改用 rotateDegrees
+        poseStack.rotateDegrees(Axis.XP, t * 2F);
+        poseStack.rotateDegrees(Axis.YP, t * 2F);
+        poseStack.rotateDegrees(Axis.ZP, t);
 
         float s = (float) Math.sin(t * 0.02F);
         poseStack.scale(-s, -s, -s);

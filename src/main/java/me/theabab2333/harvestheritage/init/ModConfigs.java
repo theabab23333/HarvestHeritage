@@ -20,7 +20,7 @@ public class ModConfigs {
     public static final ModConfigSpec CLIENT_SPEC = CLIENT_BUILDER.build();
 
     public static void register(ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.SERVER, ModConfigs.SERVER_SPEC);
+        modContainer.registerConfig(ModConfig.Type.SYNCED, ModConfigs.SERVER_SPEC);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ModConfigs.CLIENT_SPEC);
     }
 }

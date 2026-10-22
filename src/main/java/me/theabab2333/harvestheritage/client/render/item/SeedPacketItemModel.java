@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ResolvedModel;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.geometry.ItemQuads;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.client.resources.model.sprite.SpriteId;
@@ -49,7 +50,7 @@ import static net.minecraft.client.renderer.item.CuboidItemModelWrapper.computeE
 // AI-generated 我不会渲染，有没有人写写
 // 现在能用但是 seedItem 如果是 BlockItem 的话会出现部分情况不正常渲染的问题，其他问题可能还有我也不知道（）（）
 public record SeedPacketItemModel(
-    QuadCollection quads, List<ItemTintSource> tints, ModelRenderProperties properties, Matrix4fc matrix4fc, Supplier<Vector3fc[]> extents
+    QuadCollection quads, ItemQuads itemQuads, List<ItemTintSource> tints, ModelRenderProperties properties, Matrix4fc matrix4fc, Supplier<Vector3fc[]> extents
 ) implements ItemModel {
 
     @Override
@@ -73,7 +74,7 @@ public record SeedPacketItemModel(
         intList.add(-1);
         layer.setExtents(extents);
         properties.applyToLayer(layer, context);
-        layer.prepareQuadList().addAll(quads.getAll());
+        layer.setQuads(this.itemQuads);
         renderState.appendModelIdentityElement(intList.getInt(0));
 
         Holder<Item> holder = seedItem.seed(stack);
@@ -90,7 +91,10 @@ public record SeedPacketItemModel(
                 var baseQuads = quads.getAll();
                 if (!baseQuads.isEmpty()) {
                     var baseQuad = baseQuads.get(0);
-                    addSeedQuad(seedLayer, holder.value(), baseQuad.direction(), baseQuad.materialInfo());
+                    BakedQuad seedQuad = createSeedQuad(holder.value(), baseQuad.direction(), baseQuad.materialInfo());
+                    if (seedQuad != null) {
+                        seedLayer.setQuads(ItemQuads.split(List.of(seedQuad)));
+                    }
                 }
             } catch (Exception ignored) {
             }
@@ -100,8 +104,8 @@ public record SeedPacketItemModel(
         }
     }
 
-    private static void addSeedQuad(
-        ItemStackRenderState.LayerRenderState layer, Item seedItem,
+    private static @Nullable BakedQuad createSeedQuad(
+        Item seedItem,
         Direction direction, BakedQuad.MaterialInfo baseMat
     ) {
         Identifier itemId = BuiltInRegistries.ITEM.getKey(seedItem);
@@ -113,7 +117,7 @@ public record SeedPacketItemModel(
         if (sprite.contents().name().equals(MissingTextureAtlasSprite.getLocation())) {
             sprite = atlasManager.get(new SpriteId(TextureAtlas.LOCATION_ITEMS, textureId));
             if (sprite.contents().name().equals(MissingTextureAtlasSprite.getLocation())) {
-                return;
+                return null;
             }
         }
 
@@ -128,24 +132,25 @@ public record SeedPacketItemModel(
         long uv2 = packUV(sprite.getU(1.0f), sprite.getV(1.0f));
         long uv3 = packUV(sprite.getU(0.0f), sprite.getV(1.0f));
 
+        // 26.3 的 MaterialInfo 增加了 glint 渲染类型与 shadeDirectionOverride
         BakedQuad.MaterialInfo materialInfo = new BakedQuad.MaterialInfo(
             sprite,
             baseMat.layer(),
             baseMat.itemRenderType(),
+            baseMat.itemGlintRenderType(),
+            baseMat.itemGlintSpecialRenderType(),
             -1,
-            baseMat.shade(),
+            baseMat.shadeDirectionOverride(),
             baseMat.lightEmission(),
             baseMat.ambientOcclusion()
         );
 
-        BakedQuad seedQuad = new BakedQuad(
+        return new BakedQuad(
             p0, p1, p2, p3,
             uv3, uv2, uv1, uv0,
             direction,
             materialInfo
         );
-
-        layer.prepareQuadList().add(seedQuad);
     }
 
     private static long packUV(float u, float v) {
@@ -170,11 +175,13 @@ public record SeedPacketItemModel(
             ModelBaker baker = context.blockModelBaker();
             ResolvedModel resolvedModel = baker.getModel(this.model);
             TextureSlots slots = resolvedModel.getTopTextureSlots();
-            List<BakedQuad> baseModelQuads = resolvedModel.bakeTopGeometry(slots, baker, BlockModelRotation.IDENTITY).getAll();
+            QuadCollection quads = resolvedModel.bakeTopGeometry(slots, baker, BlockModelRotation.IDENTITY);
+            List<BakedQuad> baseModelQuads = quads.getAll();
             Supplier<Vector3fc[]> extents = Suppliers.memoize(() -> computeExtents(baseModelQuads));
 
             return new SeedPacketItemModel(
-                resolvedModel.bakeTopGeometry(slots, baker, BlockModelRotation.IDENTITY),
+                quads,
+                ItemQuads.split(baseModelQuads),
                 this.tints,
                 ModelRenderProperties.fromResolvedModel(baker, resolvedModel, slots),
                 Transformation.compose(matrix4fc, this.transformation),

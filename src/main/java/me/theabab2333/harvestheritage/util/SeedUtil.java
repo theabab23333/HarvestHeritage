@@ -33,15 +33,11 @@ public class SeedUtil {
     }
 
     public static @Nullable SeedInfo getSeedInfo(Item item) {
-        return getSeedInfo(getHolder(item));
+        return getSeedInfo(item.builtInRegistryHolder);
     }
 
     public static @Nullable SeedInfo getSeedInfo(Holder<Item> item) {
         return ModSeeds.getSeedInfo(item);
-    }
-
-    public static Holder<Item> getHolder(Item item) {
-        return item.builtInRegistryHolder;
     }
 
     public static @Nullable SeedPacketComponent getSeedPacketComponent(ItemStack itemStack) {
@@ -61,7 +57,7 @@ public class SeedUtil {
     }
 
     public static ItemStack getSeedPacket(Item seedItem) {
-        return getSeedPacket(getHolder(seedItem));
+        return getSeedPacket(seedItem.builtInRegistryHolder);
     }
 
     public static boolean matchesGrowBlocks(

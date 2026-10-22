@@ -5,18 +5,23 @@ import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.seed.ModSeeds;
 import me.theabab2333.harvestheritage.util.SeedUtil;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.List;
 
 public class FindRecipeProvider extends ModRecipeProvider {
 
-    protected FindRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    protected FindRecipeProvider(
+        BootstrapContext<Recipe<?>> recipes,
+        BootstrapContext<Advancement> advancements
+    ) {
+        super(recipes, advancements);
     }
 
     private static final Identifier FIND = HarvestHeritage.of("find/");

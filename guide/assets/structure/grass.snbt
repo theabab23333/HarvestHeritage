@@ -1,0 +1,20 @@
+{
+    DataVersion: 4790,
+    size: [2, 3, 1],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:grass_block{snowy:false}"},
+        {pos: [1, 0, 0], state: "minecraft:grass_block{snowy:false}"},
+        {pos: [0, 1, 0], state: "minecraft:short_grass"},
+        {pos: [1, 1, 0], state: "minecraft:tall_grass{half:lower}"},
+        {pos: [0, 2, 0], state: "minecraft:air"},
+        {pos: [1, 2, 0], state: "minecraft:tall_grass{half:upper}"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:grass_block{snowy:false}",
+        "minecraft:short_grass",
+        "minecraft:tall_grass{half:lower}",
+        "minecraft:air",
+        "minecraft:tall_grass{half:upper}"
+    ]
+}

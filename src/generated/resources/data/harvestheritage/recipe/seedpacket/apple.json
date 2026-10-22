@@ -1,7 +1,6 @@
 {
   "type": "harvestheritage:seed_packet",
   "accept_paper": "minecraft:paper",
-  "category": "misc",
   "known_seed": "harvestheritage:known_seed",
   "result": {
     "components": {

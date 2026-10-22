@@ -36,6 +36,7 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     }
 
     @Getter
+    @Nullable
     protected SeedPacketComponent seedPacketComponent;
     @Getter
     @Setter
@@ -115,8 +116,10 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     }
 
     // 我去，有点shit
-    @SuppressWarnings("ConstantValue")
     public void find(ServerLevel level, BlockPos pos) {
+        SeedPacketComponent currentComponent = this.seedPacketComponent;
+        if (currentComponent == null) return;
+
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockPos pos1 = pos.relative(direction, 1);
             BlockState state1 = level.getBlockState(pos1);
@@ -128,11 +131,12 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
                     BlockState state2 = level.getBlockState(pos2);
                     if (state2.getBlock() instanceof BaseCropStandBlock) {
                         BaseCropStandBlockEntity be2 = (BaseCropStandBlockEntity) level.getBlockEntity(pos2);
+                        if (be2 == null) continue;
                         SeedPacketComponent component = be2.getSeedPacketComponent();
                         if (component == null) continue;
                         var be2Info = SeedUtil.getSeedInfo(component.seed());
                         if (be2Info != null && be2Info.stage() == be2.stage) {
-                            this.hybrid(be1, this.seedPacketComponent, component, level);
+                            this.hybrid(be1, currentComponent, component, level);
                             return;
                         }
                     }

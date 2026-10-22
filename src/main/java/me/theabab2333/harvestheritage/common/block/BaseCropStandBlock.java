@@ -1,19 +1,17 @@
 package me.theabab2333.harvestheritage.common.block;
 
-import me.theabab2333.harvestheritage.api.item.IHasTooltips;
 import me.theabab2333.harvestheritage.api.item.ISeedItem;
 import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.common.item.GrassShearItem;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -30,7 +28,7 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public abstract class BaseCropStandBlock extends Block implements EntityBlock, IHasTooltips {
+public abstract class BaseCropStandBlock extends Block implements EntityBlock {
     public BaseCropStandBlock(Properties properties) {
         properties.randomTicks();
         super(properties);
@@ -41,7 +39,12 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         NonNullList<ItemStack> itemStacks = NonNullList.create();
         int output = component.output();
         RandomSource random = level.getRandom();
-        int count = random.nextInt(output) + 1;
+
+        int extraRolls = Math.max(0, output - 1);
+        int count = 1 + extraRolls / 5;
+        if (random.nextInt(5) < extraRolls % 5) {
+            count++;
+        }
         var seedInfo = SeedUtil.getSeedInfo(component.getSeed());
         if (seedInfo == null) return itemStacks;
         for (Holder<Item> resultItem : seedInfo.results()) {
@@ -52,7 +55,6 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
 
     // 哈哈，屎?!
     @Override
-    @SuppressWarnings("ConstantValue")
     protected InteractionResult useItemOn(
         ItemStack itemStack,
         BlockState state,
@@ -64,44 +66,60 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
     ) {
         BaseCropStandBlockEntity blockEntity = (BaseCropStandBlockEntity) level.getBlockEntity(pos);
         if (blockEntity == null) return InteractionResult.FAIL;
-        SeedPacketComponent component = blockEntity.getSeedPacketComponent();
 
         switch (itemStack.getItem()) {
-            case ISeedItem seedItem -> {
-                blockEntity.seedUseOn(itemStack);
-                return InteractionResult.SUCCESS;
-            }
+            case ISeedItem ignored -> seedPacketUseOn(blockEntity, itemStack);
 
-            case GrassShearItem grassShearItem -> {
-                if (component == null) return InteractionResult.FAIL;
-                DataComponentPatch patch = DataComponentPatch.builder()
-                    .set(ModDataComponents.SEED_PACKET_COMPONENT.get(), component)
-                    .build();
+            case GrassShearItem ignored -> shearGetSeedPacket(blockEntity, level, pos);
 
-                ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
-                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
+            default -> getOutput(blockEntity, level, pos);
+        }
 
-                blockEntity.setSeedPacketComponent(null);
+        return InteractionResult.SUCCESS;
+    }
+
+    public static void seedPacketUseOn(
+        BaseCropStandBlockEntity blockEntity,
+        ItemStack seedPacket
+    ) {
+        blockEntity.seedUseOn(seedPacket);
+    }
+
+    public static void shearGetSeedPacket(
+        BaseCropStandBlockEntity blockEntity,
+        Level level,
+        BlockPos pos
+    ) {
+        SeedPacketComponent component = blockEntity.getSeedPacketComponent();
+        if (component != null) {
+            var patch = SeedUtil.createSeedPacketPatch(component);
+            ItemStack result = new ItemStack(ModItems.SEED_PACKET, 1, patch);
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), result);
+            blockEntity.setSeedPacketComponent(null);
+            blockEntity.setStage(0);
+            blockEntity.setChanged();
+        }
+    }
+
+    public static void getOutput(
+        BaseCropStandBlockEntity blockEntity,
+        Level level,
+        BlockPos pos
+    ) {
+        SeedPacketComponent component = blockEntity.getSeedPacketComponent();
+        if (component != null) {
+            var seedInfo = SeedUtil.getSeedInfo(component.getSeed());
+            if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
+                NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
+                dropContents(level, pos, itemStacks);
                 blockEntity.setStage(0);
                 blockEntity.setChanged();
-                return InteractionResult.SUCCESS;
-            }
-
-            default -> {
-                if (!itemStack.isEmpty()) return InteractionResult.FAIL;
-                if (component == null) return InteractionResult.FAIL;
-
-                var seedInfo = SeedUtil.getSeedInfo(component.getSeed());
-                if (seedInfo != null && seedInfo.stage() == blockEntity.getStage()) {
-                    NonNullList<ItemStack> itemStacks = getSeedOutput(component, level);
-                    this.dropContents(level, pos, itemStacks);
-                    blockEntity.setStage(0);
-                    blockEntity.setChanged();
-                    return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.FAIL;
             }
         }
+    }
+
+    public static void dropContents(Level level, BlockPos pos, NonNullList<ItemStack> itemStacks) {
+        Containers.dropContents(level, pos, itemStacks);
     }
 
     @Override
@@ -123,7 +141,7 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockPos below = pos.below();
-        return canSupportRigidBlock(level, below) || canSupportCenter(level, below, Direction.UP);
+        return canSupportRigidBlock(level, below) || canSupportCenter(level, below, Direction.UP) || level.getBlockState(below).is(BlockTags.GROWS_CROPS);
     }
 
     @Override
@@ -132,9 +150,5 @@ public abstract class BaseCropStandBlock extends Block implements EntityBlock, I
         if (blockEntity != null) {
             blockEntity.tick(level, pos, state, random);
         }
-    }
-
-    public void dropContents(Level level, BlockPos pos, NonNullList<ItemStack> itemStacks) {
-        Containers.dropContents(level, pos, itemStacks);
     }
 }

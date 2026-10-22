@@ -1,52 +1,43 @@
 package me.theabab2333.harvestheritage.datagen.recipe;
 
-import me.theabab2333.harvestheritage.HarvestHeritage;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public abstract class ModRecipeProvider extends RecipeProvider {
-    protected ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    protected ModRecipeProvider(
+        BootstrapContext<Recipe<?>> recipeOutput,
+        BootstrapContext<Advancement> advancementOutput
+    ) {
+        super(recipeOutput, advancementOutput);
     }
 
     @FunctionalInterface
     public interface RecipeProviderFactory {
-        ModRecipeProvider create(HolderLookup.Provider registries, RecipeOutput output);
+        ModRecipeProvider create(BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements);
     }
 
-    public static class Runner extends RecipeProvider.Runner {
+    private static final List<RecipeProviderFactory> PROVIDERS = List.of(
+        FindRecipeProvider::new,
+        ModItemRecipe::new,
+        SeedPacketRecipeProvider::new,
+        HybridRecipeProvider::new
+    );
 
-        private static final List<RecipeProviderFactory> PROVIDERS = List.of(
-            FindRecipeProvider::new,
-            ModItemRecipe::new,
-            SeedPacketRecipeProvider::new,
-            HybridRecipeProvider::new
-        );
-
-        public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-            super(output, lookupProvider);
-        }
-
-        @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
-            return new RecipeProvider(provider, output) {
-                @Override
-                protected void buildRecipes() {
-                    for (var provider : PROVIDERS) {
-                        provider.create(registries, output).buildRecipes();
-                    }
+    public static RecipeProvider create(
+        BootstrapContext<Recipe<?>> recipes,
+        BootstrapContext<Advancement> advancements
+    ) {
+        return new RecipeProvider(recipes, advancements) {
+            @Override
+            protected void buildRecipes() {
+                for (RecipeProviderFactory provider : PROVIDERS) {
+                    provider.create(recipes, advancements).buildRecipes();
                 }
-            };
-        }
-
-        @Override
-        public String getName() {
-            return HarvestHeritage.MOD_ID;
-        }
+            }
+        };
     }
 }

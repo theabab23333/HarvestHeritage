@@ -65,8 +65,6 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
 
             SeedInfo info = SeedUtil.getSeedInfo(seedItem);
             if (info != null) {
-                list.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", info.stage())
-                    .withStyle(ChatFormatting.LIGHT_PURPLE));
                 StringBuilder resultBuilder = new StringBuilder();
                 List<Holder<Item>> results = info.results();
                 for (int i = 0; i < results.size(); i++) {
@@ -75,6 +73,8 @@ public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
                 }
                 list.add(Component.translatable("item.harvestheritage.seed_packet.tooltip.result", resultBuilder.toString())
                     .withStyle(ChatFormatting.YELLOW));
+                list.add(Component.translatable("item.harvestheritage.seed.tooltip.stage", info.stage())
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
             }
 
             list.add(Component.translatable("item.harvestheritage.seed_packet.tooltip.speed", packetComponent.speed())

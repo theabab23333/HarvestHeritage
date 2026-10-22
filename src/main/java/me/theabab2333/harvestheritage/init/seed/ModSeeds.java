@@ -259,7 +259,7 @@ public class ModSeeds {
     public static final SeedDefinition FLINT = seed("flint", Items.FLINT)
         .stage(3)
         .result(Items.FLINT)
-        .needTag(Tags.Blocks.STONES)
+        .needTag(Tags.BlockItems.STONES.block())
         .build();
     public static final SeedDefinition COAL = seed("coal", Items.COAL)
         .stage(4)
@@ -274,7 +274,7 @@ public class ModSeeds {
     public static final SeedDefinition COPPER_INGOT = seed("copper_ingot", Items.COPPER_INGOT)
         .stage(5)
         .result(Items.COPPER_INGOT)
-        .need(Blocks.COPPER_BLOCK)
+        .need(Blocks.COPPER_BLOCK.weathering().unaffected())
         .build();
     public static final SeedDefinition GOLD_INGOT = seed("gold_ingot", Items.GOLD_INGOT)
         .stage(5)

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:fried_seedsack_from_campfire_cooking"
+        "recipes": "harvestheritage:fried_seedsack_from_campfire_cooking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:fried_seedsack_from_campfire_cooking"
+      "harvestheritage:fried_seedsack_from_campfire_cooking"
     ]
   }
 }

@@ -5,19 +5,23 @@ import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.init.seed.ModSeeds;
 import me.theabab2333.harvestheritage.init.seed.SeedDefinition;
 import me.theabab2333.harvestheritage.util.SeedUtil;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class HybridRecipeProvider extends ModRecipeProvider {
-    protected HybridRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
+    protected HybridRecipeProvider(
+        BootstrapContext<Recipe<?>> recipes,
+        BootstrapContext<Advancement> advancements
+    ) {
+        super(recipes, advancements);
     }
 
     private static final Identifier HYPRID = HarvestHeritage.of("hyprid/");

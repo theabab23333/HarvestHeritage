@@ -75,14 +75,14 @@ public class ModJeiPlugin implements IModPlugin {
         registration.registerSubtypeInterpreter(
             ModItems.KNOWN_SEED.get(), (stack, context) -> {
                 SeedPacketComponent seed = SeedUtil.getSeedPacketComponent(stack);
-                return seed != null ? seed.seed().getKey() : null;
+                return seed != null ? seed.seed().key() : null;
             }
         );
 
         registration.registerSubtypeInterpreter(
             ModItems.SEED_PACKET.get(), (stack, context) -> {
                 SeedPacketComponent component = SeedUtil.getSeedPacketComponent(stack);
-                return component != null ? component.seed().getKey() : null;
+                return component != null ? component.seed().key() : null;
             }
         );
     }

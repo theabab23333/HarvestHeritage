@@ -2,8 +2,8 @@ package me.theabab2333.harvestheritage.integration.jei.slot;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -37,7 +37,7 @@ public record BlockTagSlotDisplay(TagKey<Block> tag) implements SlotDisplay {
             return Stream.empty();
         }
 
-        HolderLookup.Provider registries = context.getOptional(SlotDisplayContext.REGISTRIES);
+        RegistryAccess registries = context.get(SlotDisplayContext.REGISTRIES);
         if (registries == null) {
             return Stream.empty();
         }

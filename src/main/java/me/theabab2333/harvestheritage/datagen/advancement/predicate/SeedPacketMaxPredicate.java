@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.init.ModConfigs;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
-import net.minecraft.advancements.criterion.SingleComponentItemPredicate;
+import net.minecraft.advancements.predicates.SingleComponentItemPredicate;
 import net.minecraft.core.component.DataComponentType;
 
 public record SeedPacketMaxPredicate() implements SingleComponentItemPredicate<SeedPacketComponent> {

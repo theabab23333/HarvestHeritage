@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "harvestheritage:magnifying_glass"
+        "recipes": "harvestheritage:magnifying_glass"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

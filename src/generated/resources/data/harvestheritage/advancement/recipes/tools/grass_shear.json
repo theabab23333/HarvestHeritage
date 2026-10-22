@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "harvestheritage:grass_shear"
+        "recipes": "harvestheritage:grass_shear"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

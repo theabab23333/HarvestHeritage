@@ -5,7 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 
 // 哈哈数据包（）（）
 public class ModSeedRegistry {
@@ -14,8 +14,8 @@ public class ModSeedRegistry {
 
     public static void register(IEventBus eventBus) {
         eventBus.addListener(
-            DataPackRegistryEvent.NewRegistry.class,
-            event -> event.dataPackRegistry(SEED_REGISTRY, SeedInfo.CODEC)
+            NewDatapackRegistryEvent.class,
+            event -> event.worldRegistry(SEED_REGISTRY, SeedInfo.CODEC)
         );
     }
 }

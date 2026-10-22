@@ -16,6 +16,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ModTags.ModItemTags.CHROME_BALL).add(ModItems.ZZZZ.asItem());
+        tag(ModTags.ModItemTags.CHROME_BALL).add(ModItems.ZZZZ.key());
     }
 }
