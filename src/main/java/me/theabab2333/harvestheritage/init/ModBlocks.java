@@ -3,7 +3,6 @@ package me.theabab2333.harvestheritage.init;
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.block.ActivatorBlock;
 import me.theabab2333.harvestheritage.common.block.CropStandBlock;
-import me.theabab2333.harvestheritage.common.block.ScaffoldingCropStandBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -23,11 +22,6 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CROP_STAND_BLOCK = registerBlockWithItem(
         "crop_stand_block",
         CropStandBlock::new
-    );
-
-    public static final DeferredBlock<Block> SCAFFOLDING_CROP_STAND_BLOCK = BLOCKS.registerBlock(
-        "scaffolding_crop_stand_block",
-        ScaffoldingCropStandBlock::new
     );
 
     public static final DeferredBlock<Block> ACTIVAOR_BLOCK = registerBlockWithItem(

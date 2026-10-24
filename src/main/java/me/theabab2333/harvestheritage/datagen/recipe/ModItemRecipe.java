@@ -41,36 +41,26 @@ public class ModItemRecipe extends ModRecipeProvider {
             .define('C', Items.STICK)
             .unlockedBy("has_amethyst_shard", has(Items.AMETHYST_SHARD))
             .save(output);
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, ModBlocks.CROP_STAND_BLOCK.asItem())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, ModBlocks.CROP_STAND_BLOCK.get())
             .pattern("   ")
             .pattern("A A")
             .pattern("A A")
             .define('A', Items.STICK)
             .unlockedBy("has_stick", has(Items.STICK))
             .save(output);
-        SimpleCookingRecipeBuilder.smelting(
-            Ingredient.of(ModItems.SEED_PACKET.asItem()),
-            RecipeCategory.FOOD,
-            CookingBookCategory.FOOD,
-            ModItems.FRIED_SEEDSACK.asItem(),
-            0.1f,
-            100
-        ).unlockedBy("has_seed_packet", has(ModItems.FRIED_SEEDSACK.asItem())).save(output);
         SimpleCookingRecipeBuilder.campfireCooking(
-            Ingredient.of(ModItems.SEED_PACKET.asItem()),
+            Ingredient.of(ModItems.SEED_PACKET.get()),
             RecipeCategory.FOOD,
-            ModItems.FRIED_SEEDSACK.asItem(),
+            ModItems.FRIED_SEEDSACK.get(),
             0.1f,
             600
-        ).unlockedBy("has_seed_packet", has(ModItems.FRIED_SEEDSACK.asItem()))
-            // 26.3 起配方会按命名空间过滤生成，必须使用本模组的命名空间
-            .save(output, HarvestHeritage.of("fried_seedsack_from_campfire_cooking").toString());
+        ).unlockedBy("has_seed_packet", has(ModItems.FRIED_SEEDSACK.get())).save(output);
         ShapelessRecipeBuilder.shapeless(items, RecipeCategory.FOOD, ModItems.KFC)
             .requires(Items.PAPER)
             .requires(Items.COOKED_CHICKEN)
             .unlockedBy("has_cooked_chicken", has(Items.COOKED_CHICKEN))
             .save(output);
-        ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, ModBlocks.ACTIVAOR_BLOCK.asItem())
+        ShapedRecipeBuilder.shaped(items, RecipeCategory.REDSTONE, ModBlocks.ACTIVAOR_BLOCK.get())
             .pattern("ABA")
             .pattern("CDE")
             .pattern("AFA")
@@ -82,5 +72,17 @@ public class ModItemRecipe extends ModRecipeProvider {
             .define('F', Items.ECHO_SHARD)
             .unlockedBy("has_zzzz", has(ModItems.ZZZZ))
             .save(output);
+        
+        SimpleCookingRecipeBuilder.smelting(
+            Ingredient.of(ModItems.SEED_PACKET.get()),
+            RecipeCategory.FOOD,
+            CookingBookCategory.FOOD,
+            ModItems.FRIED_SEEDSACK.get(),
+            0.1f,
+            100
+        ).unlockedBy(
+            "has_seed_packet",
+            has(ModItems.FRIED_SEEDSACK.get())
+        ).save(output, HarvestHeritage.of("fried_seedsack_from_campfire_cooking").toString());
     }
 }

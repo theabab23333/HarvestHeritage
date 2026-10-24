@@ -4,7 +4,6 @@ import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.item.GrassShearItem;
 import me.theabab2333.harvestheritage.common.item.KnownSeedItem;
 import me.theabab2333.harvestheritage.common.item.MagnifyingGlassItem;
-import me.theabab2333.harvestheritage.common.item.ScaffoldingCropStandBlockItem;
 import me.theabab2333.harvestheritage.common.item.SeedPacketItem;
 import me.theabab2333.harvestheritage.common.item.UnknownSeedItem;
 import me.theabab2333.harvestheritage.common.item.ZZZZItem;
@@ -52,11 +51,6 @@ public class ModItems {
             new FoodProperties.Builder().nutrition(15).saturationModifier(2f).alwaysEdible().build(),
             Consumable.builder().consumeSeconds(1f).build()
         )
-    );
-
-    public static final DeferredItem<Item> SCAFFOLDING_CROP_STAND_BLOCK_ITEM = ITEMS.registerItem(
-        "scaffolding_crop_stand_block",
-        properties -> new ScaffoldingCropStandBlockItem(ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.get(), properties)
     );
 
     public static void register(IEventBus eventBus) {

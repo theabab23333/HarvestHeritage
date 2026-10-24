@@ -1,7 +1,6 @@
 package me.theabab2333.harvestheritage.datagen.tag;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -26,8 +25,5 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
             .add(Blocks.TALL_GRASS.builtInRegistryHolder.key())
             .add(Blocks.TALL_DRY_GRASS.builtInRegistryHolder.key())
             .add(Blocks.FERN.builtInRegistryHolder.key());
-        tag(ModTags.ModBlockTags.SCAFFOLDING_BLOCKS)
-            .add(ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.key())
-            .add(Blocks.SCAFFOLDING.builtInRegistryHolder.key());
     }
 }

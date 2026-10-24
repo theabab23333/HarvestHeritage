@@ -1,25 +1,17 @@
 package me.theabab2333.harvestheritage.common.item;
 
 import me.theabab2333.harvestheritage.api.item.ISeedItem;
-import me.theabab2333.harvestheritage.common.block.entity.BaseCropStandBlockEntity;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.common.seed.SeedInfo;
-import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +20,6 @@ import java.util.List;
 public class SeedPacketItem extends KnownSeedItem implements ISeedItem {
     public SeedPacketItem(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Level level = context.getLevel();
-        BlockPos blockPos = context.getClickedPos();
-        BlockState blockState = level.getBlockState(blockPos);
-        if (blockState.is(Blocks.SCAFFOLDING)) {
-            if (!level.isClientSide()) {
-                level.setBlock(blockPos, ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.get().defaultBlockState(), 3);
-                if (level.getBlockEntity(blockPos) instanceof BaseCropStandBlockEntity blockEntity) {
-                    blockEntity.seedUseOn(context.getItemInHand());
-                }
-            }
-            return InteractionResult.SUCCESS;
-        }
-        return super.useOn(context);
     }
 
     @Override

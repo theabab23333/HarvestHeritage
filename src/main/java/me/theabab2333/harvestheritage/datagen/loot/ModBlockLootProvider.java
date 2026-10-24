@@ -4,7 +4,6 @@ import me.theabab2333.harvestheritage.init.ModBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Set;
@@ -23,8 +22,6 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CROP_STAND_BLOCK.get());
         this.dropSelf(ModBlocks.TEST_BLOCK.get());
         this.dropSelf(ModBlocks.ACTIVAOR_BLOCK.get());
-
-        this.dropOther(ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.get(), Items.SCAFFOLDING);
     }
 
     @Override

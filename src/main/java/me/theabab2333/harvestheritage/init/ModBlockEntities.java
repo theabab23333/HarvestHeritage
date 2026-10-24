@@ -3,7 +3,6 @@ package me.theabab2333.harvestheritage.init;
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.block.entity.ActivatorBlockEntity;
 import me.theabab2333.harvestheritage.common.block.entity.CropStandStandBlockEntity;
-import me.theabab2333.harvestheritage.common.block.entity.ScaffoldingCropStandBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -20,11 +19,6 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<CropStandStandBlockEntity>> CROP_STAND_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
         "crop_stand_block_entity",
         () -> new BlockEntityType<>(CropStandStandBlockEntity::new, ModBlocks.CROP_STAND_BLOCK.get())
-    );
-
-    public static final Supplier<BlockEntityType<ScaffoldingCropStandBlockEntity>> SCAFFOLDING_CROP_STAND_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
-        "scaffolding_crop_stand_block_entity",
-        () -> new BlockEntityType<>(ScaffoldingCropStandBlockEntity::new, ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK.get())
     );
 
     public static final Supplier<BlockEntityType<ActivatorBlockEntity>> ACTIVATOR_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(

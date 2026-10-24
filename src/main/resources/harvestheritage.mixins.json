@@ -3,9 +3,7 @@
   "package": "me.theabab2333.harvestheritage.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "FarmlandBlockMixin",
-    "ScaffoldingBlockItemMixin",
-    "ScaffoldingBlockMixin"
+    "FarmlandBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -14,6 +12,6 @@
     "requireAnnotations": true
   },
   "client": [
-    "GuiGraphicsExtractorMixin"
+    "client.GuiGraphicsExtractorMixin"
   ]
 }

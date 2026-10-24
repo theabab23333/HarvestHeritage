@@ -1,4 +1,4 @@
-package me.theabab2333.harvestheritage.mixin;
+package me.theabab2333.harvestheritage.mixin.client;
 
 import me.theabab2333.harvestheritage.api.item.ISeedItem;
 import me.theabab2333.harvestheritage.util.SeedUtil;

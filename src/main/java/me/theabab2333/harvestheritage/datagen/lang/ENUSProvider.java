@@ -23,13 +23,11 @@ public class ENUSProvider extends LanguageProvider {
         addItem(ModItems.SEED_PACKET, "Seed Packet");
         addItem(ModItems.GRAPE, "Grape");
         addItem(ModItems.ZZZZ, "Chrome Ball");
-        addItem(ModItems.SCAFFOLDING_CROP_STAND_BLOCK_ITEM, "Hanging crop racks");
         addItem(ModItems.FRIED_SEEDSACK, "Fried Seed Sack");
         addItem(ModItems.KFC, "Crazy Thursday");
         addBlock(ModBlocks.ACTIVAOR_BLOCK, "Strange Activator");
         addBlock(ModBlocks.TEST_BLOCK, "Test Block");
         addBlock(ModBlocks.CROP_STAND_BLOCK, "Crop Stand");
-        addBlock(ModBlocks.SCAFFOLDING_CROP_STAND_BLOCK, "Hanging crop racks");
         add(
             "item.harvestheritage.zzzz.tooltip",
             "It's so weird. Chrome Ball?!"
