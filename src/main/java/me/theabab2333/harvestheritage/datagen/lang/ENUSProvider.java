@@ -98,6 +98,8 @@ public class ENUSProvider extends LanguageProvider {
         add("jei.harvestheritage.seed_info.need_blocks.any", "This crop's growth is unrelated to the block below");
         add("jei.harvestheritage.seed_info.output", "This is the item produced after the crop matures");
         add("jei.harvestheritage.find", "Let me see see");
+        add("jei.harvestheritage.hybrid.show_items", "Display items");
+        add("jei.harvestheritage.hybrid.show_seed_packets", "Display seed packets");
     }
 
     private void jade() {

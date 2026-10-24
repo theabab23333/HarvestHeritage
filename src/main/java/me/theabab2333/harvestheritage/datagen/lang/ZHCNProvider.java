@@ -88,6 +88,8 @@ public class ZHCNProvider extends LanguageProvider {
         add("jei.harvestheritage.seed_info.need_blocks.2", "需要按顺序摆放");
         add("jei.harvestheritage.seed_info.need_blocks.any", "此作物生长与下方方块无关");
         add("jei.harvestheritage.seed_info.output", "这是作物成熟后产出的物品");
+        add("jei.harvestheritage.hybrid.show_items", "显示物品");
+        add("jei.harvestheritage.hybrid.show_seed_packets", "显示种子袋");
     }
 
     private void jade() {

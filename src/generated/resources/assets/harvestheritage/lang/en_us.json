@@ -42,6 +42,8 @@
   "jade.harvestheritage.crop_stand.stage": "Stage : %s",
   "jei.harvestheritage.find": "Let me see see",
   "jei.harvestheritage.hybrid": "Hybrid",
+  "jei.harvestheritage.hybrid.show_items": "Display items",
+  "jei.harvestheritage.hybrid.show_seed_packets": "Display seed packets",
   "jei.harvestheritage.hybrid.tooltip": "Will appear in seed packet form!",
   "jei.harvestheritage.seed_info": "Seed Info",
   "jei.harvestheritage.seed_info.need_blocks.1": "This is the block needed for crop growth",

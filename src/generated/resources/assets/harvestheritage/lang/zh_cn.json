@@ -41,6 +41,8 @@
   "jade.harvestheritage.crop_stand.no_seed": "这个作物架似乎没有种植作物",
   "jade.harvestheritage.crop_stand.stage": "生长阶段 : %s",
   "jei.harvestheritage.hybrid": "杂交",
+  "jei.harvestheritage.hybrid.show_items": "显示物品",
+  "jei.harvestheritage.hybrid.show_seed_packets": "显示种子袋",
   "jei.harvestheritage.hybrid.tooltip": "将以种子袋形式出战!",
   "jei.harvestheritage.seed_info": "种子信息",
   "jei.harvestheritage.seed_info.need_blocks.1": "这是作物生长需要的方块",
