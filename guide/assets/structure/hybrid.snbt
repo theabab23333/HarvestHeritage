@@ -1,0 +1,27 @@
+{
+    DataVersion: 5023,
+    size: [3, 2, 2],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:coal_block"},
+        {pos: [0, 0, 1], state: "minecraft:oak_leaves{distance:7,persistent:true,waterlogged:true}"},
+        {pos: [1, 0, 0], state: "minecraft:farmland{moisture:7}"},
+        {pos: [1, 0, 1], state: "minecraft:oak_leaves{distance:7,persistent:true,waterlogged:true}"},
+        {pos: [2, 0, 0], state: "minecraft:emerald_block"},
+        {pos: [2, 0, 1], state: "minecraft:oak_leaves{distance:7,persistent:true,waterlogged:true}"},
+        {pos: [0, 1, 0], state: "harvestheritage:crop_stand_block", nbt: {components: {}, id: "harvestheritage:crop_stand_block_entity", seed_packet_component: {seed: "minecraft:coal"}, stage: 4}},
+        {pos: [0, 1, 1], state: "minecraft:air"},
+        {pos: [1, 1, 0], state: "harvestheritage:crop_stand_block", nbt: {components: {}, id: "harvestheritage:crop_stand_block_entity", stage: 0}},
+        {pos: [1, 1, 1], state: "minecraft:air"},
+        {pos: [2, 1, 0], state: "harvestheritage:crop_stand_block", nbt: {components: {}, id: "harvestheritage:crop_stand_block_entity", seed_packet_component: {seed: "minecraft:emerald"}, stage: 5}},
+        {pos: [2, 1, 1], state: "minecraft:air"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:coal_block",
+        "minecraft:oak_leaves{distance:7,persistent:true,waterlogged:true}",
+        "minecraft:emerald_block",
+        "minecraft:farmland{moisture:7}",
+        "minecraft:air",
+        "harvestheritage:crop_stand_block"
+    ]
+}
