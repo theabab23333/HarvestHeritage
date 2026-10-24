@@ -34,22 +34,4 @@ public class CropStandBlock extends BaseCropStandBlock {
             return AABB2;
         }
     }
-
-//    // 喜欢我的 tooltip 吗
-//    @Override
-//    public List<Component> getTooltip(ItemStack itemStack) {
-//        List<Component> components = new ArrayList<>();
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.1").withStyle(ChatFormatting.GRAY));
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.2").withStyle(ChatFormatting.GRAY));
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.3").withStyle(ChatFormatting.GRAY));
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.4").withStyle(ChatFormatting.GRAY));
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.5").withStyle(ChatFormatting.GRAY));
-//        components.add(Component.translatable("block.harvestheritage.crop_stand.tooltip.6").withStyle(ChatFormatting.GRAY));
-//        return components;
-//    }
-//
-//    @Override
-//    public boolean hasShiftKeyDown() {
-//        return true;
-//    }
 }

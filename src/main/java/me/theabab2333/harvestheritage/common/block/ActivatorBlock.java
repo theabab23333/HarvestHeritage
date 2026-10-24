@@ -12,8 +12,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RedstoneTorchBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -26,7 +26,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
-public class ActivatorBlock extends Block implements EntityBlock, IHasTooltips {
+public class ActivatorBlock extends BaseEntityBlock implements IHasTooltips {
     public ActivatorBlock(Properties properties) {
         properties.noOcclusion();
         super(properties);
@@ -34,14 +34,6 @@ public class ActivatorBlock extends Block implements EntityBlock, IHasTooltips {
     }
 
     public static final BooleanProperty LIT = RedstoneTorchBlock.LIT;
-
-    private static <E extends BlockEntity, A extends BlockEntity> @Nullable BlockEntityTicker<A> createTickerHelper(
-        BlockEntityType<A> type,
-        BlockEntityType<E> checkedType,
-        BlockEntityTicker<? super E> ticker
-    ) {
-        return checkedType == type ? (BlockEntityTicker<A>) ticker : null;
-    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -88,7 +80,11 @@ public class ActivatorBlock extends Block implements EntityBlock, IHasTooltips {
 
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.ACTIVATOR_BLOCK_ENTITY.get(), ActivatorBlockEntity::tick);
+        return createTickerHelper(
+            type,
+            ModBlockEntities.ACTIVATOR_BLOCK_ENTITY.get(),
+            ActivatorBlockEntity::tick
+        );
     }
 
     @Override
