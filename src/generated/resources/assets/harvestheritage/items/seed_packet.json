@@ -1,6 +1,6 @@
 {
   "model": {
-    "type": "harvestheritage:seed_packet",
+    "type": "minecraft:model",
     "model": "harvestheritage:item/seed_packet"
   }
 }

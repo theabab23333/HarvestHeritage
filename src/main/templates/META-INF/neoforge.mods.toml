@@ -1,13 +1,16 @@
 license = "${mod_license}"
+issueTrackerURL = "https://github.com/theabab23333/HarvestHeritage/issues"
 
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"
 displayName = "${mod_name}"
 authors = "theabab2333, Abslb, GTriXy"
-logoFile = "harvestheritage_logo_512.png"
+displayURL="https://github.com/theabab23333/HarvestHeritage"
+iconFile = "logo.png"
+bannerFile = "banner.png"
 description = '''
-A simple hybridization mod... trying to imitate IC2's hybridization....
+A simple hybridization mod...
 '''
 
 [[mixins]]

@@ -1,7 +1,6 @@
 package me.theabab2333.harvestheritage.client;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.client.render.item.SeedPacketItemModel;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -20,7 +19,7 @@ public class HarvestHeritageClient {
     }
 
     private void registerItemModel(RegisterItemModelsEvent event) {
-        event.register(HarvestHeritage.of("seed_packet"), SeedPacketItemModel.Unbaked.MAP_CODEC);
+        // WIP
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
