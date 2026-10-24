@@ -14,8 +14,18 @@ public class ZHCNProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        this.guideme();
 
+        itemAndBlocks();
+        toolTips();
+        advancement();
+        others();
+
+        jei();
+        jade();
+        guideme();
+    }
+
+    private void itemAndBlocks() {
         addItem(ModItems.GRASS_SHEAR, "除草剪");
         addItem(ModItems.UNKNOWN_SEED, "未知种子");
         addItem(ModItems.MAGNIFYING_GLASS, "放大镜");
@@ -28,9 +38,11 @@ public class ZHCNProvider extends LanguageProvider {
         addBlock(ModBlocks.ACTIVAOR_BLOCK, "奇异催生器");
         addBlock(ModBlocks.TEST_BLOCK, "测试方块");
         addBlock(ModBlocks.CROP_STAND_BLOCK, "作物架");
-        add("modmenu.nameTranslation.harvestheritage", "收获：遗产");
-        add("creativetab.harvestheritage.seed_packet", "收获：遗产 种子袋");
+    }
+
+    private void toolTips() {
         add("gui.harvestheritage.tooltip.shift", "按住[Shift]以查看信息");
+
         add("item.harvestheritage.unknown_seed.tooltip", "或许需要丢在地上用放大镜看看...");
         add("item.harvestheritage.zzzz.tooltip", "太怪了...... Chrome Ball?!");
         add("item.harvestheritage.magnifying_glass.tooltip", "能看作物属性和种子欸...?");
@@ -41,30 +53,11 @@ public class ZHCNProvider extends LanguageProvider {
         add("item.harvestheritage.seed_packet.tooltip.result", "产出：%s");
         add("item.harvestheritage.seed_packet.tooltip.speed", "生长速度：%s");
         add("item.harvestheritage.seed_packet.tooltip.output", "产出数量：%s");
-        add("block.harvestheritage.crop_stand.tooltip.1", "作物架，能种在耕地上");
-        add("block.harvestheritage.crop_stand.tooltip.2", "种子袋右键作物架能种植作物");
-        add("block.harvestheritage.crop_stand.tooltip.3", "作物成熟时使用除草剪能获取种子，直接右键能收获产物");
-        add(
-            "block.harvestheritage.crop_stand.tooltip.4",
-            "作物成熟时，如果东南西北四个方向第二格方块有其他成熟的作物架，可能会在中间空的作物架处发生杂交..."
-        );
-        add("block.harvestheritage.crop_stand.tooltip.5", "当然，也可以种内繁殖");
-        add("block.harvestheritage.crop_stand.tooltip.6", "作物属性根据双方作物架而定，有概率增长也有概率衰减");
-        add("block.harvestheritage.scaffolding_crop_stand.tooltip.1", "种子袋右键脚手架转换");
-        add("block.harvestheritage.scaffolding_crop_stand.tooltip.2", "不能杂交，但是能收获，适合大范围种植，推荐离地几格");
-        add("block.harvestheritage.crop_stand.tooltip.stage", "当前生长阶段：%s");
         add("block.harvestheritage.activator.tooltip.1", "随机刻要加速了");
         add("block.harvestheritage.activator.tooltip.2", "使用红石信号以激活");
-        add("jei.harvestheritage.find", "让我看看");
-        add("jei.harvestheritage.hybrid", "杂交");
-        add("jei.harvestheritage.hybrid.tooltip", "将以种子袋形式出战!");
-        add("jei.harvestheritage.seed_info", "种子信息");
-        add("jei.harvestheritage.seed_info.seed_packet", "这是种子袋");
-        add("jei.harvestheritage.seed_info.seed", "这是种子袋对应的种子(物品)");
-        add("jei.harvestheritage.seed_info.need_blocks.1", "这是作物生长需要的方块");
-        add("jei.harvestheritage.seed_info.need_blocks.2", "需要按顺序摆放");
-        add("jei.harvestheritage.seed_info.need_blocks.any", "此作物生长与下方方块无关");
-        add("jei.harvestheritage.seed_info.output", "这是作物成熟后产出的物品");
+    }
+
+    private void advancement() {
         add("advancement.harvestheritage.kfc.title", "疯狂疯狂星期四");
         add("advancement.harvestheritage.kfc.description", "食用疯狂星期四");
         add("advancement.harvestheritage.fride_seedsack.title", "吃瓜群众");
@@ -78,6 +71,26 @@ public class ZHCNProvider extends LanguageProvider {
         add("advancement.harvestheritage.magnifying_glass.description", "你发现了一个华点...(戴头上?)");
         add("advancement.harvestheritage.welcome.title", "收获：遗产");
         add("advancement.harvestheritage.welcome.description", "欢迎来到收获：遗产！");
+    }
+
+    private void others() {
+        add("modmenu.nameTranslation.harvestheritage", "收获：遗产");
+        add("creativetab.harvestheritage.seed_packet", "收获：遗产 种子袋");
+    }
+
+    private void jei() {
+        add("jei.harvestheritage.hybrid", "杂交");
+        add("jei.harvestheritage.hybrid.tooltip", "将以种子袋形式出战!");
+        add("jei.harvestheritage.seed_info", "种子信息");
+        add("jei.harvestheritage.seed_info.seed_packet", "这是种子袋");
+        add("jei.harvestheritage.seed_info.seed", "这是种子袋对应的种子(物品)");
+        add("jei.harvestheritage.seed_info.need_blocks.1", "这是作物生长需要的方块");
+        add("jei.harvestheritage.seed_info.need_blocks.2", "需要按顺序摆放");
+        add("jei.harvestheritage.seed_info.need_blocks.any", "此作物生长与下方方块无关");
+        add("jei.harvestheritage.seed_info.output", "这是作物成熟后产出的物品");
+    }
+
+    private void jade() {
         add("jade.harvestheritage.crop_stand.no_seed", "这个作物架似乎没有种植作物");
         add("jade.harvestheritage.crop_stand.stage", "生长阶段 : %s");
         add("config.jade.plugin_harvestheritage.crop_stand_block_data_provider", "作物架状态");
