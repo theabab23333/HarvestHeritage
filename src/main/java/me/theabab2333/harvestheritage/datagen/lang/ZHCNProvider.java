@@ -55,6 +55,7 @@ public class ZHCNProvider extends LanguageProvider {
         add("item.harvestheritage.seed_packet.tooltip.output", "产出数量：%s");
         add("block.harvestheritage.activator.tooltip.1", "随机刻要加速了");
         add("block.harvestheritage.activator.tooltip.2", "使用红石信号以激活");
+        add("block.harvestheritage.crop_stand.tooltip.light", "亮度: %s");
     }
 
     private void advancement() {
@@ -87,6 +88,11 @@ public class ZHCNProvider extends LanguageProvider {
         add("jei.harvestheritage.seed_info.need_blocks.1", "这是作物生长需要的方块");
         add("jei.harvestheritage.seed_info.need_blocks.2", "需要按顺序摆放");
         add("jei.harvestheritage.seed_info.need_blocks.any", "此作物生长与下方方块无关");
+        add("jei.harvestheritage.seed_info.need_light.above", "亮度在 %s 以上");
+        add("jei.harvestheritage.seed_info.need_light.any", "无亮度需求");
+        add("jei.harvestheritage.seed_info.need_light.below", "亮度在 %s 以下");
+        add("jei.harvestheritage.seed_info.need_light.between", "亮度在 %s 到 %s 之间");
+        add("jei.harvestheritage.seed_info.need_light.exact", "亮度为 %s");
         add("jei.harvestheritage.seed_info.output", "这是作物成熟后产出的物品");
         add("jei.harvestheritage.hybrid.show_items", "显示物品");
         add("jei.harvestheritage.hybrid.show_seed_packets", "显示种子袋");

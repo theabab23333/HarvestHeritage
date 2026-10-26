@@ -12,7 +12,7 @@ import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.init.seed.ModSeeds;
 import me.theabab2333.harvestheritage.integration.jei.category.FindRecipeCategory;
 import me.theabab2333.harvestheritage.integration.jei.category.HybridRecipeCategory;
-import me.theabab2333.harvestheritage.integration.jei.category.SeedOutputRecipeCategory;
+import me.theabab2333.harvestheritage.integration.jei.category.SeedInfoCategory;
 import me.theabab2333.harvestheritage.integration.jei.recipe.SeedInfoRecipe;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import mezz.jei.api.IModPlugin;
@@ -55,7 +55,7 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(
             new FindRecipeCategory(guiHelper),
             new HybridRecipeCategory(guiHelper),
-            new SeedOutputRecipeCategory(guiHelper)
+            new SeedInfoCategory(guiHelper)
         );
     }
 

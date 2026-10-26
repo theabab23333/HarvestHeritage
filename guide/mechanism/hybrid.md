@@ -30,11 +30,11 @@ categories:
   </BlockAnnotation>
 
   <BlockAnnotation x="0" y="1" z="0" color="#97d9e1"> 
-  亲本作物（<ItemImage id="minecraft:coal" />）
+  亲本作物（<ItemImage id="minecraft:coal"></ItemImage>）
   </BlockAnnotation>
 
   <BlockAnnotation x="2" y="1" z="0" color="#97d9e1"> 
-  亲本作物（<ItemImage id="minecraft:emerald" />）
+  亲本作物（<ItemImage id="minecraft:emerald"></ItemImage>）
   </BlockAnnotation>
 
   <BlockAnnotation x="1" y="1" z="0" color="#fda085"> 

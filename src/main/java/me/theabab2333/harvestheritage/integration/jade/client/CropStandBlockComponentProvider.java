@@ -1,5 +1,7 @@
 package me.theabab2333.harvestheritage.integration.jade.client;
 
+import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.integration.jade.ModJadePlugin;
 import me.theabab2333.harvestheritage.integration.jade.server.CropStandBlockServerDataProvider;
 import me.theabab2333.harvestheritage.util.SeedUtil;
@@ -7,6 +9,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -26,24 +29,47 @@ public class CropStandBlockComponentProvider implements IBlockComponentProvider 
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig config) {
         var data = CropStandBlockServerDataProvider.INSTANCE.streamData(blockAccessor);
 
+        tooltip.add(
+            Component.translatable(
+                "block.harvestheritage.crop_stand.tooltip.light",
+                blockAccessor.getLevel().getMaxLocalRawBrightness(blockAccessor.getPosition())
+            )
+        );
+
         if (data == null) {
-            this.noSeed(tooltip);
+            this.noSeed(tooltip, blockAccessor, config);
             return;
         }
 
-        IThemeHelper theme = IThemeHelper.get();
         var seedPacketComponent = data.seedPacketComponent();
-        var seed = seedPacketComponent.seed();
-        var seedInfo = SeedUtil.getSeedInfo(seed);
-        int stage = data.stage();
+        var seedInfo = SeedUtil.getSeedInfo(seedPacketComponent.seed());
+        var stage = data.stage();
 
         if (seedInfo == null) {
-            this.noSeed(tooltip);
-            return;
+            this.noSeed(tooltip, blockAccessor, config);
+        } else {
+            this.hasSeed(tooltip, blockAccessor, config, seedPacketComponent, seedInfo, stage);
         }
+    }
+
+    @Override
+    public Identifier getUid() {
+        return ModJadePlugin.CROP_STAND_BLOCK_DATA_PROVIDER;
+    }
+
+    private void hasSeed(
+        ITooltip tooltip,
+        BlockAccessor blockAccessor,
+        IPluginConfig config,
+        SeedPacketComponent seedPacketComponent,
+        SeedInfo seedInfo,
+        int stage
+    ) {
+
+        IThemeHelper theme = IThemeHelper.get();
 
         MutableComponent value = Component.translatable("jade.fraction", stage, seedInfo.stage());
-        tooltip.add(JadeUI.item(seed.value().getDefaultInstance()));
+        tooltip.add(JadeUI.item(new ItemStack(seedInfo.seed())));
         tooltip.add(
             Component.translatable(
                 "jade.harvestheritage.crop_stand.stage",
@@ -62,12 +88,7 @@ public class CropStandBlockComponentProvider implements IBlockComponentProvider 
         );
     }
 
-    @Override
-    public Identifier getUid() {
-        return ModJadePlugin.CROP_STAND_BLOCK_DATA_PROVIDER;
-    }
-
-    private void noSeed(ITooltip tooltip) {
+    private void noSeed(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig config) {
         tooltip.add(
             Component.translatable(
                 "jade.harvestheritage.crop_stand.no_seed"

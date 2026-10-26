@@ -1,5 +1,6 @@
 package me.theabab2333.harvestheritage.integration.jei.category;
 
+import me.theabab2333.harvestheritage.common.seed.requirement.SeedLightRequirement;
 import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.integration.jei.ModJeiPlugin;
@@ -18,14 +19,16 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.List;
 
 // 感觉可以用 IIngredientHelper ，以后再说吧（）（）
-public class SeedOutputRecipeCategory extends AbstractRecipeCategory<SeedInfoRecipe> {
+public class SeedInfoCategory extends AbstractRecipeCategory<SeedInfoRecipe> {
 
-    public SeedOutputRecipeCategory(IGuiHelper guiHelper) {
+    public SeedInfoCategory(IGuiHelper guiHelper) {
         super(
             ModJeiPlugin.SEED_OUTPUT_TYPE,
             Component.translatable("jei.harvestheritage.seed_info"),
@@ -102,6 +105,16 @@ public class SeedOutputRecipeCategory extends AbstractRecipeCategory<SeedInfoRec
             }
         }
 
+        // light
+        {
+            builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 3, 44)
+                .setStandardSlotBackground()
+                .add(Items.LIGHT)
+                .addRichTooltipCallback((_, tooltip) -> tooltip.add(
+                    getLightRequirementText(seedInfo.needLight()).withStyle(ChatFormatting.GOLD)
+                ));
+        }
+
         // result
         {
             for (var itemHolder : results) {
@@ -111,6 +124,27 @@ public class SeedOutputRecipeCategory extends AbstractRecipeCategory<SeedInfoRec
                         .withStyle(ChatFormatting.YELLOW)));
             }
         }
+    }
+
+    private static MutableComponent getLightRequirementText(SeedLightRequirement requirement) {
+        var min = requirement.minLight();
+        var max = requirement.maxLight();
+
+        if (min.isEmpty() && max.isEmpty()) {
+            return Component.translatable("jei.harvestheritage.seed_info.need_light.any");
+        }
+        if (min.isPresent() && max.isPresent()) {
+            int minLevel = min.get();
+            int maxLevel = max.get();
+            return minLevel == maxLevel
+                   ? Component.translatable("jei.harvestheritage.seed_info.need_light.exact", minLevel)
+                   : Component.translatable("jei.harvestheritage.seed_info.need_light.between", minLevel, maxLevel);
+        }
+        // present?
+        if (min.isPresent()) {
+            return Component.translatable("jei.harvestheritage.seed_info.need_light.above", min.get());
+        }
+        return Component.translatable("jei.harvestheritage.seed_info.need_light.below", max.get());
     }
 
     @Override

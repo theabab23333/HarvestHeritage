@@ -63,6 +63,7 @@ public class ENUSProvider extends LanguageProvider {
         add("item.harvestheritage.seed_packet.tooltip.output", "Output Amount: %s");
         add("block.harvestheritage.activator.tooltip.1", "Random ticks are about to accelerate");
         add("block.harvestheritage.activator.tooltip.2", "Use a redstone signal to activate");
+        add("block.harvestheritage.crop_stand.tooltip.light", "Light: %s");
     }
 
     private void advancement() {
@@ -96,6 +97,11 @@ public class ENUSProvider extends LanguageProvider {
         add("jei.harvestheritage.seed_info.need_blocks.1", "This is the block needed for crop growth");
         add("jei.harvestheritage.seed_info.need_blocks.2", "Needs to be arranged in order");
         add("jei.harvestheritage.seed_info.need_blocks.any", "This crop's growth is unrelated to the block below");
+        add("jei.harvestheritage.seed_info.need_light.above", "Light level %s or above");
+        add("jei.harvestheritage.seed_info.need_light.any", "No light requirement");
+        add("jei.harvestheritage.seed_info.need_light.below", "Light level %s or below");
+        add("jei.harvestheritage.seed_info.need_light.between", "Light level between %s and %s");
+        add("jei.harvestheritage.seed_info.need_light.exact", "Light level is %s");
         add("jei.harvestheritage.seed_info.output", "This is the item produced after the crop matures");
         add("jei.harvestheritage.find", "Let me see see");
         add("jei.harvestheritage.hybrid.show_items", "Display items");

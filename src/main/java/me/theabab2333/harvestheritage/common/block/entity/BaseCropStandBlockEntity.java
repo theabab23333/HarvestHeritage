@@ -5,6 +5,7 @@ import lombok.Setter;
 import me.theabab2333.harvestheritage.common.block.BaseCropStandBlock;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.seed.SeedInfo;
 import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.BlockPos;
@@ -99,20 +100,33 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         var seedInfo = SeedUtil.getSeedInfo(seedItem);
         if (seedInfo == null) return;
 
-        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) return;
+        if (this.matches(seedInfo, level, pos)) {
+            int needStage = seedInfo.stage();
+            if (this.stage == needStage) {
+                this.find(level, pos);
+                return;
+            }
 
-        int needStage = seedInfo.stage();
-        if (this.stage == needStage) {
-            this.find(level, pos);
-            return;
+            int speed = this.seedPacketComponent.speed();
+            if (random.nextInt(3) < speed) {
+                this.stage++;
+                setChanged();
+                level.sendBlockUpdated(pos, state, state, 3);
+            }
         }
+    }
 
-        int speed = this.seedPacketComponent.speed();
-        if (random.nextInt(3) < speed) {
-            this.stage++;
-            setChanged();
-            level.sendBlockUpdated(pos, state, state, 3);
-        }
+    public boolean matches(
+        SeedInfo seedInfo,
+        ServerLevel level,
+        BlockPos pos
+    ) {
+        // blocks
+        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) return false;
+        // light
+        if (!seedInfo.needLight().matches(level.getMaxLocalRawBrightness(pos))) return false;
+
+        return true;
     }
 
     // 我去，有点shit
