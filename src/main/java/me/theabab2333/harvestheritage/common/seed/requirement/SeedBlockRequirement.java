@@ -1,4 +1,4 @@
-package me.theabab2333.harvestheritage.common.seed;
+package me.theabab2333.harvestheritage.common.seed.requirement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Objects;
 import java.util.Optional;
 
-// 思考，这样做真的好吗，我觉得这里能优化优化但是现在能用
 public record SeedBlockRequirement(Optional<Holder<Block>> block, Optional<TagKey<Block>> tag) {
     public static final Codec<SeedBlockRequirement> CODEC = RecordCodecBuilder.create(inst -> inst.group(
         BuiltInRegistries.BLOCK.holderByNameCodec().optionalFieldOf("block").forGetter(SeedBlockRequirement::block),

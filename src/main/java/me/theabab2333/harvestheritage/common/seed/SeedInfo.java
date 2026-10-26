@@ -2,12 +2,13 @@ package me.theabab2333.harvestheritage.common.seed;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.theabab2333.harvestheritage.common.seed.requirement.SeedBlockRequirement;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 
 import java.util.List;
 
-// 对的对的
+// TODO: Level\Light
 public record SeedInfo(
     Holder<Item> seed,
     List<Holder<Item>> results,

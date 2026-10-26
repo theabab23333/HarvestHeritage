@@ -6,9 +6,9 @@ navigation:
 
 # 开始
 
-这里将简单介绍从打草开始的种植之旅。
+本页介绍从打草到收获的基本流程。
 
-# 打草
+## 打草
 
 <Row alignItems="center" fullWidth={true} >
 <GameScene zoom="2">
@@ -17,12 +17,11 @@ navigation:
 <ItemImage id="grass_shear" scale="3"></ItemImage>
 </Row>
 
-一切要从打草开始。   
-使用 **除草剪** 破坏草有概率掉落 **未知种子** 。  
+使用<ItemLink id="grass_shear" />打草，有概率获得<ItemLink id="unknown_seed" />。
 
 ---
 
-# "观察"
+## 识别
 
 <Row>
 <ItemImage id="unknown_seed" scale="3"></ItemImage>
@@ -30,12 +29,11 @@ navigation:
 <ItemImage id="known_seed" scale="3"></ItemImage>
 </Row>
 
-将 **未知种子** 丢到地面(掉落物)，并用 **放大镜** 右键，获取 **已知种子**。  
-这些 **已知种子** 带有不同的种子组件。
+将<ItemLink id="unknown_seed" />丢在地上，对地面使用<ItemLink id="magnifying_glass" />，即可将其识别为<ItemLink id="known_seed" />。
 
 ---
 
-# 合成
+## 合成
 
 <Row>
 <ItemImage id="seed_packet" scale="3"></ItemImage>
@@ -44,23 +42,24 @@ navigation:
 <Recipe id="harvestheritage:crop_stand_block"></Recipe>
 </Row>
 
-将 **已知种子** 和 **纸** 合成，获取到对应种子的 **种子袋**。  
-再用 4 根 **木棍** 合成 **作物架**。
+将<ItemLink id="known_seed" />与<ItemLink id="minecraft:paper" />合成，可获得对应的<ItemLink id="seed_packet" />；再用 4 根<ItemLink id="minecraft:stick" />合成<ItemLink id="crop_stand_block" />。
 
 ---
 
-# 种植
+## 播种
 
 <Row>
 <BlockImage id="crop_stand_block" scale="3"></BlockImage>
 </Row>
 
-放置 **作物架** ，用 **种子袋** 右键种植种子。  
-等成熟后右键收获作物。
+放置<ItemLink id="crop_stand_block" />，对空作物架使用<ItemLink id="seed_packet" />播种。作物成熟后，右键作物架即可收获。
 
 ---
 
-# 其他
+## 延伸阅读
 
-这里已经满足不了你了。  
-如果要了解获取更多的产物、杂交出更多的种子又或者作物不生长，可以查看以下几篇文章。
+如需获得更多产物、杂交更多种子，或排查作物不生长的问题，请继续阅读：
+
+- [生长](mechanism/grow.md)
+- [杂交](mechanism/hybrid.md)
+- [机制](mechanism/mechanism_index.md)

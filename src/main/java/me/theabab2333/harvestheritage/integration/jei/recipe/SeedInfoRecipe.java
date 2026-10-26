@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.integration.jei.recipe;
 
-import me.theabab2333.harvestheritage.common.seed.SeedBlockRequirement;
 import me.theabab2333.harvestheritage.common.seed.SeedInfo;
+import me.theabab2333.harvestheritage.common.seed.requirement.SeedBlockRequirement;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

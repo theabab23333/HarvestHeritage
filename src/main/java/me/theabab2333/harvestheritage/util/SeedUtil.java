@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.util;
 
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
-import me.theabab2333.harvestheritage.common.seed.SeedBlockRequirement;
 import me.theabab2333.harvestheritage.common.seed.SeedInfo;
+import me.theabab2333.harvestheritage.common.seed.requirement.SeedBlockRequirement;
 import me.theabab2333.harvestheritage.init.ModConfigs;
 import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;

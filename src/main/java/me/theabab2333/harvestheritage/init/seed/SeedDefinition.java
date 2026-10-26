@@ -2,8 +2,8 @@ package me.theabab2333.harvestheritage.init.seed;
 
 import lombok.Getter;
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.common.seed.SeedBlockRequirement;
 import me.theabab2333.harvestheritage.common.seed.SeedInfo;
+import me.theabab2333.harvestheritage.common.seed.requirement.SeedBlockRequirement;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
