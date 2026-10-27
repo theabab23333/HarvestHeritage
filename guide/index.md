@@ -29,7 +29,7 @@ HarvestHeritage 新增了物品与方块，为部分资源提供新的生产方�
 
 ### 更多种子
 
-- 为其他模组的资源添加对应种子。
+- 为其他模组的资源添加对应种子。（但是没添加完.png）
 
 <GameScene zoom="4">
   <ImportStructure src="assets/structure/logo.snbt"></ImportStructure>

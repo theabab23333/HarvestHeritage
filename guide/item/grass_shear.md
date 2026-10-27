@@ -24,4 +24,4 @@ categories:
 
 ## 作物架
 
-对已播种的作物架使用<ItemLink id="grass_shear" />，可取回对应的<ItemLink id="seed_packet" />，并重置作物的生长阶段。
+对已播种的作物架使用<ItemLink id="grass_shear" />，可取回对应的<ItemLink id="seed_packet" />。
