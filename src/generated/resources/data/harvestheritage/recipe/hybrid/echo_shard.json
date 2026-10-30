@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:amethyst_shard",
+    "minecraft:ender_pearl"
+  ],
+  "output_seeds": [
+    "minecraft:echo_shard"
+  ]
+}

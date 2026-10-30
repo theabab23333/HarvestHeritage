@@ -41,17 +41,16 @@ public class MagnifyingGlassItem extends Item implements IHasTooltips {
         super(properties);
     }
 
-    // 没有人类了
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
             Vec3 eyePos = player.getEyePosition();
-            Vec3 lookVec = player.getViewVector(1.0f);
-            double reachDistance = 5.0;
+            Vec3 lookVec = player.getViewVector(1f);
+            double reachDistance = 5d;
 
             Vec3 endPos = eyePos.add(lookVec.x * reachDistance, lookVec.y * reachDistance, lookVec.z * reachDistance);
 
-            AABB searchBox = new AABB(eyePos, endPos).inflate(1.0);
+            AABB searchBox = new AABB(eyePos, endPos).inflate(1d);
 
             List<Entity> entities = level.getEntities(player, searchBox, entity -> entity instanceof ItemEntity);
 

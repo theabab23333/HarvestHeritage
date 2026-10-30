@@ -1,0 +1,12 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:emerald",
+    "minecraft:coal"
+  ],
+  "output_seeds": [
+    "minecraft:diamond",
+    "minecraft:amethyst_shard",
+    "minecraft:quartz"
+  ]
+}

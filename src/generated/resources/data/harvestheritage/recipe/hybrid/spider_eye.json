@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:slime_ball",
+    "minecraft:string"
+  ],
+  "output_seeds": [
+    "minecraft:spider_eye"
+  ]
+}

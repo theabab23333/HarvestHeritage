@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:glow_berries",
+    "minecraft:redstone"
+  ],
+  "output_seeds": [
+    "minecraft:glowstone_dust"
+  ]
+}

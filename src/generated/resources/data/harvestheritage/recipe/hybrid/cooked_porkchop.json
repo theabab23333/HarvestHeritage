@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:porkchop",
+    "minecraft:glow_berries"
+  ],
+  "output_seeds": [
+    "minecraft:cooked_porkchop"
+  ]
+}

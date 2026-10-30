@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:mutton",
+    "minecraft:sweet_berries"
+  ],
+  "output_seeds": [
+    "minecraft:string"
+  ]
+}

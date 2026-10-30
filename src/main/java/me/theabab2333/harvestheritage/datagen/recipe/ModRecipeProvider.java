@@ -20,21 +20,20 @@ public abstract class ModRecipeProvider extends RecipeProvider {
         ModRecipeProvider create(BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements);
     }
 
-    private static final List<RecipeProviderFactory> PROVIDERS = List.of(
-        FindRecipeProvider::new,
-        ModItemRecipe::new,
-        SeedPacketRecipeProvider::new,
-        HybridRecipeProvider::new
-    );
-
     public static RecipeProvider create(
         BootstrapContext<Recipe<?>> recipes,
         BootstrapContext<Advancement> advancements
     ) {
+        List<RecipeProviderFactory> providers = List.of(
+            FindRecipeProvider::new,
+            ModItemRecipe::new,
+            SeedPacketRecipeProvider::new,
+            HybridRecipeProvider::new
+        );
         return new RecipeProvider(recipes, advancements) {
             @Override
             protected void buildRecipes() {
-                for (RecipeProviderFactory provider : PROVIDERS) {
+                for (RecipeProviderFactory provider : providers) {
                     provider.create(recipes, advancements).buildRecipes();
                 }
             }

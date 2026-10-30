@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:chorus_fruit",
+    "minecraft:armadillo_scute"
+  ],
+  "output_seeds": [
+    "minecraft:shulker_shell"
+  ]
+}

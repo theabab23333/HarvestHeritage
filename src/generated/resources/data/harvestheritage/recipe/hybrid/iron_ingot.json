@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:bone",
+    "minecraft:ghast_tear"
+  ],
+  "output_seeds": [
+    "minecraft:iron_ingot"
+  ]
+}

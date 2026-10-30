@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-// stupid
 public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<HybridRecipe>> {
     private static final String INPUT_FIRST_SLOT = "hybrid_input_first";
     private static final String INPUT_LAST_SLOT = "hybrid_input_last";

@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:chicken",
+    "minecraft:sugar_cane"
+  ],
+  "output_seeds": [
+    "minecraft:slime_ball"
+  ]
+}

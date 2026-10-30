@@ -1,0 +1,13 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:diamond",
+    "minecraft:echo_shard"
+  ],
+  "output_seeds": [
+    "minecraft:netherite_scrap",
+    "minecraft:emerald",
+    "minecraft:diamond",
+    "minecraft:gold_ingot"
+  ]
+}

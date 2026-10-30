@@ -42,11 +42,11 @@ public class ModRecipes {
     );
 
     public static final Supplier<RecipeType<HybridRecipe>> HYBRID_TYPE = RECIPE_TYPES.register(
-        "hyprid",
+        "hybrid",
         RecipeType::simple
     );
     public static final Supplier<RecipeSerializer<HybridRecipe>> HYBRID_SERIALIZERS = RECIPE_SERIALIZERS.register(
-        "hyprid",
+        "hybrid",
         () -> new RecipeSerializer<>(HybridRecipe.MAP_CODEC, HybridRecipe.STREAM_CODEC)
     );
 

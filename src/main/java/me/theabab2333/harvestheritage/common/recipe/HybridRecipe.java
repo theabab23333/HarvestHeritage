@@ -34,6 +34,12 @@ public record HybridRecipe(
         HybridRecipe::new
     );
 
+    public HybridRecipe {
+        if (inputSeeds.size() != 2) {
+            throw new IllegalArgumentException("Hybrid recipe requires exactly 2 input seeds");
+        }
+    }
+
     public List<ItemStack> inputSeedPacketStacks() {
         return this.inputSeeds.stream().map(Holder::value)
             .map(SeedUtil::getSeedPacket)

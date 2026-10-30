@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:honeycomb",
+    "minecraft:slime_ball"
+  ],
+  "output_seeds": [
+    "minecraft:magma_cream"
+  ]
+}

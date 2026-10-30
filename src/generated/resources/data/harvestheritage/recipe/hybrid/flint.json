@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:bone",
+    "minecraft:gunpowder"
+  ],
+  "output_seeds": [
+    "minecraft:flint"
+  ]
+}

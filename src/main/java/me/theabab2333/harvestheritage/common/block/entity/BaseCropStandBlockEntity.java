@@ -44,12 +44,18 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
     protected int stage = 0;
 
     public void seedUseOn(ItemStack itemStack) {
-        if (level == null || level.isClientSide()) return;
+        if (level == null || level.isClientSide()) {
+            return;
+        }
 
-        if (this.seedPacketComponent != null) return;
+        if (this.seedPacketComponent != null) {
+            return;
+        }
 
         SeedPacketComponent component = SeedUtil.getSeedPacketComponent(itemStack);
-        if (component == null) return;
+        if (component == null) {
+            return;
+        }
 
         this.seedPacketComponent = component;
         this.stage = 0;
@@ -98,7 +104,9 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
 
         Holder<Item> seedItem = this.seedPacketComponent.seed();
         var seedInfo = SeedUtil.getSeedInfo(seedItem);
-        if (seedInfo == null) return;
+        if (seedInfo == null) {
+            return;
+        }
 
         if (this.matches(seedInfo, level, pos)) {
             int needStage = seedInfo.stage();
@@ -122,32 +130,43 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         BlockPos pos
     ) {
         // blocks
-        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) return false;
+        if (!SeedUtil.matchesGrowBlocks(level, pos, seedInfo.needBlocks())) {
+            return false;
+        }
         // light
-        if (!seedInfo.needLight().matches(level.getMaxLocalRawBrightness(pos))) return false;
+        if (!seedInfo.needLight().matches(level.getMaxLocalRawBrightness(pos))) {
+            return false;
+        }
 
         return true;
     }
 
-    // 我去，有点shit
     public void find(ServerLevel level, BlockPos pos) {
         SeedPacketComponent currentComponent = this.seedPacketComponent;
-        if (currentComponent == null) return;
+        if (currentComponent == null) {
+            return;
+        }
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockPos pos1 = pos.relative(direction, 1);
             BlockState state1 = level.getBlockState(pos1);
             if (state1.getBlock() instanceof BaseCropStandBlock) {
                 BaseCropStandBlockEntity be1 = (BaseCropStandBlockEntity) level.getBlockEntity(pos1);
-                if (be1 == null) continue;
+                if (be1 == null) {
+                    continue;
+                }
                 if (be1.getSeedPacketComponent() == null) {
                     BlockPos pos2 = pos.relative(direction, 2);
                     BlockState state2 = level.getBlockState(pos2);
                     if (state2.getBlock() instanceof BaseCropStandBlock) {
                         BaseCropStandBlockEntity be2 = (BaseCropStandBlockEntity) level.getBlockEntity(pos2);
-                        if (be2 == null) continue;
+                        if (be2 == null) {
+                            continue;
+                        }
                         SeedPacketComponent component = be2.getSeedPacketComponent();
-                        if (component == null) continue;
+                        if (component == null) {
+                            continue;
+                        }
                         var be2Info = SeedUtil.getSeedInfo(component.seed());
                         if (be2Info != null && be2Info.stage() == be2.stage) {
                             this.hybrid(be1, currentComponent, component, level);
@@ -159,7 +178,6 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         }
     }
 
-    // 看起来还好但是我感觉还是怪怪的
     public void hybrid(
         BaseCropStandBlockEntity cropStandBlock,
         SeedPacketComponent component1,
@@ -167,7 +185,9 @@ public abstract class BaseCropStandBlockEntity extends BlockEntity {
         ServerLevel level
     ) {
         var holders = level.recipeAccess().recipeMap().byType(ModRecipes.HYBRID_TYPE.get());
-        if (holders.isEmpty()) return;
+        if (holders.isEmpty()) {
+            return;
+        }
 
         Item item1 = component1.getSeed();
         Item item2 = component2.getSeed();

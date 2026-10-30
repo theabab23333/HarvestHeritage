@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:prismarine_crystals",
+    "minecraft:ghast_tear"
+  ],
+  "output_seeds": [
+    "minecraft:quartz"
+  ]
+}

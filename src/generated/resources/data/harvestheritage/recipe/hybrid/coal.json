@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:apple",
+    "minecraft:blaze_rod"
+  ],
+  "output_seeds": [
+    "minecraft:coal"
+  ]
+}

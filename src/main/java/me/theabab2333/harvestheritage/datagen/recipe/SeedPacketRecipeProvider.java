@@ -8,12 +8,15 @@ import me.theabab2333.harvestheritage.init.seed.SeedDefinition;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 
 public class SeedPacketRecipeProvider extends ModRecipeProvider {
+    private static final Identifier SEED_PACKET = HarvestHeritage.of("seedpacket/");
+
     protected SeedPacketRecipeProvider(
         BootstrapContext<Recipe<?>> recipes,
         BootstrapContext<Advancement> advancements
@@ -25,13 +28,12 @@ public class SeedPacketRecipeProvider extends ModRecipeProvider {
     protected void buildRecipes() {
         for (SeedDefinition definition : ModSeeds.packetSeeds()) {
             var patch = SeedUtil.createSeedPacketPatch(definition.seed());
-            var path = "seedpacket/" + SeedUtil.getPath(definition.seed().value());
 
             SeedPacketRecipeBuilder.builder(
                 Ingredient.of(ModItems.KNOWN_SEED),
                 Ingredient.of(Items.PAPER),
                 new ItemStackTemplate(ModItems.SEED_PACKET.asItem(), 1, patch)
-            ).save(output, HarvestHeritage.of(path));
+            ).save(output, SEED_PACKET.withSuffix(SeedUtil.getPath(definition.seed().value())));
         }
     }
 }

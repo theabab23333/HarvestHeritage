@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:porkchop",
+    "minecraft:iron_ingot"
+  ],
+  "output_seeds": [
+    "minecraft:gold_ingot"
+  ]
+}

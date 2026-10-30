@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:sweet_berries",
+    "minecraft:lapis_lazuli"
+  ],
+  "output_seeds": [
+    "minecraft:redstone"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ae2"
+    }
+  ],
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "ae2:certus_quartz_crystal",
+    "ae2:fluix_crystal"
+  ],
+  "output_seeds": [
+    "ae2:matter_ball"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:ink_sac",
+    "minecraft:kelp"
+  ],
+  "output_seeds": [
+    "minecraft:prismarine_crystals"
+  ]
+}

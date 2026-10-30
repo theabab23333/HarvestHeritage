@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:sea_pickle",
+    "minecraft:kelp"
+  ],
+  "output_seeds": [
+    "minecraft:lapis_lazuli"
+  ]
+}

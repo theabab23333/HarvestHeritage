@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:magma_cream",
+    "minecraft:breeze_rod"
+  ],
+  "output_seeds": [
+    "minecraft:blaze_rod"
+  ]
+}

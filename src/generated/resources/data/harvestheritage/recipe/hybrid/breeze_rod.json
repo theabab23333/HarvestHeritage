@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:kelp",
+    "minecraft:chicken"
+  ],
+  "output_seeds": [
+    "minecraft:breeze_rod"
+  ]
+}

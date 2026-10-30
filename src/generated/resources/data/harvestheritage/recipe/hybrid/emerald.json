@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:turtle_scute",
+    "minecraft:amethyst_shard"
+  ],
+  "output_seeds": [
+    "minecraft:emerald"
+  ]
+}

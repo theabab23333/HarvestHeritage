@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:beef",
+    "minecraft:spider_eye"
+  ],
+  "output_seeds": [
+    "minecraft:rotten_flesh"
+  ]
+}

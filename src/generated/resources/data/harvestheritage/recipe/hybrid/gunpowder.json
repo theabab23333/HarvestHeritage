@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:magma_cream",
+    "minecraft:sugar_cane"
+  ],
+  "output_seeds": [
+    "minecraft:gunpowder"
+  ]
+}

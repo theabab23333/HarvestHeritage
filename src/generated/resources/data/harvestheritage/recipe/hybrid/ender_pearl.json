@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:slime_ball",
+    "minecraft:chorus_fruit"
+  ],
+  "output_seeds": [
+    "minecraft:ender_pearl"
+  ]
+}

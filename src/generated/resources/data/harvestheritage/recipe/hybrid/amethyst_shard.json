@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:lapis_lazuli",
+    "minecraft:phantom_membrane"
+  ],
+  "output_seeds": [
+    "minecraft:amethyst_shard"
+  ]
+}

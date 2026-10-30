@@ -1,0 +1,10 @@
+{
+  "type": "harvestheritage:hybrid",
+  "input_seeds": [
+    "minecraft:ghast_tear",
+    "minecraft:string"
+  ],
+  "output_seeds": [
+    "minecraft:phantom_membrane"
+  ]
+}
