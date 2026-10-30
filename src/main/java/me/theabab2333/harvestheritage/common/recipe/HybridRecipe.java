@@ -2,59 +2,58 @@ package me.theabab2333.harvestheritage.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.Getter;
 import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.util.SeedUtil;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-@Getter
-public class HybridRecipe extends BaseAbstractRecipe<RecipeInput> {
+public record HybridRecipe(
+    List<Holder<Item>> inputSeeds, List<Holder<Item>> outputSeeds
+) implements BetterRecipe<RecipeInput> {
 
     public static final MapCodec<HybridRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-        Item.CODEC.listOf().fieldOf("input_seeds").forGetter(HybridRecipe::getInputSeeds),
-        Item.CODEC.listOf().fieldOf("output_seeds").forGetter(HybridRecipe::getOutputSeeds)
+        Item.CODEC.listOf().fieldOf("input_seeds").forGetter(HybridRecipe::inputSeeds),
+        Item.CODEC.listOf().fieldOf("output_seeds").forGetter(HybridRecipe::outputSeeds)
     ).apply(inst, HybridRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, HybridRecipe> STREAM_CODEC = StreamCodec.composite(
         Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
-        HybridRecipe::getInputSeeds,
+        HybridRecipe::inputSeeds,
         Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
-        HybridRecipe::getOutputSeeds,
+        HybridRecipe::outputSeeds,
         HybridRecipe::new
     );
 
-    private final List<Holder<Item>> inputSeeds;
-    private final List<Holder<Item>> outputSeeds;
-
-    public HybridRecipe(List<Holder<Item>> inputSeeds, List<Holder<Item>> outputSeeds) {
-        this.inputSeeds = inputSeeds;
-        this.outputSeeds = outputSeeds;
-    }
-
-    public List<ItemStack> getInputSeedPacketStacks() {
+    public List<ItemStack> inputSeedPacketStacks() {
         return this.inputSeeds.stream().map(Holder::value)
             .map(SeedUtil::getSeedPacket)
             .toList();
     }
 
-    public List<ItemStack> getOutputSeedPacketStacks() {
+    public List<ItemStack> outputSeedPacketStacks() {
         return this.outputSeeds.stream()
             .map(SeedUtil::getSeedPacket)
             .toList();
+    }
+
+    @Override
+    public boolean matches(RecipeInput input, Level level) {
+        return false;
+    }
+
+    @Override
+    public ItemStack assemble(RecipeInput input) {
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -65,28 +64,5 @@ public class HybridRecipe extends BaseAbstractRecipe<RecipeInput> {
     @Override
     public RecipeType<HybridRecipe> getType() {
         return ModRecipes.HYBRID_TYPE.get();
-    }
-
-    public static class Builder {
-        private final List<Holder<Item>> inputSeeds;
-        private final List<Holder<Item>> outputSeeds;
-
-        public Builder(List<Holder<Item>> inputSeeds, List<Holder<Item>> outputSeeds) {
-            this.inputSeeds = inputSeeds;
-            this.outputSeeds = outputSeeds;
-        }
-
-        public static Builder builder(List<Holder<Item>> inputSeeds, Holder<Item> outputSeed) {
-            return new Builder(inputSeeds, List.of(outputSeed));
-        }
-
-        public static Builder builder(List<Holder<Item>> inputSeeds, List<Holder<Item>> outputSeeds) {
-            return new Builder(inputSeeds, outputSeeds);
-        }
-
-        public void save(RecipeOutput consumer, Identifier id) {
-            var recipe = new HybridRecipe(this.inputSeeds, this.outputSeeds);
-            consumer.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null);
-        }
     }
 }

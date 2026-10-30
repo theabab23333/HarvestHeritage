@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.datagen.recipe;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
+import me.theabab2333.harvestheritage.common.recipe.builder.HybridRecipeBuilder;
 import me.theabab2333.harvestheritage.init.seed.ModSeeds;
 import me.theabab2333.harvestheritage.init.seed.SeedDefinition;
 import me.theabab2333.harvestheritage.util.SeedUtil;
@@ -75,7 +75,7 @@ public class HybridRecipeProvider extends ModRecipeProvider {
         }
         List<Holder<Item>> holders = List.of(input1.seed(), input2.seed());
         List<Holder<Item>> seeds = Arrays.stream(outputs).map(SeedDefinition::seed).toList();
-        HybridRecipe.Builder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(SeedUtil.getPath(seeds.getFirst().value())));
+        HybridRecipeBuilder.builder(holders, seeds).save(this.output, HYPRID.withSuffix(SeedUtil.getPath(seeds.getFirst().value())));
     }
 
     private void buildCommonSeeds() {
@@ -89,7 +89,7 @@ public class HybridRecipeProvider extends ModRecipeProvider {
                         outputs.add(seed.seed());
                     }
                 }
-                HybridRecipe.Builder.builder(List.of(input1.seed(), input2.seed()), outputs)
+                HybridRecipeBuilder.builder(List.of(input1.seed(), input2.seed()), outputs)
                     .save(output, HYPRID.withSuffix("common/").withSuffix(SeedUtil.getPath(input1.seed().value()) + "_and_" + SeedUtil.getPath(input2.seed().value())));
             }
         }

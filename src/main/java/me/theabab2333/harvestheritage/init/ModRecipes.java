@@ -4,6 +4,7 @@ import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.recipe.FindRecipe;
 import me.theabab2333.harvestheritage.common.recipe.HybridRecipe;
 import me.theabab2333.harvestheritage.common.recipe.SeedPacketRecipe;
+import me.theabab2333.harvestheritage.common.recipe.UpgradeRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -17,7 +18,6 @@ public class ModRecipes {
         Registries.RECIPE_TYPE,
         HarvestHeritage.MOD_ID
     );
-
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(
         Registries.RECIPE_SERIALIZER,
         HarvestHeritage.MOD_ID
@@ -31,6 +31,7 @@ public class ModRecipes {
         "find",
         () -> new RecipeSerializer<>(FindRecipe.MAP_CODEC, FindRecipe.STREAM_CODEC)
     );
+
     public static final Supplier<RecipeType<SeedPacketRecipe>> SEED_PACKET_TYPE = RECIPE_TYPES.register(
         "seed_packet_recipe",
         RecipeType::simple
@@ -39,6 +40,7 @@ public class ModRecipes {
         "seed_packet",
         () -> new RecipeSerializer<>(SeedPacketRecipe.MAP_CODEC, SeedPacketRecipe.STREAM_CODEC)
     );
+
     public static final Supplier<RecipeType<HybridRecipe>> HYBRID_TYPE = RECIPE_TYPES.register(
         "hyprid",
         RecipeType::simple
@@ -46,6 +48,15 @@ public class ModRecipes {
     public static final Supplier<RecipeSerializer<HybridRecipe>> HYBRID_SERIALIZERS = RECIPE_SERIALIZERS.register(
         "hyprid",
         () -> new RecipeSerializer<>(HybridRecipe.MAP_CODEC, HybridRecipe.STREAM_CODEC)
+    );
+
+    public static final Supplier<RecipeType<UpgradeRecipe>> UPGRADE_TYPE = RECIPE_TYPES.register(
+        "upgrade",
+        RecipeType::simple
+    );
+    public static final Supplier<RecipeSerializer<UpgradeRecipe>> UPGRADE_SERIALIZERS = RECIPE_SERIALIZERS.register(
+        "upgrade",
+        () -> new RecipeSerializer<>(UpgradeRecipe.MAP_CODEC, UpgradeRecipe.STREAM_CODEC)
     );
 
     public static void register(IEventBus eventBus) {

@@ -64,14 +64,14 @@ public class MagnifyingGlassItem extends Item implements IHasTooltips {
                         for (var holder : holders) {
                             FindRecipe recipe = holder.value();
                             Item item = itemEntity.getItem().getItem();
-                            if (recipe.getIngredient().test(item.getDefaultInstance())) {
+                            if (recipe.ingredient().test(item.getDefaultInstance())) {
                                 matched.add(recipe);
                             }
                         }
                         if (!matched.isEmpty()) {
                             var random = level.getRandom();
                             FindRecipe recipe = matched.get(random.nextInt(matched.size()));
-                            List<ItemStackTemplate> list = recipe.getResult();
+                            List<ItemStackTemplate> list = recipe.result();
                             if (!list.isEmpty()) {
                                 ItemStack itemStack = itemEntity.getItem().copy();
                                 itemStack.shrink(1);

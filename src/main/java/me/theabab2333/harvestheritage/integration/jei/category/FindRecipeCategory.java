@@ -28,11 +28,11 @@ public class FindRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Find
         FindRecipe recipe = holder.value();
 
         builder.addInputSlot(1, 7)
-            .setStandardSlotBackground().add(recipe.getIngredient());
+            .setStandardSlotBackground().add(recipe.ingredient());
 
         builder.addOutputSlot(61, 7)
             .setOutputSlotBackground()
-            .addItemStacks(recipe.getResult().stream()
+            .addItemStacks(recipe.result().stream()
                 .map(ItemStackTemplate::create)
                 .toList());
     }

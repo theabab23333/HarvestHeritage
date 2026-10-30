@@ -63,16 +63,16 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
         IFocusGroup focuses
     ) {
         HybridRecipe recipe = holder.value();
-        List<ItemStack> inputStacks = recipe.getInputSeeds().stream().map(ItemStack::new).toList();
+        List<ItemStack> inputStacks = recipe.inputSeeds().stream().map(ItemStack::new).toList();
 
-        builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getInputSeedPacketStacks());
-        builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStacks(recipe.getOutputSeedPacketStacks());
+        builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.inputSeedPacketStacks());
+        builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStacks(recipe.outputSeedPacketStacks());
 
         builder.addInputSlot(2, 30).setSlotName(INPUT_FIRST_SLOT).setStandardSlotBackground().add(inputStacks.getFirst());
         builder.addInputSlot(58, 30).setSlotName(INPUT_LAST_SLOT).setStandardSlotBackground().add(inputStacks.getLast());
         builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 30, 30).setStandardSlotBackground().add(ModBlocks.CROP_STAND_BLOCK);
 
-        List<Holder<Item>> outputStacks = recipe.getOutputSeeds();
+        List<Holder<Item>> outputStacks = recipe.outputSeeds();
         for (int i = 0; i < outputStacks.size(); i++) {
             Holder<Item> itemHolder = outputStacks.get(i);
             builder.addSlot(RecipeIngredientRole.OUTPUT)
@@ -176,14 +176,14 @@ public class HybridRecipeCategory extends AbstractRecipeCategory<RecipeHolder<Hy
         List<IRecipeSlotDrawable> recipeSlots
     ) {
         List<SlotPacket> slotPackets = new ArrayList<>();
-        List<Holder<Item>> inputSeeds = recipe.getInputSeeds();
+        List<Holder<Item>> inputSeeds = recipe.inputSeeds();
 
         if (!inputSeeds.isEmpty()) {
             this.addSlotPacket(slotPackets, recipeSlots, INPUT_FIRST_SLOT, inputSeeds.getFirst());
             this.addSlotPacket(slotPackets, recipeSlots, INPUT_LAST_SLOT, inputSeeds.getLast());
         }
 
-        List<Holder<Item>> outputSeeds = recipe.getOutputSeeds();
+        List<Holder<Item>> outputSeeds = recipe.outputSeeds();
         for (int i = 0; i < outputSeeds.size(); i++) {
             this.addSlotPacket(slotPackets, recipeSlots, OUTPUT_SLOT_PREFIX + i, outputSeeds.get(i));
         }
