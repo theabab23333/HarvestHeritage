@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.common.block.entity;
 
 import me.theabab2333.harvestheritage.common.block.ActivatorBlock;
-import me.theabab2333.harvestheritage.init.ModBlockEntities;
+import me.theabab2333.harvestheritage.init.block.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

@@ -1,16 +1,19 @@
 package me.theabab2333.harvestheritage;
 
-import me.theabab2333.harvestheritage.init.ModBlockEntities;
-import me.theabab2333.harvestheritage.init.ModBlocks;
+import lombok.Getter;
+import me.theabab2333.harvestheritage.api.integration.IntegrationManager;
 import me.theabab2333.harvestheritage.init.ModConfigs;
 import me.theabab2333.harvestheritage.init.ModCreativeModeTab;
-import me.theabab2333.harvestheritage.init.ModDataComponentPredicates;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
 import me.theabab2333.harvestheritage.init.ModItems;
 import me.theabab2333.harvestheritage.init.ModRecipes;
 import me.theabab2333.harvestheritage.init.ModSlotDisplays;
+import me.theabab2333.harvestheritage.init.block.ModBlockEntities;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
+import me.theabab2333.harvestheritage.init.component.ModDataComponentPredicates;
+import me.theabab2333.harvestheritage.init.component.ModDataComponents;
+import me.theabab2333.harvestheritage.init.fluid.ModFluidTypes;
+import me.theabab2333.harvestheritage.init.fluid.ModFluids;
 import me.theabab2333.harvestheritage.init.seed.ModSeedRegistry;
-import me.theabab2333.harvestheritage.api.integration.IntegrationManager;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -22,8 +25,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import lombok.Getter;
 
 // var~我乱用的
 @Mod(HarvestHeritage.MOD_ID)
@@ -40,6 +41,8 @@ public class HarvestHeritage {
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
         ModItems.register(eventBus);
+        ModFluids.register(eventBus);
+        ModFluidTypes.register(eventBus);
         ModCreativeModeTab.register(eventBus);
         ModDataComponents.register(eventBus);
         ModDataComponentPredicates.register(eventBus);

@@ -1,4 +1,4 @@
-package me.theabab2333.harvestheritage.init;
+package me.theabab2333.harvestheritage.init.component;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.datagen.advancement.predicate.SeedPacketMaxPredicate;

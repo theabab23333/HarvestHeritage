@@ -1,6 +1,6 @@
 package me.theabab2333.harvestheritage.datagen.loot;
 
-import me.theabab2333.harvestheritage.init.ModBlocks;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.world.flag.FeatureFlags;

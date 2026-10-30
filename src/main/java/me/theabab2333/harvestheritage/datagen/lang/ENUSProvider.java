@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.datagen.lang;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModItems;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 

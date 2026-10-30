@@ -1,8 +1,9 @@
 package me.theabab2333.harvestheritage.datagen.lang;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModItems;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
+import me.theabab2333.harvestheritage.init.fluid.ModFluidTypes;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -38,6 +39,8 @@ public class ZHCNProvider extends LanguageProvider {
         addBlock(ModBlocks.ACTIVAOR_BLOCK, "奇异催生器");
         addBlock(ModBlocks.TEST_BLOCK, "测试方块");
         addBlock(ModBlocks.CROP_STAND_BLOCK, "作物架");
+
+        add(ModFluidTypes.GRAPE_JUICE_TYPE.get().getDescriptionId(), "葡萄汁");
     }
 
     private void toolTips() {

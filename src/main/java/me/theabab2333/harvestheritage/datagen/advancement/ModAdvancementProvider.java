@@ -2,8 +2,8 @@ package me.theabab2333.harvestheritage.datagen.advancement;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.datagen.advancement.predicate.SeedPacketMaxPredicate;
-import me.theabab2333.harvestheritage.init.ModDataComponentPredicates;
 import me.theabab2333.harvestheritage.init.ModItems;
+import me.theabab2333.harvestheritage.init.component.ModDataComponentPredicates;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;

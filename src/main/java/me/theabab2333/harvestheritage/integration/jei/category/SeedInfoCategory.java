@@ -1,8 +1,8 @@
 package me.theabab2333.harvestheritage.integration.jei.category;
 
 import me.theabab2333.harvestheritage.common.seed.requirement.SeedLightRequirement;
-import me.theabab2333.harvestheritage.init.ModBlocks;
 import me.theabab2333.harvestheritage.init.ModItems;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
 import me.theabab2333.harvestheritage.integration.jei.ModJeiPlugin;
 import me.theabab2333.harvestheritage.integration.jei.recipe.SeedInfoRecipe;
 import me.theabab2333.harvestheritage.integration.jei.slot.BlockTagSlotDisplay;

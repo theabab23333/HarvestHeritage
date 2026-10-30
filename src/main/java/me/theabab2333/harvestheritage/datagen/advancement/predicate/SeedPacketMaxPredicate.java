@@ -3,7 +3,7 @@ package me.theabab2333.harvestheritage.datagen.advancement.predicate;
 import com.mojang.serialization.MapCodec;
 import me.theabab2333.harvestheritage.common.component.SeedPacketComponent;
 import me.theabab2333.harvestheritage.init.ModConfigs;
-import me.theabab2333.harvestheritage.init.ModDataComponents;
+import me.theabab2333.harvestheritage.init.component.ModDataComponents;
 import net.minecraft.advancements.predicates.SingleComponentItemPredicate;
 import net.minecraft.core.component.DataComponentType;
 

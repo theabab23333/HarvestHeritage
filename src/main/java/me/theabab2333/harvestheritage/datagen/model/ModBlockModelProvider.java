@@ -1,7 +1,7 @@
 package me.theabab2333.harvestheritage.datagen.model;
 
 import me.theabab2333.harvestheritage.HarvestHeritage;
-import me.theabab2333.harvestheritage.init.ModBlocks;
+import me.theabab2333.harvestheritage.init.block.ModBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;

@@ -2,7 +2,7 @@ package me.theabab2333.harvestheritage.common.block;
 
 import me.theabab2333.harvestheritage.api.item.IHasTooltips;
 import me.theabab2333.harvestheritage.common.block.entity.ActivatorBlockEntity;
-import me.theabab2333.harvestheritage.init.ModBlockEntities;
+import me.theabab2333.harvestheritage.init.block.ModBlockEntities;
 import me.theabab2333.harvestheritage.util.StyleUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

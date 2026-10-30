@@ -17,6 +17,7 @@
   "block.harvestheritage.test_block": "测试方块",
   "config.jade.plugin_harvestheritage.crop_stand_block_data_provider": "作物架状态",
   "creativetab.harvestheritage.seed_packet": "收获：遗产 种子袋",
+  "fluid.harvestheritage.grape_juice": "葡萄汁",
   "gui.harvestheritage.tooltip.shift": "按住[Shift]以查看信息",
   "harvestheritage.guideme.guide_book": "收获：遗产 指南书",
   "harvestheritage.guideme.guide_book.tooltip": "这个模组一定很好玩吧?(真的假的",

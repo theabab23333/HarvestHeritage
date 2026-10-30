@@ -3,7 +3,7 @@ package me.theabab2333.harvestheritage.client.event;
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.client.render.blockentity.ActivatorBlockRenderer;
 import me.theabab2333.harvestheritage.client.render.blockentity.CropStandBlockEntityRenderer;
-import me.theabab2333.harvestheritage.init.ModBlockEntities;
+import me.theabab2333.harvestheritage.init.block.ModBlockEntities;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
