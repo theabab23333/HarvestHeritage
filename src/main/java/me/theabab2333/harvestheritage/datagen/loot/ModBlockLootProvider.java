@@ -17,11 +17,10 @@ public class ModBlockLootProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        // ModBlocks.BLOCKS.getEntries().forEach(holder -> this.dropSelf(holder.get()));
-
-        this.dropSelf(ModBlocks.CROP_STAND_BLOCK.get());
-        this.dropSelf(ModBlocks.TEST_BLOCK.get());
-        this.dropSelf(ModBlocks.ACTIVAOR_BLOCK.get());
+        ModBlocks.BLOCKS.getEntries()
+            .forEach(
+                holder -> this.dropSelf(holder.get())
+            );
     }
 
     @Override

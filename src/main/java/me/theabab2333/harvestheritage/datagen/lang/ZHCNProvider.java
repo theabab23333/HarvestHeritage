@@ -39,6 +39,7 @@ public class ZHCNProvider extends LanguageProvider {
         addBlock(ModBlocks.ACTIVAOR_BLOCK, "奇异催生器");
         addBlock(ModBlocks.TEST_BLOCK, "测试方块");
         addBlock(ModBlocks.CROP_STAND_BLOCK, "作物架");
+        addBlock(ModBlocks.UPGRADE_BLOCK, "升级机");
 
         add(ModFluidTypes.GRAPE_JUICE_TYPE.get().getDescriptionId(), "葡萄汁");
     }

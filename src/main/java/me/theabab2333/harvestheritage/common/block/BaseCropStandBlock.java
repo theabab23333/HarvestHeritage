@@ -24,11 +24,10 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public abstract class BaseCropStandBlock extends BaseEntityBlock implements EntityBlock {
+public abstract class BaseCropStandBlock extends BaseEntityBlock {
     public BaseCropStandBlock(Properties properties) {
         properties.randomTicks();
         super(properties);

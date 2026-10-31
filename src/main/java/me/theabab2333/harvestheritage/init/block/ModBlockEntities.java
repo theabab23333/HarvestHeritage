@@ -3,6 +3,7 @@ package me.theabab2333.harvestheritage.init.block;
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.block.entity.ActivatorBlockEntity;
 import me.theabab2333.harvestheritage.common.block.entity.CropStandStandBlockEntity;
+import me.theabab2333.harvestheritage.common.block.entity.UpgradeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -24,6 +25,11 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<ActivatorBlockEntity>> ACTIVATOR_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
         "activator_block_entity",
         () -> new BlockEntityType<>(ActivatorBlockEntity::new, ModBlocks.ACTIVAOR_BLOCK.get())
+    );
+
+    public static final Supplier<BlockEntityType<UpgradeBlockEntity>> UPGRADE_BLOCK_ENTITY = BLOCK_ENTITY_TYPES.register(
+        "upgrade_block_entity",
+        () -> new BlockEntityType<>(UpgradeBlockEntity::new, ModBlocks.UPGRADE_BLOCK.get())
     );
 
     public static void register(IEventBus eventBus) {

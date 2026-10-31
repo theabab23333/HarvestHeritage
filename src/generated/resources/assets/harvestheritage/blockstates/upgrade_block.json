@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "harvestheritage:block/upgrade_block"
+      }
+    }
+  ]
+}

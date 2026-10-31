@@ -3,6 +3,7 @@ package me.theabab2333.harvestheritage.init.block;
 import me.theabab2333.harvestheritage.HarvestHeritage;
 import me.theabab2333.harvestheritage.common.block.ActivatorBlock;
 import me.theabab2333.harvestheritage.common.block.CropStandBlock;
+import me.theabab2333.harvestheritage.common.block.UpgradeBlock;
 import me.theabab2333.harvestheritage.init.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -28,6 +29,11 @@ public class ModBlocks {
     public static final DeferredBlock<Block> ACTIVAOR_BLOCK = registerBlockWithItem(
         "activaor_block",
         ActivatorBlock::new
+    );
+
+    public static final DeferredBlock<Block> UPGRADE_BLOCK = registerBlockWithItem(
+        "upgrade_block",
+        UpgradeBlock::new
     );
 
     public static final DeferredBlock<Block> TEST_BLOCK = registerBlockWithItem(

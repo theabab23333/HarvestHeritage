@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "harvestheritage:block/upgrade_block"
+  }
+}

@@ -28,5 +28,16 @@ public class ModBlockModelProvider {
                     )
                 )
         );
+        blockStateOutput.accept(
+            MultiPartGenerator
+                .multiPart(
+                    ModBlocks.UPGRADE_BLOCK.get()
+                )
+                .with(
+                    plainVariant(
+                        HarvestHeritage.of("block/upgrade_block")
+                    )
+                )
+        );
     }
 }
